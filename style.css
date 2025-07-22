@@ -1,0 +1,47 @@
+/* 固定容器为 1280x720 像素，剧场式呈现 */
+#scene-container {
+  position: relative;
+  width: 1280px;
+  height: 720px;
+  margin: 0 auto;
+  background-color: black;
+  overflow: hidden;
+}
+
+/* 背景图适配容器 */
+#scene-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 热点容器，覆盖在图像上 */
+#hotspot-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1280px;
+  height: 720px;
+  pointer-events: none;
+}
+
+/* 热点元素（点击区域） */
+.hotspot {
+  position: absolute;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+#fade-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1280px;
+  height: 720px;
+  background-color: black;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease-in-out;
+  z-index: 10;
+}
+
