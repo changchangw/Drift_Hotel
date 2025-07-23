@@ -45,3 +45,19 @@
   z-index: 10;
 }
 
+#mark-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1280px;
+  height: 720px;
+  pointer-events: none; /* 不阻挡点击事件 */
+  z-index: 8;
+}
+
+.mark {
+  position: absolute;
+  width: 230px;   /* 可按实际图尺寸调整 */
+  height: 460px;
+  pointer-events: none;
+}

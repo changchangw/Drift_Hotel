@@ -1,3 +1,31 @@
+const memoryCollected = {
+  room1: false,
+  room2: false,
+  room3: false
+};
+const memoryCount = {
+  room1: 0,
+  room2: 0,
+  room3: 0
+};
+const markData = {
+  room1: {
+    left: '141px',
+    top: '172px',
+    image: 'assets/chapter1/mark_room1.png'
+  },
+  room2: {
+    left: '525px',
+    top: '172px',
+    image: 'assets/chapter1/mark_room2.png'
+  },
+  room3: {
+    left: '909px',
+    top: '172px',
+    image: 'assets/chapter1/mark_room3.png'
+  }
+};
+
 const scenes = {
   1: { image: 'assets/chapter1/start.png', action: () => goToScene(2) },
   2: { image: 'assets/chapter1/cover.png', action: () => goToScene(3) },
@@ -11,14 +39,16 @@ const scenes = {
       },
       {
         left: '525px', top: '172px', width: '230px', height: '460px', // Mr. Alder
-        action: () => goToScene(10) // placeholder
+        action: () => goToScene(19)
       },
       {
         left: '909px', top: '172px', width: '230px', height: '460px', // Mr. Eliot
-        action: () => goToScene(15) // placeholder
+        action: () => goToScene(35)
       }
     ]
   },
+
+  // room 1
   5: {
     image: 'assets/chapter1/room1.png',
     hotspots: [
@@ -56,17 +86,202 @@ const scenes = {
   7: { image: 'assets/chapter1/room1/1-1.png', action: () => goToSceneInstant(8) },
   8: { image: 'assets/chapter1/room1/1-2.png', action: () => goToSceneInstant(9) },
   9: { image: 'assets/chapter1/room1/1-3.png', action: () => goToSceneInstant(10) },
-  10: { image: 'assets/chapter1/room1/1-4.png', action: () => goToScene(5) },
+  10: {
+    image: 'assets/chapter1/room1/1-4.png',
+    action: () => {
+      memoryCount.room1 += 1;
+      if (memoryCount.room1 >= 3) {
+        memoryCollected.room1 = true;
+      }
+      goToScene(5);
+    }
+  },
 
   11: { image: 'assets/chapter1/room1/2-1.png', action: () => goToSceneInstant(12) },
   12: { image: 'assets/chapter1/room1/2-2.png', action: () => goToSceneInstant(13) },
   13: { image: 'assets/chapter1/room1/2-3.png', action: () => goToSceneInstant(14) },
-  14: { image: 'assets/chapter1/room1/2-4.png', action: () => goToScene(6) },
+  14: {
+    image: 'assets/chapter1/room1/2-4.png',
+    action: () => {
+      memoryCount.room1 += 1;
+      if (memoryCount.room1 >= 3) {
+        memoryCollected.room1 = true;
+      }
+      goToScene(6);
+    }
+  },
 
   15: { image: 'assets/chapter1/room1/3-1.png', action: () => goToSceneInstant(16) },
   16: { image: 'assets/chapter1/room1/3-2.png', action: () => goToSceneInstant(17) },
   17: { image: 'assets/chapter1/room1/3-3.png', action: () => goToSceneInstant(18) },
-  18: { image: 'assets/chapter1/room1/3-4.png', action: () => goToScene(6) },
+  18: {
+    image: 'assets/chapter1/room1/3-4.png',
+    action: () => {
+      memoryCount.room1 += 1;
+      if (memoryCount.room1 >= 3) {
+        memoryCollected.room1 = true;
+      }
+      goToScene(6);
+    }
+  },
+
+  // room 2
+  19: {
+    image: 'assets/chapter1/room2.png',
+    hotspots: [
+      {
+        left: '141px', top: '172px', width: '230px', height: '460px', // door
+        action: () => goToScene(4)
+      },
+      {
+        left: '1216px', top: '340px', width: '40px', height: '40px', // arrow →
+        action: () => goToScene(20)
+      },
+      {
+        left: '547px', top: '221px', width: '200px', height: '450px', // The Starry Night
+        action: () => goToScene(21)
+      }
+    ]
+  },
+  20: {
+    image: 'assets/chapter1/room22.png',
+    hotspots: [
+      {
+        left: '24px', top: '340px', width: '40px', height: '40px', // arrow ←
+        action: () => goToScene(19)
+      },
+      {
+        left: '668px', top: '624px', width: '60px', height: '60px', // Termination
+        action: () => goToScene(26)
+      },
+      {
+        left: '850px', top: '164px', width: '272px', height: '500px', // The Mirror
+        action: () => goToScene(31)
+      }
+    ]
+  },
+  21: { image: 'assets/chapter1/room2/1-1.png', action: () => goToSceneInstant(22) },
+  22: { image: 'assets/chapter1/room2/1-2.png', action: () => goToSceneInstant(23) },
+  23: { image: 'assets/chapter1/room2/1-3.png', action: () => goToSceneInstant(24) },
+  24: { image: 'assets/chapter1/room2/1-4.png', action: () => goToSceneInstant(25) },
+  25: {
+    image: 'assets/chapter1/room2/1-5.png',
+    action: () => {
+      memoryCount.room2 += 1;
+      if (memoryCount.room2 >= 3) {
+        memoryCollected.room2 = true;
+      }
+      goToScene(19);
+    }
+  },
+
+  26: { image: 'assets/chapter1/room2/2-1.png', action: () => goToSceneInstant(27) },
+  27: { image: 'assets/chapter1/room2/2-2.png', action: () => goToSceneInstant(28) },
+  28: { image: 'assets/chapter1/room2/2-3.png', action: () => goToSceneInstant(30) },
+  // 29: { image: 'assets/chapter1/room2/2-4.png', action: () => goToSceneInstant(30) },
+  30: {
+    image: 'assets/chapter1/room2/2-5.png',
+    action: () => {
+      memoryCount.room2 += 1;
+      if (memoryCount.room2 >= 3) {
+        memoryCollected.room2 = true;
+      }
+      goToScene(20);
+    }
+  },
+
+  31: { image: 'assets/chapter1/room2/3-1.png', action: () => goToSceneInstant(32) },
+  32: { image: 'assets/chapter1/room2/3-2.png', action: () => goToSceneInstant(33) },
+  33: { image: 'assets/chapter1/room2/3-3.png', action: () => goToSceneInstant(34) },
+  34: {
+    image: 'assets/chapter1/room2/3-4.png',
+    action: () => {
+      memoryCount.room2 += 1;
+      if (memoryCount.room2 >= 3) {
+        memoryCollected.room2 = true;
+      }
+      goToScene(20);
+    }
+  },
+
+  // room 3
+  35: {
+    image: 'assets/chapter1/room3.png',
+    hotspots: [
+      {
+        left: '141px', top: '172px', width: '230px', height: '460px', // door
+        action: () => goToScene(4)
+      },
+      {
+        left: '1216px', top: '340px', width: '40px', height: '40px', // arrow →
+        action: () => goToScene(36)
+      },
+      {
+        left: '830px', top: '239px', width: '212px', height: '161px', // An Outstanding Programmer
+        action: () => goToScene(37)
+      }
+    ]
+  },
+  36: {
+    image: 'assets/chapter1/room33.png',
+    hotspots: [
+      {
+        left: '24px', top: '340px', width: '40px', height: '40px', // arrow ←
+        action: () => goToScene(35)
+      },
+      {
+        left: '148px', top: '89px', width: '175px', height: '263px', // Game Enthusiast
+        action: () => goToScene(42)
+      },
+      {
+        left: '563px', top: '413px', width: '720px', height: '300px', // Sleep No More
+        action: () => goToScene(46)
+      }
+    ]
+  },
+  37: { image: 'assets/chapter1/room3/1-1.png', action: () => goToSceneInstant(38) },
+  38: { image: 'assets/chapter1/room3/1-2.png', action: () => goToSceneInstant(39) },
+  39: { image: 'assets/chapter1/room3/1-3.png', action: () => goToSceneInstant(41) },
+  // 40: { image: 'assets/chapter1/room3/1-4.png', action: () => goToSceneInstant(41) },
+  41: {
+    image: 'assets/chapter1/room3/1-5.png',
+    action: () => {
+      memoryCount.room3 += 1;
+      if (memoryCount.room3 >= 3) {
+        memoryCollected.room3 = true;
+      }
+      goToScene(35);
+    }
+  },
+
+  42: { image: 'assets/chapter1/room3/2-1.png', action: () => goToSceneInstant(43) },
+  43: { image: 'assets/chapter1/room3/2-2.png', action: () => goToSceneInstant(44) },
+  44: { image: 'assets/chapter1/room3/2-3.png', action: () => goToSceneInstant(45) },
+  45: {
+    image: 'assets/chapter1/room3/2-4.png',
+    action: () => {
+      memoryCount.room3 += 1;
+      if (memoryCount.room3 >= 3) {
+        memoryCollected.room3 = true;
+      }
+      goToScene(36);
+    }
+  },
+
+  46: { image: 'assets/chapter1/room3/3-1.png', action: () => goToSceneInstant(47) },
+  47: { image: 'assets/chapter1/room3/3-2.png', action: () => goToSceneInstant(48) },
+  48: { image: 'assets/chapter1/room3/3-3.png', action: () => goToSceneInstant(49) },
+  49: { image: 'assets/chapter1/room3/3-4.png', action: () => goToSceneInstant(50) },
+  50: {
+    image: 'assets/chapter1/room3/3-5.png',
+    action: () => {
+      memoryCount.room3 += 1;
+      if (memoryCount.room3 >= 3) {
+        memoryCollected.room3 = true;
+      }
+      goToScene(36);
+    }
+  },
 };
 
 let currentScene = 1;
@@ -80,19 +295,40 @@ function goToScene(index) {
   setTimeout(() => {
     currentScene = index;
     sceneImage.src = scenes[index].image;
-    updateHotspots();
 
-    // 等待一帧后再淡入
+    updateHotspots();
+    renderMarks(); 
+
     setTimeout(() => {
-      overlay.style.opacity = 0; // 变亮
+      overlay.style.opacity = 0; // 淡入完成
     }, 50);
-  }, 600); // 等待黑屏完成后切换
+  }, 600);
 }
+
 
 function goToSceneInstant(index) {
   currentScene = index;
   sceneImage.src = scenes[index].image;
   updateHotspots();
+}
+
+function renderMarks() {
+  const container = document.getElementById('mark-container');
+  container.innerHTML = '';
+
+  if (currentScene !== 4) return;
+
+  for (const room in memoryCollected) {
+    if (memoryCollected[room]) {
+      const mark = markData[room];
+      const img = document.createElement('img');
+      img.src = mark.image;
+      img.className = 'mark';
+      img.style.left = mark.left;
+      img.style.top = mark.top;
+      container.appendChild(img);
+    }
+  }
 }
 
 function updateHotspots() {
