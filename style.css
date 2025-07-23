@@ -61,3 +61,26 @@
   height: 460px;
   pointer-events: none;
 }
+
+.hint-image {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 80%;
+  height: auto;
+  z-index: 10;
+  pointer-events: none;
+}
+
+#datavis-container {
+  width: 1280px;
+  height: 720px;
+  margin: 0 auto;
+  background-color: black;
+  overflow: hidden;
+  position: relative;
+  z-index: 5;
+  color: white;
+}
+

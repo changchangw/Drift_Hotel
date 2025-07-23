@@ -3,11 +3,13 @@ const memoryCollected = {
   room2: false,
   room3: false
 };
+
 const memoryCount = {
   room1: 0,
   room2: 0,
   room3: 0
 };
+
 const markData = {
   room1: {
     left: '141px',
@@ -25,6 +27,8 @@ const markData = {
     image: 'assets/chapter1/mark_room3.png'
   }
 };
+
+const hintImage = document.getElementById('hint-image');
 
 const scenes = {
   1: { image: 'assets/chapter1/start.png', action: () => goToScene(2) },
@@ -282,6 +286,19 @@ const scenes = {
       goToScene(36);
     }
   },
+
+  51: { image: 'assets/chapter2/prologue.png', action: () => goToSceneInstant(52) },
+  // 跳转到数据可视化页面
+  52: {
+    image: 'assets/chapter2/cover.png',
+    action: () => {
+      document.getElementById('scene-container').style.display = 'none';
+      document.getElementById('datavis-container').style.display = 'block';
+      if (typeof initDataVis === 'function') {
+        initDataVis(); // 调用 datavis.js 中的数据可视化逻辑
+      }
+    }
+  }  
 };
 
 let currentScene = 1;
@@ -299,8 +316,34 @@ function goToScene(index) {
     updateHotspots();
     renderMarks(); 
 
+    if (index === 4) {
+      // if it is the first entry
+      if (
+        !memoryCollected.room1 &&
+        !memoryCollected.room2 &&
+        !memoryCollected.room3
+      ) {
+        hintImage.src = 'assets/chapter1/hint_start.png';
+        hintImage.style.display = 'block';
+      }
+    
+      // if the memories have been collected
+      else if (
+        memoryCollected.room1 &&
+        memoryCollected.room2 &&
+        memoryCollected.room3
+      ) {
+        hintImage.src = 'assets/chapter1/hint_complete.png';
+        hintImage.style.display = 'block';
+      } else {
+        hintImage.style.display = 'none';
+      }
+    } else {
+      hintImage.style.display = 'none';
+    }
+
     setTimeout(() => {
-      overlay.style.opacity = 0; // 淡入完成
+      overlay.style.opacity = 0;
     }, 50);
   }, 600);
 }
@@ -311,6 +354,7 @@ function goToSceneInstant(index) {
   sceneImage.src = scenes[index].image;
   updateHotspots();
 }
+
 
 function renderMarks() {
   const container = document.getElementById('mark-container');
@@ -355,6 +399,20 @@ window.addEventListener('click', () => {
   if (scene && scene.action && !scene.hotspots) {
     scene.action();
   }
+
+  // 如果在 scene 4 且三段记忆都已完成，点击后跳转
+  if (
+    currentScene === 4 &&
+    memoryCollected.room1 &&
+    memoryCollected.room2 &&
+    memoryCollected.room3
+  ) {
+    goToScene(51); //接下一章
+    return;
+  }
+
+  // 隐藏提示图像
+  hintImage.style.display = 'none';
 });
 
 goToScene(1);
