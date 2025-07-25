@@ -287,16 +287,23 @@ const scenes = {
     }
   },
 
-  51: { image: 'assets/chapter2/prologue.png', action: () => goToSceneInstant(52) },
+  51: { image: 'assets/chapter2/prologue.png', action: () => goToScene(52) },
   // 跳转到数据可视化页面
   52: {
     image: 'assets/chapter2/cover.png',
     action: () => {
-      document.getElementById('scene-container').style.display = 'none';
-      document.getElementById('datavis-container').style.display = 'block';
-      if (typeof initDataVis === 'function') {
-        initDataVis(); // 调用 datavis.js 中的数据可视化逻辑
-      }
+      const overlay = document.getElementById("fade-overlay");
+      overlay.style.opacity = 1;
+  
+      setTimeout(() => {
+        document.getElementById('scene-container').style.display = 'none';
+        document.getElementById('datavis-container').style.display = 'block';
+        initChart(0);
+  
+        setTimeout(() => {
+          overlay.style.opacity = 0;
+        }, 50);
+      }, 600); // 与其他场景切换节奏一致
     }
   }  
 };
@@ -415,4 +422,4 @@ window.addEventListener('click', () => {
   hintImage.style.display = 'none';
 });
 
-goToScene(1);
+goToScene(51); //测试用，正式应为1

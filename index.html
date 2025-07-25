@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Drift Hotel</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Amatica+SC&display=swap" rel="stylesheet">
 </head>
 <body>
   <div id="scene-container">
@@ -14,10 +15,30 @@
     <img id="hint-image" class="hint-image" style="display: none;" />
   </div>
 
-  <div id="datavis-container" style="display: none;"></div>
+  <div id="datavis-container" style="display: none;">
+    <img id="datavis-bg" src="assets/chapter2/bg.png" alt="bg">
+    <div id="datavis-title"></div>
+    <div id="datavis-chart-area"></div>
+
+    <div class="arrow arrow-left">
+      <img src="assets/icons/arrow-left.png" alt="left arrow">
+    </div>
+    <div class="arrow arrow-right">
+      <img src="assets/icons/arrow-right.png" alt="right arrow">
+    </div>
+    
+    <img id="source-icon" src="assets/icons/info.png" alt="Info" />
+    <div id="source-popup">
+      <p id="source-text"></p>
+      <p class="popup-close">Click anywhere to close</p>
+    </div>
+    
+
+  </div>
   
   <script src="script.js"></script>
   <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://unpkg.com/d3-cloud/build/d3.layout.cloud.js"></script>
   <script src="datavis.js"></script>
 </body>
 </html>
