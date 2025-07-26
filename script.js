@@ -426,4 +426,4 @@ window.addEventListener('click', () => {
   hintImage.style.display = 'none';
 });
 
-goToScene(1); //测试用，正式应为1
+goToScene(52); //测试用，正式应为1

@@ -1,16 +1,17 @@
 const chartConfigs = [
   {
-    title: "Word cloud of public sentiment towards AI",
-    type: "wordcloud",
+    title: "Word cloud of public sentiment towards AI by UK Adults",
+    chartType: 1, // 使用数字索引，1 = 词云
     dataPath: "assets/chapter2/wordcloud.csv",
     source: "Source: Public attitudes to data and AI: Tracker survey (Wave 4) report, 2024"
   },
   {
-    title: "Another chart title here",
-    type: "wordcloud",
-    dataPath: "assets/chapter2/another_wordcloud.csv",
-    source: "Source: Pew Research, 2022"
+    title: "Public emotions toward AI by country",
+    chartType: 2,
+    dataPath: "assets/chapter2/fig_8.1.4.csv",
+    source: "Source: Artificial Intelligence Index Report 2025"
   }
+  
   // 可继续添加更多图表
 ];
 
@@ -18,9 +19,14 @@ function initChart(index) {
   const config = chartConfigs[index];
   if (!config) return console.warn("No chart config found for index", index);
 
-  if (config.type === "wordcloud") {
-    initDataVis(config.title, config.dataPath);
+  // 使用数字索引调用对应的图表渲染器
+  const renderer = chartRenderers[config.chartType];
+  if (!renderer) {
+    console.warn("No renderer found for chart type", config.chartType);
+    return;
   }
+
+  initDataVis(config.title, config.dataPath, renderer);
 
   // ✅ 控制箭头显示隐藏
   const leftArrow = document.querySelector('.arrow-left');
@@ -47,19 +53,18 @@ function initChart(index) {
   // 未来支持柱状图等，可继续扩展
 }
 
-function initDataVis(titleText, csvPath) {
+function initDataVis(titleText, dataPath, renderer) {
   const overlay = document.getElementById("fade-overlay");
   overlay.style.opacity = 1;
 
   let bgReady = false;
-  let wordCloudReady = false;
+  let chartReady = false;
 
   function tryToFadeOut() {
-    if (bgReady && wordCloudReady) {
+    if (bgReady && chartReady) {
       const container = document.getElementById("datavis-container");
       container.style.display = "block";
       void container.offsetWidth;
-      // container.style.transition = "opacity 0.3s ease";
       container.style.opacity = "1";
 
       setTimeout(() => {
@@ -72,8 +77,8 @@ function initDataVis(titleText, csvPath) {
     document.getElementById('scene-container').style.display = 'none';
 
     const container = document.getElementById("datavis-container");
-    container.style.display = "none";
-    container.style.opacity = "0";
+    container.style.opacity = "0"; // 不动display，只淡出
+
 
     if (!document.getElementById("datavis-bg")) {
       const bg = document.createElement("img");
@@ -104,50 +109,14 @@ function initDataVis(titleText, csvPath) {
     const chartArea = d3.select("#datavis-chart-area");
     chartArea.html("");
 
-    const width = 680, height = 428;
-
-    d3.csv(csvPath).then(data => {
-      data.forEach(d => d.estimated_frequency = +d.estimated_frequency);
-
-      d3.layout.cloud()
-        .size([width, height])
-        .words(data.map(d => ({
-          text: d.word,
-          size: d.estimated_frequency / 4 + 10
-        })))
-        .padding(6)
-        .rotate(() => ~~(Math.random() * 2) * 90)
-        .font("Impact")
-        .fontSize(d => d.size)
-        .on("end", draw)
-        .start();
-
-      function draw(words) {
-        const svg = chartArea.append("svg")
-          .attr("width", width)
-          .attr("height", height);
-
-        const g = svg.append("g")
-          .attr("transform", `translate(${width / 2}, ${height / 2})`);
-
-        g.selectAll("text")
-          .data(words)
-          .enter().append("text")
-          .style("font-size", d => d.size + "px")
-          .style("fill", "#150D04")
-          .style("font-family", "Arial")
-          .attr("text-anchor", "middle")
-          .attr("transform", d => `translate(${d.x},${d.y}) rotate(${d.rotate})`)
-          .text(d => d.text);
-
-        // ✅ 词云渲染完成
-        wordCloudReady = true;
-        tryToFadeOut();
-      }
+    // 使用传入的渲染器函数
+    renderer(titleText, dataPath, chartArea).then(() => {
+      // ✅ 图表渲染完成
+      chartReady = true;
+      tryToFadeOut();
     });
   }, 10);
 }
-
 
 let currentChartIndex = 0;
 
