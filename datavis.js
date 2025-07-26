@@ -3,7 +3,7 @@ const chartConfigs = [
     title: "Word cloud of public sentiment towards AI",
     type: "wordcloud",
     dataPath: "assets/chapter2/wordcloud.csv",
-    source: "Source: DSIT, 2023"
+    source: "Source: Public attitudes to data and AI: Tracker survey (Wave 4) report, 2024"
   },
   {
     title: "Another chart title here",
@@ -51,21 +51,60 @@ function initDataVis(titleText, csvPath) {
   const overlay = document.getElementById("fade-overlay");
   overlay.style.opacity = 1;
 
+  let bgReady = false;
+  let wordCloudReady = false;
+
+  function tryToFadeOut() {
+    if (bgReady && wordCloudReady) {
+      const container = document.getElementById("datavis-container");
+      container.style.display = "block";
+      void container.offsetWidth;
+      // container.style.transition = "opacity 0.3s ease";
+      container.style.opacity = "1";
+
+      setTimeout(() => {
+        overlay.style.opacity = 0;
+      }, 100);
+    }
+  }
+
   setTimeout(() => {
     document.getElementById('scene-container').style.display = 'none';
-    const container = d3.select("#datavis-container");
-    container.style("display", "block");
 
-    // ✅ 设置标题文字
+    const container = document.getElementById("datavis-container");
+    container.style.display = "none";
+    container.style.opacity = "0";
+
+    if (!document.getElementById("datavis-bg")) {
+      const bg = document.createElement("img");
+      bg.id = "datavis-bg";
+      bg.src = "assets/chapter2/bg.png";
+      bg.alt = "bg";
+      Object.assign(bg.style, {
+        position: "absolute", top: "0", left: "0", width: "100%", height: "100%",
+        objectFit: "cover", zIndex: "0"
+      });
+
+      // ✅ 等背景图加载完后，标记 bgReady
+      bg.onload = () => {
+        bgReady = true;
+        tryToFadeOut();
+      };
+
+      container.appendChild(bg);
+    } else {
+      // 如果背景图已经存在，立即标记为 ready
+      bgReady = true;
+    }
+
+    // 设置标题
     const titleDiv = document.getElementById("datavis-title");
     titleDiv.innerText = titleText;
 
-    // ✅ 渲染图表（原来的 chartArea 逻辑不变）
     const chartArea = d3.select("#datavis-chart-area");
     chartArea.html("");
-    
-    const width = 680;
-    const height = 428;
+
+    const width = 680, height = 428;
 
     d3.csv(csvPath).then(data => {
       data.forEach(d => d.estimated_frequency = +d.estimated_frequency);
@@ -78,7 +117,7 @@ function initDataVis(titleText, csvPath) {
         })))
         .padding(6)
         .rotate(() => ~~(Math.random() * 2) * 90)
-        .font("Impact") // ?
+        .font("Impact")
         .fontSize(d => d.size)
         .on("end", draw)
         .start();
@@ -100,14 +139,15 @@ function initDataVis(titleText, csvPath) {
           .attr("text-anchor", "middle")
           .attr("transform", d => `translate(${d.x},${d.y}) rotate(${d.rotate})`)
           .text(d => d.text);
+
+        // ✅ 词云渲染完成
+        wordCloudReady = true;
+        tryToFadeOut();
       }
     });
-
-    setTimeout(() => {
-      overlay.style.opacity = 0;
-    }, 50);
-  }, 600);
+  }, 10);
 }
+
 
 let currentChartIndex = 0;
 

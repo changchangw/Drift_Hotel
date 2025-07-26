@@ -402,6 +402,10 @@ function updateHotspots() {
 
 // 点击整个屏幕切换早期场景（1~3）
 window.addEventListener('click', () => {
+  // ✅ 如果已经进入数据可视化阶段，不再处理点击跳转
+  const datavisVisible = document.getElementById('datavis-container').style.display === 'block';
+  if (datavisVisible) return; // ⛔ 阻止点击触发任何跳转
+  
   const scene = scenes[currentScene];
   if (scene && scene.action && !scene.hotspots) {
     scene.action();
@@ -422,4 +426,4 @@ window.addEventListener('click', () => {
   hintImage.style.display = 'none';
 });
 
-goToScene(51); //测试用，正式应为1
+goToScene(1); //测试用，正式应为1

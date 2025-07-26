@@ -42,7 +42,7 @@
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.6s ease-in-out;
-  z-index: 10;
+  z-index: 9999;
 }
 
 #mark-container {
@@ -80,6 +80,9 @@
   height: 720px;
   margin: 0 auto;
   overflow: hidden;
+  background-color: black;
+  opacity: 0;
+  transition: opacity 0.6s ease;
 }
 
 #datavis-bg {
@@ -120,6 +123,9 @@
   justify-content: center;
   background-color: rgba(40, 36, 21, 0.1);
   z-index: 2;
+  /* ✅ 新增边框 */
+  border: 1px solid rgba(0, 0, 0, 0.3);  /* 白色半透明描边 */
+  border-radius: 8px; /* 可选，略圆角 */
 }
 
 .arrow {
@@ -139,7 +145,6 @@
 
 .arrow-left {
   left: 95px;
-  transform: rotate(180deg);
 }
 
 .arrow-right {
@@ -158,22 +163,22 @@
 
 #source-popup {
   position: absolute;
-  top: 80px;
-  right: 40px;
-  width: 300px;
-  background-color: rgba(0, 0, 0, 0.85);
-  color: #fff;
-  padding: 14px;
-  border-radius: 8px;
+  top: 136px;
+  left: 945px;
+  background-color: rgba(99, 83, 58, 0.65); /* 更亮的气泡色 */
+  color: #ffffff;
+  padding: 0px 20px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
   font-size: 14px;
+  max-width: 280px;
+  line-height: 1.5;
   display: none;
-  z-index: 21;
-}
+  z-index: 20;
 
-#source-popup .popup-close {
-  margin-top: 8px;
-  font-size: 12px;
-  opacity: 0.6;
+  /* 自动换行 */
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 /*@keyframes wordFloat {
@@ -189,6 +194,3 @@
   display: inline-block;
   font-weight: normal !important;
 }
-
-
-
