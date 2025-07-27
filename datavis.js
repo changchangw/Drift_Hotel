@@ -16,9 +16,31 @@ const chartConfigs = [
     chartType: 2,
     dataPath: "assets/chapter2/fig_8.1.10_wide.csv",
     source: "Source: Artificial Intelligence Index Report 2025"
+  },
+  {
+    title: "How each generation sees AI's impact on jobs, 2023 vs. 2024",
+    chartType: 4,
+    dataPath: "assets/chapter2/fig_8.1.8_cleaned.csv",
+    source: "Source: Artificial Intelligence Index Report 2025"
   }
+  
   // 可继续添加更多图表
 ];
+
+function showDialogueBox() {
+  const box = document.getElementById("dialogue-box");
+  box.style.display = "block";
+  void box.offsetWidth;
+  box.style.opacity = "1";
+}
+
+function hideDialogueBox() {
+  const box = document.getElementById("dialogue-box");
+  box.style.opacity = "0";
+  setTimeout(() => {
+    box.style.display = "none";
+  }, 400);
+}
 
 function renderPotentialWithKey(config, key) {
   const renderer = (titleText, dataPath, chartArea) => {
@@ -167,3 +189,5 @@ document.addEventListener("click", (e) => {
     popup.style.display = "none";
   }
 });
+
+document.getElementById("dialogue-box").addEventListener("click", hideDialogueBox);

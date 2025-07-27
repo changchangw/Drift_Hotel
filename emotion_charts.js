@@ -153,7 +153,7 @@ const chartRenderers = {
             .attr("x", legendWidth + 6)
             .attr("y", legendHeight * d.offset)
             .attr("dy", "0.35em")
-            .style("font-size", "11px")
+            .style("font-size", "12px")
             .style("fill", "#000")
             .style("font-family", "'Courier New', monospace")
             .text(d.text);
@@ -332,7 +332,7 @@ const chartRenderers = {
             .attr("x", legendWidth + 6)
             .attr("y", legendHeight * d.offset)
             .attr("dy", "0.35em")
-            .style("font-size", "11px")
+            .style("font-size", "12px")
             .style("fill", "#000")
             .style("font-family", "'Courier New', monospace")
             .text(d.text);
@@ -341,8 +341,208 @@ const chartRenderers = {
         resolve();
       });
     });
-  }
+  },
+
+  4: function(titleText, dataPath, chartArea) {
+    let hasShownDialogue = false;
+
+    return new Promise(resolve => {
+      const width = 720, height = 428;
+      const margin = { top: 20, right: 50, bottom: 30, left: 120 };
+      const innerWidth = width - margin.left - margin.right;
+      const innerHeight = height - margin.top - margin.bottom;
+
+      function showDialogue() {
+        if (!hasShownDialogue) {
+          showDialogueBox();
+          hasShownDialogue = true;
+          
+          // ✅ 添加点击监听，只触发一次
+          document.addEventListener("click", hideDialogueBox, { once: true });
+        }
+      }      
   
+      d3.csv(dataPath).then(data => {
+        data.forEach(d => {
+          d["2023"] = +d["2023"];
+          d["2024"] = +d["2024"];
+        });
+  
+        const generations = ["Gen Z", "Millennial", "Gen X", "Baby boomer"];
+        const svg = chartArea.append("svg")
+          .attr("width", width)
+          .attr("height", height);
+  
+        const g = svg.append("g")
+          .attr("transform", `translate(${margin.left},${margin.top})`);
+  
+        const y = d3.scaleBand()
+          .domain(generations)
+          .range([0, innerHeight])
+          .padding(0.55);
+  
+        const x = d3.scaleLinear()
+          .domain([0, 100])
+          .range([0, innerWidth]);
+  
+        // ✅ 颜色定义（正确顺序：2023 橙色，2024 绿色）
+        const color = d3.scaleOrdinal()
+          .domain(["2023", "2024"])
+          .range(["#a26d42", "#5e8b7e"]);
+  
+          function resetAllStyles() {
+            d3.selectAll(".bar-2023")
+              .attr("fill", color("2023"))
+              .attr("opacity", 1);
+            d3.selectAll(".bar-2024")
+              .attr("fill", color("2024"))
+              .attr("opacity", 1);
+            d3.selectAll(".label").style("font-weight", "normal");
+            d3.selectAll(".y-axis-label").style("font-weight", "normal");
+            d3.selectAll(".legend-text").style("font-weight", "normal");
+          
+            // ✅ 恢复图例色块为原色（关键修复）
+            d3.selectAll(".legend-rect")
+              .attr("fill", d => color(d));
+          }
+          
+  
+        function handleBarHover(thisBar, year, generation) {
+          d3.selectAll(".bar").attr("opacity", 0.2);
+          d3.select(thisBar)
+            .attr("opacity", 1)
+            .attr("fill", getHighlightColor(d3.select(thisBar).attr("fill")));
+  
+          d3.selectAll(".y-axis-label")
+            .filter(label => label === generation)
+            .style("font-weight", "bold");
+  
+          d3.selectAll(`.label-${year}`)
+            .filter(t => t.Generation === generation)
+            .style("font-weight", "bold");
+        }
+  
+        g.append("g")
+          .call(d3.axisLeft(y))
+          .selectAll("text")
+          .attr("class", "y-axis-label")
+          .style("font-family", "'Courier New', monospace")
+          .style("font-size", "14px")
+          .style("fill", "#000");
+  
+        g.selectAll("line.bg-line")
+          .data(generations)
+          .join("line")
+          .attr("x1", 0)
+          .attr("x2", innerWidth)
+          .attr("y1", d => y(d) + y.bandwidth() / 2)
+          .attr("y2", d => y(d) + y.bandwidth() / 2)
+          .attr("stroke", "#ddd")
+          .attr("stroke-dasharray", "2,2");
+  
+        // ✅ 2023 条
+        g.selectAll("rect.bar-2023")
+          .data(data)
+          .join("rect")
+          .attr("x", 0)
+          .attr("y", d => y(d.Generation))
+          .attr("height", y.bandwidth() / 2)
+          .attr("width", d => x(d["2023"]))
+          .attr("fill", color("2023"))
+          .attr("class", "bar bar-2023")
+          .on("mouseover", function(event, d) {
+            resetAllStyles();
+            handleBarHover(this, "2023", d.Generation);
+            showDialogue();
+          })
+          .on("mouseout", resetAllStyles);
+  
+        // ✅ 2024 条
+        g.selectAll("rect.bar-2024")
+          .data(data)
+          .join("rect")
+          .attr("x", 0)
+          .attr("y", d => y(d.Generation) + y.bandwidth() / 2)
+          .attr("height", y.bandwidth() / 2)
+          .attr("width", d => x(d["2024"]))
+          .attr("fill", color("2024"))
+          .attr("class", "bar bar-2024")
+          .on("mouseover", function(event, d) {
+            resetAllStyles();
+            handleBarHover(this, "2024", d.Generation);
+            showDialogue();
+          })
+          .on("mouseout", resetAllStyles);
+  
+        // ✅ 数值标签（使用对应颜色）
+        g.selectAll("text.label-2023")
+          .data(data)
+          .join("text")
+          .attr("x", d => x(d["2023"]) + 6)
+          .attr("y", d => y(d.Generation) + y.bandwidth() * 0.3)
+          .attr("class", "label label-2023")
+          .text(d => `${d["2023"]}%`)
+          .style("font-size", "14px")
+          .style("fill", color("2023"))
+          .style("font-family", "'Courier New', monospace");
+  
+        g.selectAll("text.label-2024")
+          .data(data)
+          .join("text")
+          .attr("x", d => x(d["2024"]) + 6)
+          .attr("y", d => y(d.Generation) + y.bandwidth() * 0.8)
+          .attr("class", "label label-2024")
+          .text(d => `${d["2024"]}%`)
+          .style("font-size", "14px")
+          .style("fill", color("2024"))
+          .style("font-family", "'Courier New', monospace");
+  
+        // ✅ 图例 → 右上角 + 间距24px，悬浮高亮
+        const legend = svg.append("g")
+          .attr("transform", `translate(${width - 180}, 12)`);
+  
+        ["2023", "2024"].forEach((key, i) => {
+          const baseColor = color(key);
+          const group = legend.append("g")
+            .attr("transform", `translate(${i * 90 }, 0)`)
+            .style("cursor", "pointer")
+            .on("mouseover", () => {
+              d3.selectAll(".bar").attr("opacity", 0.2);
+              d3.selectAll(`.bar-${key}`)
+                .attr("fill", d => getHighlightColor(baseColor))
+                .attr("opacity", 1);
+              d3.selectAll(`.label-${key}`).style("font-weight", "bold");
+              d3.select(`#legend-rect-${key}`)
+                .attr("fill", getHighlightColor(baseColor));
+              d3.select(`#legend-text-${key}`)
+                .style("font-weight", "bold");
+            })
+            .on("mouseout", resetAllStyles);
+  
+          group.append("rect")
+            .datum(key)
+            .attr("id", `legend-rect-${key}`)
+            .attr("x", 0)
+            .attr("y", 0)
+            .attr("width", 12)
+            .attr("height", 12)
+            .attr("class", "legend-rect")
+            .attr("fill", baseColor);
+  
+          group.append("text")
+            .attr("id", `legend-text-${key}`)
+            .attr("x", 18)
+            .attr("y", 10)
+            .attr("class", "legend-text")
+            .text(key)
+            .style("font-size", "14px")
+            .style("font-family", "'Courier New', monospace");
+        });
+  
+        resolve();
+      });
+    });
+  }
   
   
 };
