@@ -185,16 +185,32 @@
   word-break: break-word;
 }
 
-/*@keyframes wordFloat {
-  0%   { transform: translateY(0); }
-  50%  { transform: translateY(-3px); }
-  100% { transform: translateY(0); }
+#potential-tabs {
+  position: absolute;
+  bottom: 110px; /* 图表下方留空 */
+  left: 42%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  gap: 14px;
 }
 
-.float-word {
-  animation: wordFloat ease-in-out infinite;
-  transform-box: fill-box;
-  transform-origin: center;
-  display: inline-block;
-  font-weight: normal !important;
+.potential-tab {
+  background-color: rgba(80, 64, 40, 0.2);  /* 类似皮革棕 */
+  color: #fefef0;
+  border: none;
+  padding: 6px 20px;
+  font-size: 16px;
+  font-family: 'Amatica SC', cursive;
+  cursor: pointer;
+  border-radius: 8px;
+
+  transition: all 0.25s ease-in-out;
+}
+
+.potential-tab.active {
+  background-color: #f2e2b8;
+  color: #1a1202;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 }
