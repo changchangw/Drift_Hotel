@@ -33,11 +33,14 @@ const chartConfigs = [
     title: "Which jobs are most exposed to AI?",
     chartType: 6,
     dataPath: "assets/chapter2/ai_exposure_scatter.csv",
-    source: "Source: Gmyrek et al. (2025), AI Exposure Gradient Estimates"
+    source: "Source: Generative AI and Jobs, 2025"
+  },
+  {
+    title: "AI Exposure by Income Level and Gender",
+    chartType: 7,
+    dataPath: "assets/chapter2/fig_20_by_income.csv",
+    source: "Source: Generative AI and Jobs, 2025"
   }
-  
-  
-  // 可继续添加更多图表
 ];
 
 function showDialogueBox() {
@@ -62,15 +65,25 @@ function renderPotentialWithKey(config, key) {
   initDataVis(config.title, config.dataPath, renderer);
 }
 
+function renderIncomeExposure(config, gender) {
+  const renderer = (titleText, dataPath, chartArea) =>
+    chartRenderers[7](titleText, dataPath, chartArea, gender);
+  initDataVis(config.title, config.dataPath, renderer);
+}
+
 function initChart(index) {
   const config = chartConfigs[index];
   if (!config) return console.warn("No chart config found for index", index);
 
-  const potentialTabs = document.getElementById("potential-tabs");
+  const potentialTabs = document.getElementById("datavis-tabs");
+  const genderTabs = document.getElementById("gender-tabs");
 
+  // chart 2 tab逻辑
   if (index === 2) {
     potentialTabs.style.display = "flex";
-    const tabs = potentialTabs.querySelectorAll(".potential-tab");
+    genderTabs.style.display = "none";
+
+    const tabs = potentialTabs.querySelectorAll(".datavis-tab");
     let currentKey = "Job market";
 
     tabs.forEach(t => t.classList.remove("active"));
@@ -86,8 +99,44 @@ function initChart(index) {
         renderPotentialWithKey(config, selectedKey);
       };
     });
-  } else {
+  }
+
+  // chart 7 tab逻辑
+  else if (index === 6) {
+    genderTabs.style.display = "flex";
     potentialTabs.style.display = "none";
+
+    const tabs = genderTabs.querySelectorAll(".datavis-tab");
+    let currentGender = "Total";
+
+    tabs.forEach(t => t.classList.remove("active"));
+    tabs[0].classList.add("active");
+
+    // 初始渲染
+    renderIncomeExposure(config, currentGender);
+
+    tabs.forEach(tab => {
+      tab.onclick = () => {
+        const selected = tab.dataset.gender;
+        if (selected === currentGender) return;
+        currentGender = selected;
+
+        tabs.forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+
+        // 直接调用图表渲染器更新数据，而不是重新渲染整个图表
+        const chartArea = d3.select("#datavis-chart-area");
+        chartArea.html(""); // 清空现有内容
+        
+        chartRenderers[7](config.title, config.dataPath, chartArea, currentGender);
+      };
+    });
+  }
+
+  // 其他图表无 tab
+  else {
+    potentialTabs.style.display = "none";
+    genderTabs.style.display = "none";
 
     const renderer = chartRenderers[config.chartType];
     if (!renderer) {
@@ -98,7 +147,7 @@ function initChart(index) {
     initDataVis(config.title, config.dataPath, renderer);
   }
 
-  // ✅ ✅ ✅ 这部分是必须执行的，无论哪种图表
+  // 箭头显示控制
   const leftArrow = document.querySelector('.arrow-left');
   const rightArrow = document.querySelector('.arrow-right');
 
@@ -114,11 +163,10 @@ function initChart(index) {
     rightArrow.style.display = "block";
   }
 
-  // ✅ 来源说明
+  // 来源说明
   const sourceText = config.source || "No source available";
   document.getElementById("source-text").innerText = sourceText;
 }
-
 
 function initDataVis(titleText, dataPath, renderer) {
   const overlay = document.getElementById("fade-overlay");

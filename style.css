@@ -185,7 +185,7 @@
   word-break: break-word;
 }
 
-#potential-tabs {
+#datavis-tabs {
   position: absolute;
   bottom: 110px; /* 图表下方留空 */
   left: 42%;
@@ -195,7 +195,17 @@
   gap: 14px;
 }
 
-.potential-tab {
+#gender-tabs {
+  position: absolute;
+  bottom: 110px; /* 图表下方留空 */
+  left: 42%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  gap: 14px;
+}
+
+.datavis-tab {
   background-color: rgba(80, 64, 40, 0.2);  /* 类似皮革棕 */
   color: #fefef0;
   border: none;
@@ -208,7 +218,7 @@
   transition: all 0.25s ease-in-out;
 }
 
-.potential-tab.active {
+.datavis-tab.active {
   background-color: #f2e2b8;
   color: #1a1202;
   font-weight: bold;

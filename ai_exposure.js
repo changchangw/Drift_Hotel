@@ -425,3 +425,206 @@ chartRenderers[6] = function(titleText, dataPath, chartArea) {
   });
 };
 
+chartRenderers[7] = function(titleText, dataPath, chartArea, gender = "Total") {
+  const width = 680;
+  const height = 380;
+  const margin = { top: 40, right: 20, bottom: 60, left: 80 }; // 上下margin略微收紧
+  const innerWidth = width - margin.left - margin.right;
+  const innerHeight = height - margin.top - margin.bottom;
+
+  const colorMap = {
+    "Gradient1": "#4b89c1",
+    "Gradient2": "#1f4e79",
+    "Gradient3": "#a07b3b",
+    "Gradient4": "#943434"
+  };
+
+  const labelMap = {
+    "Gradient1": "Low Exposure",
+    "Gradient2": "Moderate Exposure",
+    "Gradient3": "High Exposure",
+    "Gradient4": "Very High Exposure"
+  };
+
+  const incomeLabelShort = {
+    "High income": "High",
+    "Upper-middle income": "Upper-middle",
+    "Lower-middle income": "Lower-middle",
+    "Low income": "Low"
+  };
+
+  const tooltip = d3.select("body").append("div")
+    .attr("class", "bar-tooltip")
+    .style("position", "absolute")
+    .style("z-index", "9999")
+    .style("background", "#2a2a2a")
+    .style("color", "#fff")
+    .style("padding", "6px 10px")
+    .style("font-size", "13px")
+    .style("font-family", "'Courier New', monospace")
+    .style("border-radius", "6px")
+    .style("display", "none");
+
+  return new Promise(resolve => {
+    d3.csv(dataPath).then(raw => {
+      const allGradients = Object.keys(colorMap);
+
+      const svg = chartArea.append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+      const g = svg.append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+      function draw(selectedGender) {
+        g.selectAll("*").remove();
+
+        const data = raw.filter(d => d.Gender === selectedGender);
+        const subgroups = allGradients;
+        const groups = data.map(d => d.IncomeLevel);
+
+        const x = d3.scaleBand()
+          .domain(groups)
+          .range([0, innerWidth])
+          .padding(0.55); // ✅ 柱子更细
+
+        const y = d3.scaleLinear()
+          .domain([0, 50])
+          .range([innerHeight, 0]);
+
+        const stackedData = d3.stack().keys(subgroups)(data);
+
+        // 柱状图
+        g.append("g")
+          .selectAll("g")
+          .data(stackedData)
+          .join("g")
+          .attr("fill", d => colorMap[d.key])
+          .selectAll("rect")
+          .data(d => d)
+          .join("rect")
+          .attr("class", d => `stack-bar bar-${d.data.IncomeLevel.replace(/\s/g, "-")}`)
+          .attr("x", d => x(d.data.IncomeLevel))
+          .attr("y", d => y(d[1]))
+          .attr("height", d => y(d[0]) - y(d[1]))
+          .attr("width", x.bandwidth())
+          .on("mouseover", function(event, d) {
+            const key = d3.select(this.parentNode).datum().key;
+            const level = d.data.IncomeLevel;
+            const levelClass = `.bar-${level.replace(/\s/g, "-")}`;
+
+            tooltip
+              .html(`<strong>${labelMap[key]}</strong><br>${(d[1] - d[0]).toFixed(1)}%<br><br><em>${d.data.TotalJobsMillions} million jobs</em>`)
+              .style("left", event.pageX + 10 + "px")
+              .style("top", event.pageY - 10 + "px")
+              .style("display", "block");
+
+            // ✅ 当前柱高亮，其他淡出
+            g.selectAll(".stack-bar").attr("opacity", 0.2);
+            g.selectAll(levelClass).attr("opacity", 1);
+
+            // ✅ 顶部总值加粗
+            g.selectAll(".bar-label").style("font-weight", "normal");
+            g.selectAll(`.label-${level.replace(/\s/g, "-")}`).style("font-weight", "bold");
+
+            // ✅ x轴加粗
+            g.selectAll(".x-axis-label").style("font-weight", "normal");
+            g.selectAll(".x-axis-label")
+              .filter(function() {
+                return d3.select(this).text() === (incomeLabelShort[level] || level);
+              })
+              .style("font-weight", "bold");
+          })
+          .on("mouseout", () => {
+            tooltip.style("display", "none");
+            g.selectAll(".stack-bar").attr("opacity", 1);
+            g.selectAll(".bar-label").style("font-weight", "normal");
+            g.selectAll(".x-axis-label").style("font-weight", "normal");
+          });
+
+        // 顶部累计值标签
+        data.forEach(d => {
+          const total = allGradients.reduce((sum, key) => sum + (+d[key] || 0), 0);
+          const xPos = x(d.IncomeLevel) + x.bandwidth() / 2;
+          const yPos = y(total) - 6;
+          const className = `label-${d.IncomeLevel.replace(/\s/g, "-")}`;
+
+          g.append("text")
+            .attr("class", `bar-label ${className}`)
+            .attr("x", xPos)
+            .attr("y", yPos)
+            .attr("text-anchor", "middle")
+            .text(`${total.toFixed(1)}%`)
+            .style("font-size", "14px")
+            .style("fill", "#000")
+            .style("font-family", "'Courier New', monospace");
+        });
+
+        // x 轴
+        g.append("g")
+          .attr("transform", `translate(0,${innerHeight})`)
+          .call(d3.axisBottom(x).tickFormat(d => incomeLabelShort[d] || d))
+          .selectAll("text")
+          .attr("class", "x-axis-label")
+          .style("font-size", "12px")
+          .style("font-family", "'Courier New', monospace");
+
+        // x轴标签
+        svg.append("text")
+          .attr("x", margin.left + innerWidth / 2)
+          .attr("y", height - 20)
+          .attr("text-anchor", "middle")
+          .text("Income Level")
+          .style("font-size", "13px")
+          .style("font-family", "'Courier New', monospace");
+
+        // y 轴
+        g.append("g")
+          .call(d3.axisLeft(y).ticks(5).tickFormat(d => d + "%"))
+          .selectAll("text")
+          .style("font-size", "12px")
+          .style("font-family", "'Courier New', monospace");
+
+        // y轴标签
+        svg.append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("x", -height / 2)
+          .attr("y", 18)
+          .attr("text-anchor", "middle")
+          .text("Share of employment (%)")
+          .style("font-size", "13px")
+          .style("font-family", "'Courier New', monospace");
+
+        // 图例向右靠
+        const legend = svg.append("g")
+          .attr("transform", `translate(${width - margin.right - 630}, -2)`)
+          .style("font-family", "'Courier New', monospace");
+
+        let offsetX = 0;
+        Object.entries(labelMap).forEach(([key, label]) => {
+          const gL = legend.append("g")
+            .attr("transform", `translate(${offsetX}, 0)`);
+
+          gL.append("rect")
+            .attr("width", 12)
+            .attr("height", 12)
+            .attr("fill", colorMap[key]);
+
+          gL.append("text")
+            .attr("x", 18)
+            .attr("y", 10)
+            .text(label)
+            .style("font-size", "13px");
+
+          offsetX += gL.node().getBBox().width + 30;
+        });
+      }
+
+      draw(gender);
+      resolve();
+    });
+  });
+};
+
+
+

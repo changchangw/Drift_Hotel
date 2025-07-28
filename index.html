@@ -18,10 +18,17 @@
   <div id="datavis-container" style="display: none;">
     <img id="datavis-bg" src="assets/chapter2/bg.png" alt="bg">
     <div id="datavis-title"></div>
-    <div id="potential-tabs" style="display: none;">
-      <button class="potential-tab active" data-key="Job market">Job market</button>
-      <button class="potential-tab" data-key="Individual jobs">Individual jobs</button>
+    
+    <div id="datavis-tabs" style="display: none;">
+      <button class="datavis-tab active" data-key="Job market">Job market</button>
+      <button class="datavis-tab" data-key="Individual jobs">Individual jobs</button>
     </div>    
+    <!-- ✅ 新 chartRenderers[7] 用于性别切换的 tab -->
+    <div id="gender-tabs" style="display: none;">
+      <button class="datavis-tab active" data-gender="Total">Total</button>
+      <button class="datavis-tab" data-gender="Male">Male</button>
+      <button class="datavis-tab" data-gender="Female">Female</button>
+    </div>
     <div id="datavis-chart-area"></div>
 
     <img id="dialogue-box" src="assets/chapter2/dialogue1.png" alt="Dialogue" style="display: none;" />
