@@ -28,6 +28,12 @@ const chartConfigs = [
     chartType: 5,
     dataPath: "assets/chapter2/genai_usage_by_occupation.csv",
     source: "Source: ILO Working Paper – Generative AI and Jobs, 2024"
+  },
+  {
+    title: "Which jobs are most exposed to AI?",
+    chartType: 6,
+    dataPath: "assets/chapter2/ai_exposure_scatter.csv",
+    source: "Source: Gmyrek et al. (2025), AI Exposure Gradient Estimates"
   }
   
   

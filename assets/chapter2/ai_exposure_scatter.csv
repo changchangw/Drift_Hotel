@@ -1,0 +1,428 @@
+Title,mean_score_2025,SD_2025,Exposure
+Legislators,0.31,0.04,Not Exposed
+Senior Government Officials,0.38,0.08,Minimal Exposure
+Traditional Chiefs and Heads of Villages,0.23,0.1,Not Exposed
+Senior Officials of Special-interest Organizations,0.37,0.06,Minimal Exposure
+Managing Directors and Chief Executives,0.38,0.06,Minimal Exposure
+Finance Managers,0.37,0.04,Minimal Exposure
+Human Resource Managers,0.36,0.05,Minimal Exposure
+Policy and Planning Managers,0.36,0.04,Not Exposed
+Business Services and Administration Managers Not Elsewhere Classified,0.42,0.1,Gradient 2
+Sales and Marketing Managers,0.41,0.09,Gradient 2
+Advertising and Public Relations Managers,0.39,0.05,Minimal Exposure
+Research and Development Managers,0.4,0.06,Minimal Exposure
+Agricultural and Forestry Production Managers,0.27,0.13,Minimal Exposure
+Aquaculture and Fisheries Production Managers,0.22,0.08,Not Exposed
+Manufacturing Managers,0.38,0.11,Minimal Exposure
+Mining Managers,0.35,0.11,Minimal Exposure
+Construction Managers,0.34,0.06,Minimal Exposure
+"Supply, Distribution and Related Managers",0.38,0.05,Minimal Exposure
+Information and Communications Technology Service Managers,0.44,0.07,Gradient 2
+Child Care Service Managers,0.3,0.15,Minimal Exposure
+Health Service Managers,0.36,0.05,Minimal Exposure
+Aged Care Service Managers,0.34,0.09,Minimal Exposure
+Social Welfare Managers,0.37,0.07,Minimal Exposure
+Education Managers,0.36,0.1,Minimal Exposure
+Financial and Insurance Services Branch managers,0.47,0.12,Gradient 2
+Professional Services Managers Not Elsewhere Classified,0.38,0.07,Minimal Exposure
+Hotel Managers,0.37,0.13,Gradient 1
+Restaurant Managers,0.36,0.12,Minimal Exposure
+Retail and Wholesale Trade Managers,0.44,0.15,Gradient 2
+"Sports, Recreation and Cultural Centre Managers",0.32,0.1,Minimal Exposure
+Physicists and Astronomers,0.38,0.14,Gradient 1
+Meteorologists,0.54,0.13,Gradient 3
+Chemists,0.39,0.1,Minimal Exposure
+Geologists and geophysicists,0.36,0.1,Minimal Exposure
+"Mathematicians, Actuaries and Statisticians",0.56,0.09,Gradient 3
+"Biologists, Botanists, Zoologists and Related Professionals",0.4,0.1,Gradient 2
+"Farming, Forestry and Fisheries Advisers",0.29,0.1,Not Exposed
+Environmental Protection Professionals,0.38,0.04,Minimal Exposure
+Industrial and Production Engineers,0.37,0.07,Minimal Exposure
+Civil Engineers,0.3,0.06,Not Exposed
+Environmental Engineers,0.38,0.07,Minimal Exposure
+Mechanical Engineers,0.32,0.07,Not Exposed
+Chemical Engineers,0.35,0.12,Minimal Exposure
+"Mining Engineers, Metallurgists and Related Professionals",0.29,0.05,Not Exposed
+Engineering Professionals Not Elsewhere Classified,0.3,0.08,Not Exposed
+Electrical Engineers,0.31,0.08,Not Exposed
+Electronics Engineers,0.42,0.13,Gradient 2
+Telecommunications Engineers,0.48,0.12,Gradient 2
+Building Architects,0.37,0.08,Minimal Exposure
+Landscape Architects,0.37,0.08,Minimal Exposure
+Product and Garment Designers,0.35,0.09,Minimal Exposure
+Town and Traffic Planners,0.41,0.06,Minimal Exposure
+Cartographers and Surveyors,0.44,0.12,Gradient 2
+Graphic and Multimedia Designers,0.49,0.09,Gradient 2
+Generalist Medical Practitioners,0.29,0.1,Not Exposed
+Specialist Medical Practitioners,0.27,0.12,Not Exposed
+Nursing Professionals,0.25,0.13,Not Exposed
+Midwifery Professionals,0.3,0.15,Minimal Exposure
+Traditional and Complementary Medicine Professionals,0.32,0.11,Minimal Exposure
+Paramedical Practitioners,0.23,0.13,Not Exposed
+Veterinarians,0.14,0.05,Not Exposed
+Dentists,0.15,0.06,Not Exposed
+Pharmacists,0.33,0.09,Minimal Exposure
+Environmental and Occupational Health and Hygiene Professionals,0.28,0.05,Not Exposed
+Physiotherapists,0.28,0.14,Minimal Exposure
+Dieticians and Nutritionists,0.41,0.07,Minimal Exposure
+Audiologists and Speech Therapists,0.24,0.04,Not Exposed
+Optometrists and Ophthalmic Opticians,0.24,0.07,Not Exposed
+Health Professionals Not Elsewhere Classified,0.2,0.08,Not Exposed
+University and Higher Education Teachers,0.37,0.12,Minimal Exposure
+Vocational Education Teachers,0.35,0.12,Minimal Exposure
+Secondary Education Teachers,0.3,0.07,Not Exposed
+Primary School Teachers,0.26,0.09,Not Exposed
+Early Childhood Educators,0.21,0.05,Not Exposed
+Education Methods Specialists,0.39,0.11,Gradient 1
+Special Needs Teachers,0.28,0.1,Not Exposed
+Other Language Teachers,0.34,0.11,Minimal Exposure
+Other Music Teachers,0.35,0.09,Minimal Exposure
+Other Arts Teachers,0.35,0.1,Minimal Exposure
+Information Technology Trainers,0.47,0.1,Gradient 2
+Teaching Professionals Not Elsewhere Classified,0.33,0.1,Minimal Exposure
+Accountants,0.51,0.08,Gradient 3
+Financial and Investment Advisers,0.57,0.11,Gradient 3
+Financial Analysts,0.62,0.06,Gradient 4
+Management and Organization Analysts,0.46,0.1,Gradient 2
+Policy Administration Professionals,0.42,0.06,Minimal Exposure
+Personnel and Careers Professionals,0.45,0.07,Gradient 2
+Training and Staff Development Professionals,0.41,0.09,Gradient 2
+Advertising and Marketing Professionals,0.55,0.09,Gradient 3
+Public Relations Professionals,0.43,0.09,Gradient 2
+Technical and Medical Sales Professionals (excluding ICT),0.5,0.1,Gradient 3
+Information and Communications Technology Sales Professionals,0.51,0.09,Gradient 3
+Systems Analysts,0.49,0.05,Gradient 2
+Software Developers,0.53,0.07,Gradient 3
+Web and Multimedia Developers,0.6,0.08,Gradient 4
+Applications Programmers,0.57,0.08,Gradient 3
+Software and Applications Developers and Analysts Not Elsewhere Classified,0.55,0.16,Gradient 3
+Database Designers and Administrators,0.57,0.08,Gradient 3
+Systems Aministrators,0.57,0.05,Gradient 3
+Computer Network Professionals,0.52,0.06,Gradient 3
+Database and Network Professionals Not Elsewhere Classified,0.49,0.06,Gradient 2
+Lawyers,0.36,0.09,Minimal Exposure
+Judges,0.31,0.08,Not Exposed
+Legal Professionals Not Elsewhere Classified,0.37,0.09,Minimal Exposure
+Archivists and Curators,0.47,0.11,Gradient 2
+Librarians and Related Information Professionals,0.55,0.04,Gradient 3
+Economists,0.55,0.08,Gradient 3
+"Sociologists, Anthropologists and Related Professionals",0.48,0.12,Gradient 2
+"Philosophers, Historians and Political Scientists",0.47,0.06,Gradient 2
+Psychologists,0.39,0.14,Gradient 1
+Social Work and Counselling Professionals,0.28,0.1,Not Exposed
+Religious Professionals,0.17,0.12,Not Exposed
+Authors and Related Writers,0.55,0.09,Gradient 3
+Journalists,0.54,0.1,Gradient 3
+"Translators, Interpreters and Other Linguists",0.59,0.11,Gradient 3
+Visual Artists,0.21,0.04,Not Exposed
+"Musicians, Singers and Composers",0.28,0.09,Not Exposed
+Dancers and Choreographers,0.19,0.1,Not Exposed
+"Film, Stage and Related Directors and Producers",0.37,0.07,Minimal Exposure
+Actors,0.31,0.15,Minimal Exposure
+"Announcers on Radio, Television and Other Media",0.47,0.12,Gradient 2
+Creative and Performing Artists Not Elsewhere Classified,0.13,0.06,Not Exposed
+Chemical and Physical Science Technicians,0.26,0.09,Not Exposed
+Civil Engineering Technicians,0.28,0.07,Not Exposed
+Electrical Engineering Technicians,0.27,0.05,Not Exposed
+Electronics Engineering Technicians,0.38,0.11,Minimal Exposure
+Mechanical Engineering Technicians,0.26,0.08,Not Exposed
+Chemical Engineering Technicians,0.32,0.02,Not Exposed
+Mining and metallurgical technicians,0.28,0.06,Not Exposed
+Draughtspersons,0.35,0.11,Minimal Exposure
+Physical and Engineering Science Technicians Not Elsewhere Classified,0.26,0.05,Not Exposed
+Mining Supervisors,0.29,0.08,Not Exposed
+Manufacturing Supervisors,0.35,0.13,Minimal Exposure
+Construction Supervisors,0.28,0.06,Not Exposed
+Power Production Plant Operators,0.28,0.11,Not Exposed
+Incinerator and Water Treatment Plant Operators,0.27,0.09,Not Exposed
+Chemical Processing Plant Controllers,0.29,0.1,Not Exposed
+Petroleum and Natural Gas Refining Plant Operators,0.29,0.11,Not Exposed
+Metal Production Process Controllers,0.31,0.13,Minimal Exposure
+Life Science Technicians (excluding Medical),0.38,0.18,Gradient 1
+Agricultural Technicians,0.26,0.09,Not Exposed
+Forestry Technicians,0.21,0.07,Not Exposed
+Ships' Engineers,0.23,0.05,Not Exposed
+Ships' Deck Officers and Pilots,0.29,0.11,Not Exposed
+Aircraft Pilots and Related Associate Professionals,0.27,0.05,Not Exposed
+Air Traffic Controllers,0.31,0.09,Minimal Exposure
+Air Traffic Safety Electronics Technicians,0.34,0.1,Minimal Exposure
+Medical Imaging and Therapeutic Equipment Technicians,0.22,0.03,Not Exposed
+Medical and Pathology Laboratory Technicians,0.31,0.16,Minimal Exposure
+Pharmaceutical Technicians and Assistants,0.3,0.12,Minimal Exposure
+Medical and Dental Prosthetic Technicians,0.18,0.05,Not Exposed
+Nursing Associate Professionals,0.22,0.21,Minimal Exposure
+Midwifery Associate Professionals,0.2,0.07,Not Exposed
+Traditional and Complementary Medicine Associate Professionals,0.19,0.11,Not Exposed
+Veterinary Technicians and Assistants,0.14,0.02,Not Exposed
+Dental Assistants and Therapists,0.16,0.1,Not Exposed
+Medical Records and Health Information Technicians,0.52,0.1,Gradient 3
+Community Health Workers,0.22,0.08,Not Exposed
+Dispensing Opticians,0.24,0.07,Not Exposed
+Physiotherapy Technicians and Assistants,0.17,0.07,Not Exposed
+Medical Assistants,0.35,0.23,Gradient 1
+Environmental and Occupational Health Inspectors and Associates,0.24,0.04,Not Exposed
+Ambulance Workers,0.22,0.17,Not Exposed
+Health Associate Professionals Not Elsewhere Classified,0.3,0.15,Minimal Exposure
+Securities and Finance Dealers and Brokers,0.63,0.04,Gradient 4
+Credit and Loans Officers,0.6,0.04,Gradient 4
+Accounting Associate Professionals,0.49,0.13,Gradient 2
+"Statistical, Mathematical and Related Associate Professionals",0.57,0.1,Gradient 3
+Valuers and Loss Assessors,0.45,0.19,Gradient 2
+Insurance Representatives,0.53,0.12,Gradient 3
+Commercial Sales Representatives,0.49,0.08,Gradient 2
+Buyers,0.39,0.08,Minimal Exposure
+Trade Brokers,0.44,0.1,Gradient 2
+Clearing and Forwarding Aents,0.57,0.09,Gradient 3
+Conference and Event Planners,0.48,0.14,Gradient 2
+Employment agents and contractors,0.39,0.09,Minimal Exposure
+Real Estate Agents and Property Managers,0.35,0.09,Minimal Exposure
+Business Services Agents Not Elsewhere Classified,0.44,0.12,Gradient 2
+Office Supervisors,0.43,0.11,Gradient 2
+Legal Secretaries,0.55,0.13,Gradient 3
+Administrative and Executive Secretaries,0.54,0.14,Gradient 3
+Medical Secretaries,0.53,0.11,Gradient 3
+Customs and Border Inspectors,0.32,0.14,Minimal Exposure
+Government Tax and Excise Officials,0.49,0.12,Gradient 2
+Government Social Benefits Officials,0.45,0.07,Gradient 2
+Government Licensing Officials,0.43,0.07,Gradient 2
+Police Inspectors and Detectives,0.23,0.07,Not Exposed
+Government Regulatory AssociatePprofessionals Not Elsewhere Classified,0.36,0.1,Minimal Exposure
+Legal and Related Associate Professionals,0.39,0.14,Gradient 1
+Social Work Associate Professionals,0.33,0.13,Minimal Exposure
+Religious Associate Professionals,0.12,0.07,Not Exposed
+Athletes and Sports Players,0.23,0.11,Not Exposed
+"Sports Coaches, Instructors and Officials",0.37,0.12,Minimal Exposure
+Fitness and Recreation Instructors and Programme Leaders,0.25,0.07,Not Exposed
+Photographers,0.39,0.12,Gradient 1
+Interior Designers and Decorators,0.37,0.08,Minimal Exposure
+"Gallery, Museum and Library Technicians",0.37,0.2,Gradient 1
+Chefs,0.25,0.06,Not Exposed
+Information and Communications Technology Operations Technicians,0.43,0.13,Gradient 2
+Information and Communications Technology User Support Technicians,0.47,0.19,Gradient 2
+Computer Network and Systems Technicians,0.43,0.08,Gradient 2
+Web Technicians,0.53,0.12,Gradient 3
+Broadcasting and Audio-visual Technicians,0.35,0.11,Minimal Exposure
+Telecommunications Engineering Technicians,0.45,0.04,Minimal Exposure
+General Office Clerks,0.6,0.1,Gradient 4
+Secretaries (general),0.58,0.1,Gradient 3
+Typists and Word Processing Operators,0.65,0.05,Gradient 4
+Data Entry Clerks,0.7,0.03,Gradient 4
+Bank Tellers and Related Clerks,0.58,0.09,Gradient 3
+"Bookmakers, Croupiers and Related Gaming Workers",0.45,0.19,Gradient 2
+Pawnbrokers and Money-lenders,0.48,0.06,Gradient 2
+Debt Collectors and Related Workers,0.43,0.07,Gradient 2
+Travel Consultants and Clerks,0.56,0.07,Gradient 3
+Contact Centre Information Clerks,0.58,0.06,Gradient 3
+Telephone Switchboard Operators,0.54,0.15,Gradient 3
+Hotel Receptionists,0.51,0.07,Gradient 3
+Inquiry Clerks,0.57,0.09,Gradient 3
+Receptionists (general),0.57,0.17,Gradient 3
+Survey and Market Research Interviewers,0.55,0.16,Gradient 3
+Client Information Workers Not Elsewhere Classified,0.42,0.13,Gradient 2
+Accounting and Bookkeeping Clerks,0.64,0.07,Gradient 4
+"Statistical, Finance and Insurance Clerks",0.64,0.02,Gradient 4
+Payroll Clerks,0.61,0.08,Gradient 4
+Stock Clerks,0.37,0.06,Minimal Exposure
+Production Clerks,0.44,0.06,Gradient 2
+Transport Clerks,0.5,0.1,Gradient 3
+Library Clerks,0.46,0.18,Gradient 2
+Mail Carriers and Sorting Clerks,0.41,0.15,Gradient 2
+"Coding, Proofreading and Related Clerks",0.51,0.2,Gradient 3
+Scribes and Related Workers,0.58,0.08,Gradient 3
+Filing and Copying Clerks,0.37,0.17,Gradient 1
+Personnel Clerks,0.6,0.09,Gradient 4
+Clerical Support Workers Not Elsewhere Classified,0.63,0.03,Gradient 4
+Travel Attendants and Travel Stewards,0.22,0.1,Not Exposed
+Transport Conductors,0.25,0.17,Minimal Exposure
+Travel Guides,0.32,0.11,Minimal Exposure
+Cooks,0.18,0.06,Not Exposed
+Waiters,0.28,0.16,Minimal Exposure
+Bartenders,0.26,0.12,Not Exposed
+Hairdressers,0.17,0.18,Not Exposed
+Beauticians and Related Workers,0.18,0.19,Not Exposed
+"Cleaning and Housekeeping Supervisors in Offices, Hotels and Other Establishments",0.22,0.1,Not Exposed
+Domestic Housekeepers,0.2,0.1,Not Exposed
+Building Caretakers,0.27,0.16,Minimal Exposure
+"Astrologers, Fortune-tellers and Related Workers",0.3,0.16,Minimal Exposure
+Companions and Valets,0.22,0.05,Not Exposed
+Undertakers and Embalmers,0.17,0.17,Not Exposed
+Pet Groomers and Animal Care Workers,0.14,0.06,Not Exposed
+Driving Instructors,0.2,0.03,Not Exposed
+Personal Services Workers Not Elsewhere Classified,0.21,0.07,Not Exposed
+Stall and Market Salespersons,0.35,0.17,Gradient 1
+Street Food Salespersons,0.22,0.11,Not Exposed
+Shopkeepers,0.43,0.1,Gradient 2
+Shop Supervisors,0.36,0.12,Minimal Exposure
+Shop Sales Assistants,0.38,0.16,Gradient 1
+Cashiers and Ticket Clerks,0.39,0.14,Gradient 1
+Fashion and Other Models,0.25,0.06,Not Exposed
+Sales Demonstrators,0.42,0.11,Gradient 2
+Door-to-door Salespersons,0.46,0.18,Gradient 2
+Contact Centre Salespersons,0.61,0.1,Gradient 4
+Service Station Attendants,0.24,0.16,Minimal Exposure
+Food Service Counter Attendants,0.24,0.13,Not Exposed
+Child Care Workers,0.19,0.09,Not Exposed
+Teachers' Aides,0.24,0.14,Not Exposed
+Health Care Assistants,0.14,0.06,Not Exposed
+Home-based Personal Care Workers,0.25,0.18,Minimal Exposure
+Personal Care Workers in Health Services Not Elsewhere Classified,0.15,0.03,Not Exposed
+Fire Fighters,0.18,0.1,Not Exposed
+Police Officers,0.14,0.03,Not Exposed
+Prison Guards,0.14,0.04,Not Exposed
+Security Guards,0.2,0.09,Not Exposed
+Protective Services Workers Not Elsewhere Classified,0.2,0.05,Not Exposed
+Field Crop and Vegetable Growers,0.18,0.12,Not Exposed
+Tree and Shrub Crop Growers,0.17,0.11,Not Exposed
+"Gardeners, Horticultural and Nursery Growers",0.18,0.11,Not Exposed
+Mixed Crop Growers,0.17,0.12,Not Exposed
+Livestock and Dairy Producers,0.17,0.1,Not Exposed
+Poultry Producers,0.19,0.1,Not Exposed
+Apiarists and Sericulturists,0.22,0.11,Not Exposed
+Animal Producers Not Elsewhere Classified,0.2,0.14,Not Exposed
+Mixed Crop and Animal Producers,0.19,0.11,Not Exposed
+Forestry and Related Workers,0.12,0.05,Not Exposed
+Aquaculture Workers,0.22,0.15,Not Exposed
+Inland and Coastal Waters Fishery Workers,0.17,0.1,Not Exposed
+Deep-sea Fishery Workers,0.18,0.07,Not Exposed
+Hunters and Trappers,0.09,0.03,Not Exposed
+Subsistence Crop Farmers,0.13,0.05,Not Exposed
+Subsistence Livestock Farmers,0.13,0.04,Not Exposed
+Subsistence Mixed Crop and Livestock Farmers,0.12,0.05,Not Exposed
+"Subsistence Fishers, Hunters, Trappers and Gatherers",0.12,0.05,Not Exposed
+House Builders,0.14,0.07,Not Exposed
+Bricklayers and Related Workers,0.09,0.01,Not Exposed
+"Stonemasons, Stone Cutters, Splitters and Carvers",0.11,0.02,Not Exposed
+"Concrete Placers, Concrete Finishers and Related Workers",0.1,0.03,Not Exposed
+Carpenters and Joiners,0.13,0.02,Not Exposed
+Building Frame and Related Trades Workers Not Elsewhere Classified,0.09,0.01,Not Exposed
+Roofers,0.13,0.08,Not Exposed
+Floor Layers and Tile Setters,0.1,0.02,Not Exposed
+Plasterers,0.11,0.01,Not Exposed
+Insulation Workers,0.13,0.02,Not Exposed
+Glaziers,0.14,0.0,Not Exposed
+Plumbers and Pipe Fitters,0.18,0.1,Not Exposed
+Air Conditioning and Refrigeration Mechanics,0.21,0.11,Not Exposed
+Painters and Related Workers,0.13,0.04,Not Exposed
+Spray Painters and Varnishers,0.12,0.0,Not Exposed
+Building Structure Cleaners,0.09,0.01,Not Exposed
+Metal Moulders and Coremakers,0.13,0.01,Not Exposed
+Welders and Flame Cutters,0.13,0.05,Not Exposed
+Sheet Metal Workers,0.21,0.09,Not Exposed
+Structural Metal Preparers and Erectors,0.11,0.02,Not Exposed
+Riggers and Cable Splicers,0.13,0.03,Not Exposed
+"Blacksmiths, Hammersmiths and Forging Press Workers",0.17,0.05,Not Exposed
+Toolmakers and Related Workers,0.2,0.1,Not Exposed
+Metal Working Machine Tool Setters and  Operators,0.18,0.05,Not Exposed
+"Metal Polishers, Wheel Grinders and Tool Sharpeners",0.17,0.05,Not Exposed
+Motor Vehicle Mechanics and Repairers,0.18,0.04,Not Exposed
+Aircraft Engine Mechanics and Repairers,0.19,0.07,Not Exposed
+Agricultural and Industrial Machinery Mechanics and Repairers,0.17,0.04,Not Exposed
+Bicycle and Related Repairers,0.13,0.02,Not Exposed
+Precision-instrument Makers and Repairers,0.21,0.08,Not Exposed
+Musical Instrument Makers and Tuners,0.14,0.02,Not Exposed
+Jewellery and Precious Metal Workers,0.18,0.05,Not Exposed
+Potters and Related Workers,0.18,0.07,Not Exposed
+"Glass Makers, Cutters, Grinders and Finishers",0.19,0.06,Not Exposed
+"Sign Writers, Decorative Painters, Engravers and Etchers",0.18,0.08,Not Exposed
+"Handicraft Workers in Wood, Basketry and Related Materials",0.14,0.01,Not Exposed
+"Handicraft Workers in Textile, Leather and Related Materials",0.13,0.03,Not Exposed
+Pre-press Technicians,0.38,0.22,Gradient 1
+Printers,0.25,0.11,Not Exposed
+Print Finishing and Binding Workers,0.22,0.09,Not Exposed
+Building and Related Electricians,0.19,0.06,Not Exposed
+Electrical Mechanics and Fitters,0.17,0.05,Not Exposed
+Electrical Line Installers and Repairers,0.15,0.08,Not Exposed
+Electronics Mechanics and Servicers,0.25,0.13,Not Exposed
+Information and Communications Technology Installers and Servicers,0.24,0.14,Not Exposed
+"Butchers, Fishmongers and Related Food Preparers",0.13,0.03,Not Exposed
+"Bakers, Pastry-cooks and Confectionery Makers",0.17,0.08,Not Exposed
+Dairy Products Makers,0.22,0.17,Not Exposed
+"Fruit, Vegetable and Related Preservers",0.15,0.04,Not Exposed
+Food and Beverage Tasters and Graders,0.31,0.16,Minimal Exposure
+Tobacco Preparers and Tobacco Products Makers,0.14,0.06,Not Exposed
+Wood Treaters,0.22,0.15,Not Exposed
+Cabinet-makers and Related Workers,0.16,0.06,Not Exposed
+Woodworking Machine Tool Setters and Operators,0.22,0.16,Not Exposed
+"Tailors, Dressmakers, Furriers and Hatters",0.15,0.05,Not Exposed
+Garment and Related Patternmakers and Cutters,0.17,0.04,Not Exposed
+"Sewing, Embroidery and Related Workers",0.12,0.02,Not Exposed
+Upholsterers and Related Workers,0.18,0.09,Not Exposed
+"Pelt Dressers, Tanners and Fellmongers",0.11,0.03,Not Exposed
+Shoemakers and Related Workers,0.17,0.06,Not Exposed
+Underwater Divers,0.16,0.09,Not Exposed
+Shotfirers and Blasters,0.12,0.05,Not Exposed
+Product Graders and Testers (except Foods and Beverages),0.31,0.11,Minimal Exposure
+Fumigators and Other Pest and Weed Controllers,0.13,0.04,Not Exposed
+Craft and Related Workers not Elsewhere Classified,0.14,0.01,Not Exposed
+Miners and Quarriers,0.17,0.11,Not Exposed
+Mineral and Stone Processing Plant Operators,0.21,0.1,Not Exposed
+Well Drillers and Borers and Related Workers,0.19,0.12,Not Exposed
+"Cement, Stone and Other Mineral Products Machine Operators",0.23,0.11,Not Exposed
+Metal Processing Plant Operators,0.26,0.1,Not Exposed
+"Metal Finishing, Plating and Coating Machine Operators",0.2,0.04,Not Exposed
+Chemical Products Plant and Machine Operators,0.24,0.07,Not Exposed
+Photographic Products Machine Operators,0.27,0.06,Not Exposed
+Rubber Products Machine Operators,0.18,0.05,Not Exposed
+Plastic Products Machine Operators,0.17,0.05,Not Exposed
+Paper Products Machine Operators,0.18,0.02,Not Exposed
+"Fibre Preparing, Spinning and Winding Machine Operators",0.15,0.02,Not Exposed
+Weaving and Knitting Machine Operators,0.16,0.03,Not Exposed
+Sewing Machine Operators,0.15,0.03,Not Exposed
+"Bleaching, Dyeing and Fabric Cleaning Machine Operators",0.21,0.15,Not Exposed
+Fur and Leather Preparing Machine Operators,0.15,0.02,Not Exposed
+Shoemaking and Related Machine Operators,0.16,0.02,Not Exposed
+Laundry Machine Operators,0.16,0.03,Not Exposed
+"Textile, Fur and Leather Products Machine Operators Not Elsewhere Classified",0.16,0.01,Not Exposed
+Food and Related Products Machine Operators,0.15,0.03,Not Exposed
+Pulp and Papermaking Plant Operators,0.28,0.14,Minimal Exposure
+Wood Processing Plant Operators,0.14,0.05,Not Exposed
+Glass and Ceramics Plant Operators,0.17,0.06,Not Exposed
+Steam Engine and Boiler Operators,0.2,0.04,Not Exposed
+"Packing, Bottling and Labelling Machine Operators",0.22,0.01,Not Exposed
+Mechanical Machinery Assemblers,0.27,0.17,Minimal Exposure
+Electrical and Electronic Equipment Assemblers,0.28,0.19,Minimal Exposure
+Assemblers Not Elsewhere Classified,0.32,0.17,Minimal Exposure
+Locomotive Engine Drivers,0.2,0.08,Not Exposed
+"Railway Brake, Signal and Switch Operators",0.17,0.04,Not Exposed
+Motorcycle Drivers,0.25,0.17,Minimal Exposure
+"Car, Taxi and Van Drivers",0.28,0.23,Gradient 1
+Bus and Tram Drivers,0.18,0.06,Not Exposed
+Heavy Truck and Lorry Drivers,0.24,0.22,Minimal Exposure
+Mobile Farm and Forestry Plant Operators,0.12,0.03,Not Exposed
+Earthmoving and Related Plant Operators,0.13,0.02,Not Exposed
+"Crane, hoist and related plant operators",0.18,0.03,Not Exposed
+Lifting Truck Operators,0.2,0.1,Not Exposed
+Ships' Deck Crews and Related Workers,0.14,0.02,Not Exposed
+Domestic Cleaners and Helpers,0.14,0.08,Not Exposed
+"Cleaners and Helpers in Offices, Hotels and Other Establishments",0.12,0.02,Not Exposed
+Hand Launderers and Pressers,0.14,0.03,Not Exposed
+Vehicle Cleaners,0.09,0.01,Not Exposed
+Window Cleaners,0.11,0.03,Not Exposed
+Other Cleaning Workers,0.1,0.01,Not Exposed
+Crop Farm Labourers,0.09,0.02,Not Exposed
+Livestock Farm Labourers,0.12,0.03,Not Exposed
+Mixed Crop and Livestock Farm Labourers,0.11,0.03,Not Exposed
+Garden and Horticultural Labourers,0.12,0.02,Not Exposed
+Forestry Labourers,0.09,0.02,Not Exposed
+Fishery and Aquaculture Labourers,0.11,0.03,Not Exposed
+Mining and Quarrying Labourers,0.11,0.02,Not Exposed
+Civil Engineering Labourers,0.09,0.02,Not Exposed
+Building Construction Labourers,0.09,0.02,Not Exposed
+Hand Packers,0.2,0.05,Not Exposed
+Manufacturing Labourers Not Elsewhere Classified,0.12,0.02,Not Exposed
+Hand and Pedal Vehicle Drivers,0.21,0.08,Not Exposed
+Drivers of Animal-drawn Vehicles and Machinery,0.13,0.08,Not Exposed
+Freight Handlers,0.14,0.03,Not Exposed
+Shelf Fillers,0.2,0.1,Not Exposed
+Fast Food Preparers,0.18,0.05,Not Exposed
+Kitchen Helpers,0.13,0.02,Not Exposed
+Street and Related Service Workers,0.18,0.09,Not Exposed
+Street Vendors (excluding Food),0.2,0.1,Not Exposed
+Garbage and Recycling Collectors,0.09,0.02,Not Exposed
+Refuse Sorters,0.18,0.11,Not Exposed
+Sweepers and Related Labourers,0.09,0.03,Not Exposed
+"Messengers, Package Deliverers and Luggage Porters",0.37,0.19,Gradient 1
+Odd Job Persons,0.11,0.03,Not Exposed
+Meter Readers and Vending-machine Collectors,0.38,0.21,Gradient 1
+Water and Firewood Collectors,0.09,0.03,Not Exposed
+Elementary Workers Not Elsewhere Classified,0.29,0.14,Minimal Exposure

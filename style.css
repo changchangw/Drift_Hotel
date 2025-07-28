@@ -228,3 +228,12 @@
   transition: opacity 0.4s ease;
 }
 
+#dialogue-box2 {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  max-width: 1000px;
+  z-index: 999;
+}

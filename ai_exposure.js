@@ -9,6 +9,21 @@ chartRenderers[5] = function(titleText, dataPath, chartArea) {
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
 
+  let hasShownChart5Dialogue = false;
+
+  function showChart5DialogueImage() {
+    if (hasShownChart5Dialogue) return;
+    hasShownChart5Dialogue = true;
+
+    const img = document.getElementById("dialogue-box2");
+    if (img) {
+      img.style.display = "block";
+      document.addEventListener("click", () => {
+        img.style.display = "none";
+      }, { once: true });
+    }
+  }
+
   return new Promise(resolve => {
     d3.csv(dataPath).then(data => {
       const svg = chartArea.append("svg")
@@ -28,7 +43,7 @@ chartRenderers[5] = function(titleText, dataPath, chartArea) {
       const y = d3.scaleBand()
         .domain(groups)
         .range([0, innerHeight])
-        .padding(0.55); // 跟chart4一致
+        .padding(0.55);
 
       const x = d3.scaleLinear()
         .domain([0, 100])
@@ -36,7 +51,6 @@ chartRenderers[5] = function(titleText, dataPath, chartArea) {
 
       const stackedData = d3.stack().keys(subgroups)(data);
 
-      // ✅ tooltip 层级提升
       const tooltip = d3.select("body")
         .append("div")
         .attr("class", "bar-tooltip")
@@ -59,14 +73,11 @@ chartRenderers[5] = function(titleText, dataPath, chartArea) {
       function handleBarHover(labelClass, labelOriginal) {
         d3.selectAll(".stack-bar").attr("opacity", 0.2);
         d3.selectAll(`.bar-${labelClass}`).attr("opacity", 1);
-      
         d3.selectAll(".y-axis-label")
-          .filter(d => d === labelOriginal) // ✅ 用原始标签匹配
+          .filter(d => d === labelOriginal)
           .style("font-weight", "bold");
       }
-      
 
-      // ✅ 绘制堆叠条形图
       g.append("g")
         .selectAll("g")
         .data(stackedData)
@@ -90,25 +101,26 @@ chartRenderers[5] = function(titleText, dataPath, chartArea) {
             .style("top", event.pageY - 10 + "px")
             .style("display", "block")
             .html(`<strong>${subgroup}</strong>: ${(d[1] - d[0]).toFixed(1)}%`);
+
+          // ✅ 触发对话切图
+          showChart5DialogueImage();
         })
         .on("mouseout", () => {
           tooltip.style("display", "none");
           resetAllStyles();
         });
 
-      // ✅ Y轴：支持换行 & 右对齐
       const yAxis = g.append("g").call(d3.axisLeft(y));
 
       yAxis.selectAll("text")
         .attr("class", "y-axis-label")
-        .attr("dy", "0.35em") // ✅ 1️⃣ 垂直居中
+        .attr("dy", "0.35em")
         .style("font-family", "'Courier New', monospace")
         .style("font-size", "13px")
         .style("fill", "#000")
         .style("text-anchor", "end")
         .call(wrapText, 240);
 
-      // X轴
       g.append("g")
         .attr("transform", `translate(0,${innerHeight})`)
         .call(d3.axisBottom(x).ticks(5).tickFormat(d => d + "%"))
@@ -116,7 +128,6 @@ chartRenderers[5] = function(titleText, dataPath, chartArea) {
         .style("font-size", "12px")
         .style("font-family", "'Courier New', monospace");
 
-      // ✅ 图例：不等宽排列 + tooltip 全称
       const legend = svg.append("g")
         .attr("transform", `translate(${width - 490}, 10)`)
         .style("font-family", "'Courier New', monospace");
@@ -163,20 +174,20 @@ chartRenderers[5] = function(titleText, dataPath, chartArea) {
     function wrapText(texts, width) {
       texts.each(function () {
         const text = d3.select(this);
-        const words = text.text().split(/\s+/).reverse(); // ✅ 修复这里
+        const words = text.text().split(/\s+/).reverse();
         let word;
         let line = [];
         let lineNumber = 0;
         const lineHeight = 1.1;
-        const yPos = +text.attr("y") || 0; // ✅ 使用 text 元素原本的 y 值
+        const yPos = +text.attr("y") || 0;
         const dy = 0;
-    
+
         let tspan = text.text(null)
           .append("tspan")
           .attr("x", -10)
           .attr("y", yPos)
           .attr("dy", `${dy}em`);
-    
+
         while (word = words.pop()) {
           line.push(word);
           tspan.text(line.join(" "));
@@ -193,6 +204,224 @@ chartRenderers[5] = function(titleText, dataPath, chartArea) {
         }
       });
     }
-    
   });
 };
+
+
+chartRenderers[6] = function(titleText, dataPath, chartArea) {
+  const width = 700;
+  const height = 428;
+  const margin = { top: 40, right: 30, bottom: 50, left: 60 };
+  const innerWidth = width - margin.left - margin.right;
+  const innerHeight = height - margin.top - margin.bottom;
+
+  const colorMap = {
+    "Not Exposed": "#d5d4c5",
+    "Minimal Exposure": "#7da273",
+    "Gradient 1": "#4b89c1",
+    "Gradient 2": "#1f4e79",
+    "Gradient 3": "#a07b3b",
+    "Gradient 4": "#943434"
+  };
+
+  const shapeMap = {
+    "Not Exposed": d3.symbolCross,
+    "Minimal Exposure": d3.symbolCircle,
+    "Gradient 1": d3.symbolSquare,
+    "Gradient 2": d3.symbolTriangle,
+    "Gradient 3": d3.symbolDiamond,
+    "Gradient 4": d3.symbolCircle
+  };
+
+  const labelMap = {
+    "Not Exposed": "Not Exposed",
+    "Minimal Exposure": "Minimal Exposure",
+    "Gradient 1": "Low Exposure",
+    "Gradient 2": "Moderate Exposure",
+    "Gradient 3": "High Exposure",
+    "Gradient 4": "Very High Exposure"
+  };
+
+  const tooltipMap = {
+    "Not Exposed": "Very low exposure to AI",
+    "Minimal Exposure": "Minor AI involvement in tasks",
+    "Gradient 1": "Low exposure: Some tasks can be augmented",
+    "Gradient 2": "Moderate exposure to AI",
+    "Gradient 3": "High exposure: Tasks may be significantly altered",
+    "Gradient 4": "Very high exposure: Tasks are highly automatable"
+  };
+
+  return new Promise(resolve => {
+    d3.csv(dataPath).then(data => {
+      data.forEach(d => {
+        d.mean_score_2025 = +d.mean_score_2025;
+        d.SD_2025 = +d.SD_2025;
+      });
+
+      const svg = chartArea.append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+      const g = svg.append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+      const x = d3.scaleLinear()
+        .domain([0, d3.max(data, d => d.mean_score_2025) + 0.05])
+        .range([0, innerWidth]);
+
+      const y = d3.scaleLinear()
+        .domain([0, d3.max(data, d => d.SD_2025) + 0.02])
+        .range([innerHeight, 0]);
+
+      const symbol = d3.symbol().size(60);
+
+      // Tooltip
+      const tooltip = d3.select("body").append("div")
+        .attr("class", "scatter-tooltip")
+        .style("position", "absolute")
+        .style("z-index", "9999")
+        .style("background", "#2a2a2a")
+        .style("color", "#fff")
+        .style("padding", "6px 10px")
+        .style("font-size", "13px")
+        .style("font-family", "'Courier New', monospace")
+        .style("border-radius", "6px")
+        .style("display", "none")
+        .style("pointer-events", "none");
+
+      const dots = g.selectAll("path")
+        .data(data)
+        .join("path")
+        .attr("transform", d => `translate(${x(d.mean_score_2025)},${y(d.SD_2025)})`)
+        .attr("d", d => symbol.type(shapeMap[d.Exposure])())
+        .attr("fill", d => colorMap[d.Exposure])
+        .attr("class", d => `dot-${d.Exposure.replace(/\s/g, "-")}`)
+        .attr("opacity", 0.9)
+        .on("mouseover", function(event, d) {
+          tooltip
+            .style("left", event.pageX + 10 + "px")
+            .style("top", event.pageY - 10 + "px")
+            .style("display", "block")
+            .html(`<strong>${d.Title}</strong><br>${tooltipMap[d.Exposure]}`);
+        
+          d3.select(this)
+            .transition()
+            .duration(100)
+            .attr("d", d3.symbol().type(shapeMap[d.Exposure]).size(150)()); // 放大
+        })
+        .on("mouseout", function(event, d) {
+          tooltip.style("display", "none");
+        
+          d3.select(this)
+            .transition()
+            .duration(100)
+            .attr("d", d3.symbol().type(shapeMap[d.Exposure]).size(60)()); // 恢复默认大小
+        });
+
+      // X Axis
+      g.append("g")
+        .attr("transform", `translate(0,${innerHeight})`)
+        .call(d3.axisBottom(x).ticks(6))
+        .selectAll("text")
+        .style("font-size", "12px")
+        .style("font-family", "'Courier New', monospace");
+
+      // Y Axis
+      g.append("g")
+        .call(d3.axisLeft(y).ticks(6))
+        .selectAll("text")
+        .style("font-size", "12px")
+        .style("font-family", "'Courier New', monospace");
+
+      // Axis labels with hover explanations
+      svg.append("text")
+        .attr("x", margin.left + innerWidth / 2)
+        .attr("y", height - 5)
+        .attr("text-anchor", "middle")
+        .text("AI Compatibility (mean task score)")
+        .style("font-family", "'Courier New', monospace")
+        .style("font-size", "12px")
+        .on("mouseover", function(event) {
+          tooltip
+            .style("left", event.pageX + 10 + "px")
+            .style("top", event.pageY - 10 + "px")
+            .style("display", "block")
+            .html("Jobs further to the right involve tasks AI can easily handle.");
+        })
+        .on("mouseout", function() {
+          tooltip.style("display", "none");
+        });        
+
+      svg.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("x", -height / 2)
+        .attr("y", 15)
+        .attr("text-anchor", "middle")
+        .text("Task Diversity (standard deviation)")
+        .style("font-family", "'Courier New', monospace")
+        .style("font-size", "12px")
+        .on("mouseover", function(event) {
+          tooltip
+            .style("left", event.pageX + 10 + "px")
+            .style("top", event.pageY - 10 + "px")
+            .style("display", "block")
+            .html("Jobs higher up are more varied and harder to generalize.");
+        })
+        .on("mouseout", function() {
+          tooltip.style("display", "none");
+        });        
+
+      // Legend with highlight interaction
+      const legend = svg.append("g")
+        .attr("transform", `translate(${width - 160}, 10)`)
+        .style("font-family", "'Courier New', monospace");
+
+      const exposureTypes = Object.keys(colorMap);
+      exposureTypes.forEach((key, i) => {
+        const gL = legend.append("g")
+          .attr("transform", `translate(0, ${i * 22})`)
+          .style("cursor", "pointer")
+          .on("mouseover", function(event) {
+            tooltip
+              .style("left", event.pageX + 12 + "px")
+              .style("top", event.pageY - 10 + "px")
+              .style("display", "block")
+              .html(`<strong>${labelMap[key]}</strong><br>${tooltipMap[key]}`);
+          
+            // 图中其他点暗淡
+            d3.selectAll("path").attr("opacity", 0.1);
+            d3.selectAll(`.dot-${key.replace(/\s/g, "-")}`).attr("opacity", 1);
+          
+            // 图例高亮
+            d3.select(this).select("text").style("font-weight", "bold");
+            d3.select(this).select("path").attr("opacity", 1); // 保持图例色块不淡出
+          })
+          .on("mouseout", function() {
+            tooltip.style("display", "none");
+          
+            // 恢复所有点
+            d3.selectAll("path").attr("opacity", 0.9);
+          
+            // 图例恢复
+            d3.select(this).select("text").style("font-weight", "normal");
+            d3.select(this).select("path").attr("opacity", 1); // 再次显式设置
+          });
+          
+
+        gL.append("path")
+          .attr("d", d3.symbol().type(shapeMap[key]).size(50)())
+          .attr("fill", colorMap[key])
+          .attr("transform", "translate(0, 6)");
+
+        gL.append("text")
+          .attr("x", 15)
+          .attr("y", 10)
+          .text(labelMap[key])
+          .style("font-size", "12px");
+      });
+
+      resolve();
+    });
+  });
+};
+
