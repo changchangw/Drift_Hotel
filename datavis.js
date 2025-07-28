@@ -22,7 +22,14 @@ const chartConfigs = [
     chartType: 4,
     dataPath: "assets/chapter2/fig_8.1.8_cleaned.csv",
     source: "Source: Artificial Intelligence Index Report 2025"
+  },
+  {
+    title: "How often do different occupations use GenAI tools?",
+    chartType: 5,
+    dataPath: "assets/chapter2/genai_usage_by_occupation.csv",
+    source: "Source: ILO Working Paper – Generative AI and Jobs, 2024"
   }
+  
   
   // 可继续添加更多图表
 ];

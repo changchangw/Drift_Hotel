@@ -356,13 +356,27 @@ const chartRenderers = {
         if (!hasShownDialogue) {
           showDialogueBox();
           hasShownDialogue = true;
-          
           // ✅ 添加点击监听，只触发一次
           document.addEventListener("click", hideDialogueBox, { once: true });
         }
       }      
   
       d3.csv(dataPath).then(data => {
+        // ✅ 生成 tooltip 元素（只执行一次）
+        const tooltip = d3.select("body")
+        .append("div")
+        .attr("id", "generation-tooltip")
+        .style("position", "absolute")
+        .style("z-index", "10000")
+        .style("background", "rgba(0, 0, 0, 0.75)")
+        .style("color", "#fff")
+        .style("padding", "6px 10px")
+        .style("border-radius", "6px")
+        .style("font-size", "13px")
+        .style("font-family", "'Courier New', monospace")
+        .style("pointer-events", "none")
+        .style("display", "none");
+
         data.forEach(d => {
           d["2023"] = +d["2023"];
           d["2024"] = +d["2024"];
@@ -411,7 +425,6 @@ const chartRenderers = {
           d3.selectAll(".bar").attr("opacity", 0.2);
           d3.select(thisBar)
             .attr("opacity", 1)
-            .attr("fill", getHighlightColor(d3.select(thisBar).attr("fill")));
   
           d3.selectAll(".y-axis-label")
             .filter(label => label === generation)
@@ -428,7 +441,32 @@ const chartRenderers = {
           .attr("class", "y-axis-label")
           .style("font-family", "'Courier New', monospace")
           .style("font-size", "14px")
-          .style("fill", "#000");
+          .style("fill", "#000")
+          .on("mouseover", function(event, label) {
+            const generationBirthYears = {
+              "Gen Z": "Born 1997–2012",
+              "Millennial": "Born 1981–1996",
+              "Gen X": "Born 1965–1980",
+              "Baby boomer": "Born 1946–1964"
+            };
+
+            const tooltipText = generationBirthYears[label] || "";
+
+            tooltip
+              .style("left", (event.pageX + 10) + "px")
+              .style("top", (event.pageY - 20) + "px")
+              .style("display", "block")
+              .html(`<strong>${label}</strong><br>${tooltipText}`);
+          })
+          .on("mousemove", function(event) {
+            tooltip
+              .style("left", (event.pageX + 10) + "px")
+              .style("top", (event.pageY - 20) + "px");
+          })
+          .on("mouseout", function() {
+            tooltip.style("display", "none");
+          });
+
   
         g.selectAll("line.bg-line")
           .data(generations)
@@ -454,8 +492,23 @@ const chartRenderers = {
             resetAllStyles();
             handleBarHover(this, "2023", d.Generation);
             showDialogue();
+          
+            tooltip
+              .style("left", (event.pageX + 10) + "px")
+              .style("top", (event.pageY - 20) + "px")
+              .style("display", "block")
+              .html(`<strong>${d.Generation}</strong><br>2023: ${d["2023"]}%`);
           })
-          .on("mouseout", resetAllStyles);
+          .on("mousemove", function(event) {
+            tooltip
+              .style("left", (event.pageX + 10) + "px")
+              .style("top", (event.pageY - 20) + "px");
+          })
+          .on("mouseout", function() {
+            resetAllStyles();
+            tooltip.style("display", "none");
+          });
+          
   
         // ✅ 2024 条
         g.selectAll("rect.bar-2024")
@@ -471,8 +524,23 @@ const chartRenderers = {
             resetAllStyles();
             handleBarHover(this, "2024", d.Generation);
             showDialogue();
+          
+            tooltip
+              .style("left", (event.pageX + 10) + "px")
+              .style("top", (event.pageY - 20) + "px")
+              .style("display", "block")
+              .html(`<strong>${d.Generation}</strong><br>2024: ${d["2024"]}%`);
           })
-          .on("mouseout", resetAllStyles);
+          .on("mousemove", function(event) {
+            tooltip
+              .style("left", (event.pageX + 10) + "px")
+              .style("top", (event.pageY - 20) + "px");
+          })
+          .on("mouseout", function() {
+            resetAllStyles();
+            tooltip.style("display", "none");
+          });
+          
   
         // ✅ 数值标签（使用对应颜色）
         g.selectAll("text.label-2023")
@@ -499,21 +567,18 @@ const chartRenderers = {
   
         // ✅ 图例 → 右上角 + 间距24px，悬浮高亮
         const legend = svg.append("g")
-          .attr("transform", `translate(${width - 180}, 12)`);
+          .attr("transform", `translate(${width - 180}, 12)`); //图例位置
   
         ["2023", "2024"].forEach((key, i) => {
           const baseColor = color(key);
           const group = legend.append("g")
-            .attr("transform", `translate(${i * 90 }, 0)`)
+            .attr("transform", `translate(${i * 80 }, 0)`) //图例间距
             .style("cursor", "pointer")
             .on("mouseover", () => {
               d3.selectAll(".bar").attr("opacity", 0.2);
               d3.selectAll(`.bar-${key}`)
-                .attr("fill", d => getHighlightColor(baseColor))
                 .attr("opacity", 1);
               d3.selectAll(`.label-${key}`).style("font-weight", "bold");
-              d3.select(`#legend-rect-${key}`)
-                .attr("fill", getHighlightColor(baseColor));
               d3.select(`#legend-text-${key}`)
                 .style("font-weight", "bold");
             })
