@@ -642,16 +642,16 @@ chartRenderers[8] = function(titleText, dataPath, chartArea) {
   const height = 720;
 
   const skillBg = {
-    x: 10,
+    x: 30,
     y: 160,
-    width: 688,
-    height: 419
+    width: 643,
+    height: 397
   };
 
   const cards = [
     {
       label: "Medium skill",
-      x: 140,
+      x: 200,
       y: 160,
       image: "assets/chapter2/medium_skill.png",
       color: "#943533",
@@ -659,8 +659,8 @@ chartRenderers[8] = function(titleText, dataPath, chartArea) {
     },
     {
       label: "High skill",
-      x: 110,
-      y: 310,
+      x: 150,
+      y: 300,
       image: "assets/chapter2/high skill.png",
       color: "#A07B3B",
       tooltip: "22.2% medium exposure + 13.1% high exposure"
@@ -713,17 +713,17 @@ chartRenderers[8] = function(titleText, dataPath, chartArea) {
       const rect = group.append("rect")
         .attr("x", 0)
         .attr("y", 0)
-        .attr("width", 568)
-        .attr("height", 130)
+        .attr("width", 500)
+        .attr("height", 120)
         .attr("rx", 14)
         .attr("fill", card.color)
-        .attr("opacity", 1);
+        .attr("opacity", 0.95);
 
       const image = group.append("image")
         .attr("href", card.image)
-        .attr("width", 520)
-        .attr("height", 100)
-        .attr("x", 24)
+        .attr("width", 420)
+        .attr("height", 85)
+        .attr("x", 40)
         .attr("y", 15);
 
       group.on("mouseover", function (event) {
