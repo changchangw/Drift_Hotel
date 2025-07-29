@@ -40,7 +40,14 @@ const chartConfigs = [
     chartType: 7,
     dataPath: "assets/chapter2/fig_20_by_income.csv",
     source: "Source: Generative AI and Jobs, 2025"
+  },
+  {
+    title: "AI Exposure by Skill Level",
+    chartType: 8,
+    dataPath: "", // 此图无需CSV数据，可设为""
+    source: "Source: ILO Harmonized Microdata collection and Gmyrek et al. (2025) occupational AI exposure measure"
   }
+  
 ];
 
 function showDialogueBox() {

@@ -2,6 +2,23 @@ if (!window.chartRenderers) {
   window.chartRenderers = {};
 }
 
+// 通用对话框显示/隐藏函数
+function showDialogueBoxById(id) {
+  const box = document.getElementById(id);
+  if (!box) return;
+  box.style.display = "block";
+  void box.offsetWidth;
+  box.style.opacity = "1";
+}
+function hideDialogueBoxById(id) {
+  const box = document.getElementById(id);
+  if (!box) return;
+  box.style.opacity = "0";
+  setTimeout(() => {
+    box.style.display = "none";
+  }, 400);
+}
+
 chartRenderers[5] = function(titleText, dataPath, chartArea) {
   const width = 700;
   const height = 428;
@@ -14,14 +31,8 @@ chartRenderers[5] = function(titleText, dataPath, chartArea) {
   function showChart5DialogueImage() {
     if (hasShownChart5Dialogue) return;
     hasShownChart5Dialogue = true;
-
-    const img = document.getElementById("dialogue-box2");
-    if (img) {
-      img.style.display = "block";
-      document.addEventListener("click", () => {
-        img.style.display = "none";
-      }, { once: true });
-    }
+    showDialogueBoxById("dialogue-box2");
+    document.addEventListener("click", () => hideDialogueBoxById("dialogue-box2"), { once: true });
   }
 
   return new Promise(resolve => {
@@ -626,5 +637,125 @@ chartRenderers[7] = function(titleText, dataPath, chartArea, gender = "Total") {
   });
 };
 
+chartRenderers[8] = function(titleText, dataPath, chartArea) {
+  const width = 1280;
+  const height = 720;
+
+  const skillBg = {
+    x: 10,
+    y: 160,
+    width: 688,
+    height: 419
+  };
+
+  const cards = [
+    {
+      label: "Medium skill",
+      x: 140,
+      y: 160,
+      image: "assets/chapter2/medium_skill.png",
+      color: "#943533",
+      tooltip: "25.8% medium exposure + 12.3% high exposure"
+    },
+    {
+      label: "High skill",
+      x: 110,
+      y: 310,
+      image: "assets/chapter2/high skill.png",
+      color: "#A07B3B",
+      tooltip: "22.2% medium exposure + 13.1% high exposure"
+    }
+  ];
+
+  return new Promise(resolve => {
+    const svg = chartArea.append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+    // ✅ 添加：独白控制变量和函数
+    let hasShownDialogue3 = false;
+    function showChart8DialogueImage() {
+      if (hasShownDialogue3) return;
+      hasShownDialogue3 = true;
+      showDialogueBoxById("dialogue-box3");
+      document.addEventListener("click", () => hideDialogueBoxById("dialogue-box3"), { once: true });
+    }
+
+    // 背景底图（包含 low skill）
+    svg.append("image")
+      .attr("href", "assets/chapter2/skill_level_bg.png")
+      .attr("x", skillBg.x)
+      .attr("y", skillBg.y)
+      .attr("width", skillBg.width)
+      .attr("height", skillBg.height);
+
+    // tooltip
+    const tooltip = d3.select("body")
+      .append("div")
+      .attr("class", "chart8-tooltip")
+      .style("position", "absolute")
+      .style("z-index", "9999")
+      .style("background", "#2a2a2a")
+      .style("color", "#fff")
+      .style("padding", "6px 10px")
+      .style("font-size", "13px")
+      .style("font-family", "'Courier New', monospace")
+      .style("border-radius", "6px")
+      .style("display", "none")
+      .style("pointer-events", "none");
+
+    // 卡片层（含背景 + 切图）
+    cards.forEach(card => {
+      const group = svg.append("g")
+        .attr("transform", `translate(${card.x}, ${card.y})`)
+        .style("cursor", "default");
+
+      const rect = group.append("rect")
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("width", 568)
+        .attr("height", 130)
+        .attr("rx", 14)
+        .attr("fill", card.color)
+        .attr("opacity", 1);
+
+      const image = group.append("image")
+        .attr("href", card.image)
+        .attr("width", 520)
+        .attr("height", 100)
+        .attr("x", 24)
+        .attr("y", 15);
+
+      group.on("mouseover", function (event) {
+        group.transition().duration(150).attr("transform", `translate(${card.x - 4}, ${card.y - 4})`);
+        rect.transition().duration(150).attr("fill", d3.color(card.color).brighter(0.5));
+        tooltip
+          .style("left", event.pageX + 12 + "px")
+          .style("top", event.pageY - 10 + "px")
+          .style("display", "block")
+          .html(`<strong>${card.label}</strong><br>${card.tooltip}`);
+
+        // ✅ 添加：首次悬浮触发 dialogue3 显示
+        showChart8DialogueImage();
+      });
+
+      group.on("mouseout", function () {
+        group.transition().duration(150).attr("transform", `translate(${card.x}, ${card.y})`);
+        rect.transition().duration(150).attr("fill", card.color);
+        tooltip.style("display", "none");
+      });
+    });
+
+    // 光照图层放在最顶层
+    svg.append("image")
+      .attr("href", "assets/chapter2/light.png")
+      .attr("x", 140)
+      .attr("y", 126)
+      .attr("width", 432)
+      .attr("height", 180);
+
+    resolve();
+  });
+};
 
 

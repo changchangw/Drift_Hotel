@@ -185,17 +185,7 @@
   word-break: break-word;
 }
 
-#datavis-tabs {
-  position: absolute;
-  bottom: 110px; /* 图表下方留空 */
-  left: 42%;
-  transform: translateX(-50%);
-  z-index: 3;
-  display: flex;
-  gap: 14px;
-}
-
-#gender-tabs {
+#datavis-tabs, #gender-tabs {
   position: absolute;
   bottom: 110px; /* 图表下方留空 */
   left: 42%;
@@ -225,7 +215,7 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 
-#dialogue-box {
+#dialogue-box, #dialogue-box2, #dialogue-box3 {
   position: absolute;
   bottom: 30px;
   left: 50%;
@@ -236,14 +226,4 @@
   cursor: pointer;
   opacity: 0;
   transition: opacity 0.4s ease;
-}
-
-#dialogue-box2 {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: auto;
-  max-width: 1000px;
-  z-index: 999;
 }
