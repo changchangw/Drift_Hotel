@@ -648,22 +648,31 @@ chartRenderers[8] = function(titleText, dataPath, chartArea) {
     height: 397
   };
 
+  const cardWidth = 500;
+  const cardHeight = 120;
+  const cardGap = 16;
+
   const cards = [
     {
       label: "Medium skill",
-      x: 200,
-      y: 160,
+      y: skillBg.y,
       image: "assets/chapter2/medium_skill.png",
       color: "#943533",
       tooltip: "25.8% medium exposure + 12.3% high exposure"
     },
     {
       label: "High skill",
-      x: 150,
-      y: 300,
-      image: "assets/chapter2/high skill.png",
+      y: skillBg.y + cardHeight + cardGap,
+      image: "assets/chapter2/high_skill.png",
       color: "#A07B3B",
       tooltip: "22.2% medium exposure + 13.1% high exposure"
+    },
+    {
+      label: "Low skill",
+      y: skillBg.y + (cardHeight + cardGap) * 2,
+      image: "assets/chapter2/low_skill.png",
+      color: "#3B260E",
+      tooltip: "Only 0.8% high or medium exposure"
     }
   ];
 
@@ -671,8 +680,8 @@ chartRenderers[8] = function(titleText, dataPath, chartArea) {
     const svg = chartArea.append("svg")
       .attr("width", width)
       .attr("height", height);
-
-    // ✅ 添加：独白控制变量和函数
+    
+    // ✅ 独白控制逻辑
     let hasShownDialogue3 = false;
     function showChart8DialogueImage() {
       if (hasShownDialogue3) return;
@@ -681,12 +690,12 @@ chartRenderers[8] = function(titleText, dataPath, chartArea) {
       document.addEventListener("click", () => hideDialogueBoxById("dialogue-box3"), { once: true });
     }
 
-    // 背景底图（包含 low skill）
+    // ✅ 左侧箭头图片
     svg.append("image")
-      .attr("href", "assets/chapter2/skill_level_bg.png")
-      .attr("x", skillBg.x)
+      .attr("href", "assets/chapter2/arrow.png")
+      .attr("x", 30)
       .attr("y", skillBg.y)
-      .attr("width", skillBg.width)
+      .attr("width", 104)  // 根据你的图片尺寸调整
       .attr("height", skillBg.height);
 
     // tooltip
@@ -704,18 +713,20 @@ chartRenderers[8] = function(titleText, dataPath, chartArea) {
       .style("display", "none")
       .style("pointer-events", "none");
 
-    // 卡片层（含背景 + 切图）
+    // ✅ 卡片层
+    const cardX = 172;
+
     cards.forEach(card => {
       const group = svg.append("g")
-        .attr("transform", `translate(${card.x}, ${card.y})`)
+        .attr("transform", `translate(${cardX}, ${card.y})`)
         .style("cursor", "default");
 
       const rect = group.append("rect")
         .attr("x", 0)
         .attr("y", 0)
-        .attr("width", 500)
-        .attr("height", 120)
-        .attr("rx", 14)
+        .attr("width", cardWidth)
+        .attr("height", cardHeight)
+        .attr("rx", 8)
         .attr("fill", card.color)
         .attr("opacity", 0.95);
 
@@ -727,7 +738,7 @@ chartRenderers[8] = function(titleText, dataPath, chartArea) {
         .attr("y", 15);
 
       group.on("mouseover", function (event) {
-        group.transition().duration(150).attr("transform", `translate(${card.x - 4}, ${card.y - 4})`);
+        group.transition().duration(150).attr("transform", `translate(${cardX - 4}, ${card.y - 4})`);
         rect.transition().duration(150).attr("fill", d3.color(card.color).brighter(0.5));
         tooltip
           .style("left", event.pageX + 12 + "px")
@@ -735,18 +746,17 @@ chartRenderers[8] = function(titleText, dataPath, chartArea) {
           .style("display", "block")
           .html(`<strong>${card.label}</strong><br>${card.tooltip}`);
 
-        // ✅ 添加：首次悬浮触发 dialogue3 显示
         showChart8DialogueImage();
       });
 
       group.on("mouseout", function () {
-        group.transition().duration(150).attr("transform", `translate(${card.x}, ${card.y})`);
+        group.transition().duration(150).attr("transform", `translate(${cardX}, ${card.y})`);
         rect.transition().duration(150).attr("fill", card.color);
         tooltip.style("display", "none");
       });
     });
 
-    // 光照图层放在最顶层
+    // ✅ 光照图层
     svg.append("image")
       .attr("href", "assets/chapter2/light.png")
       .attr("x", 140)
@@ -757,5 +767,6 @@ chartRenderers[8] = function(titleText, dataPath, chartArea) {
     resolve();
   });
 };
+
 
 

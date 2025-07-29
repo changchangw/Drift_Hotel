@@ -1,3 +1,5 @@
+// script.js
+
 const memoryCollected = {
   room1: false,
   room2: false,

@@ -1,3 +1,5 @@
+// emotion_charts.js
+
 function getHighlightColor(hex, factor = 1.2) {
   const c = d3.color(hex);
   if (!c) return hex;
