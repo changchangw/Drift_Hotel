@@ -61,7 +61,12 @@ const chartConfigs = [
     dataPath: "assets/chapter2/H5_task_characteristics.csv",
     source: "Source: Future of Work with AI Agents: Auditing Automation and Augmentation Potential across the U.S. Workforce, 2025"
   },
-  
+  {
+    title: "Core skills in 2030",
+    chartType: 11,
+    dataPath: "assets/chapter2/core_skills_2030.csv",
+    source: "Source: Future of Jobs Report, 2025"
+  },
   {
     title: "The shifting human-machine frontier (2025–2030)",
     chartType: 12,

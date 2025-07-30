@@ -310,6 +310,280 @@ chartRenderers[10] = function(titleText, dataPath, chartArea) {
   });
 };
 
+chartRenderers[11] = function(titleText, dataPath, chartArea) {
+  return new Promise(resolve => {
+    d3.csv(dataPath).then(data => {
+      const width = 720;
+      const height = 428;
+      const margin = { top: 20, right: 30, bottom: 140, left: 60 };
+      const innerWidth = width - margin.left - margin.right;
+      const innerHeight = height - margin.top - margin.bottom;
+
+      // 颜色映射 - 保持合适饱和度，拉开色阶
+      const colorMap = {
+        "Cognitive skills": "#2E5A88",
+        "Engagement skills": "#8B4513", 
+        "Ethics": "#1B4D3E",
+        "Physical abilities": "#8B0000",
+        "Self-efficacy": "#5D4E75",
+        "Technology skills": "#2E2A5A",
+        "Management skills": "#B8860B",
+        "Working with others": "#8B5A8B"
+      };
+
+      // 象限标签 - 黑色文字
+      const quadrants = [
+        { x: 0.75, y: 0.25, text: "Core skills\nin 2030", color: "#000000" },
+        { x: 0.25, y: 0.25, text: "Emerging\nskills", color: "#000000" },
+        { x: 0.75, y: 0.75, text: "Steady\nskills", color: "#000000" },
+        { x: 0.25, y: 0.75, text: "Out of focus\nskills", color: "#000000" }
+      ];
+
+      const svg = chartArea.append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+      const g = svg.append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+      // 数据预处理
+      data.forEach(d => {
+        d["Core in 2025 (%)"] = +d["Core in 2025 (%)"];
+        d["Expected increase in 2030 (%)"] = +d["Expected increase in 2030 (%)"];
+      });
+
+      // 比例尺
+      const x = d3.scaleLinear()
+        .domain([0, 80])
+        .range([0, innerWidth]);
+
+      const y = d3.scaleLinear()
+        .domain([0, 100])
+        .range([innerHeight, 0]);
+
+      // 分割线
+      const xThreshold = 38.5;
+      const yThreshold = 50;
+
+      // 象限背景块
+      const quadrantBackgrounds = [
+        { x: 0, y: 0, width: x(xThreshold), height: y(yThreshold), fill: "rgba(255, 140, 0, 0.1)" }, // 左下
+        { x: x(xThreshold), y: 0, width: innerWidth - x(xThreshold), height: y(yThreshold), fill: "rgba(34, 139, 34, 0.1)" }, // 右下
+        { x: 0, y: y(yThreshold), width: x(xThreshold), height: innerHeight - y(yThreshold), fill: "rgba(220, 20, 60, 0.1)" }, // 左上
+        { x: x(xThreshold), y: y(yThreshold), width: innerWidth - x(xThreshold), height: innerHeight - y(yThreshold), fill: "rgba(65, 105, 225, 0.1)" } // 右上
+      ];
+
+      // 添加象限背景
+      quadrantBackgrounds.forEach(bg => {
+        g.append("rect")
+          .attr("x", bg.x)
+          .attr("y", bg.y)
+          .attr("width", bg.width)
+          .attr("height", bg.height)
+          .attr("fill", bg.fill);
+      });
+
+      // 垂直分割线
+      g.append("line")
+        .attr("x1", x(xThreshold))
+        .attr("y1", 0)
+        .attr("x2", x(xThreshold))
+        .attr("y2", innerHeight)
+        .attr("stroke", "#999")
+        .attr("stroke-dasharray", "5,5")
+        .attr("stroke-width", 1);
+
+      // 水平分割线
+      g.append("line")
+        .attr("x1", 0)
+        .attr("y1", y(yThreshold))
+        .attr("x2", innerWidth)
+        .attr("y2", y(yThreshold))
+        .attr("stroke", "#999")
+        .attr("stroke-dasharray", "5,5")
+        .attr("stroke-width", 1);
+
+      // 象限标签
+      quadrants.forEach(q => {
+        g.append("text")
+          .attr("x", innerWidth * q.x)
+          .attr("y", innerHeight * q.y)
+          .attr("text-anchor", "middle")
+          .attr("dominant-baseline", "middle")
+          .style("font-family", "Courier New")
+          .style("font-size", "12px")
+          .style("font-weight", "bold")
+          .style("fill", q.color)
+          .text(q.text.split("\n")[0]);
+
+        g.append("text")
+          .attr("x", innerWidth * q.x)
+          .attr("y", innerHeight * q.y + 15)
+          .attr("text-anchor", "middle")
+          .attr("dominant-baseline", "middle")
+          .style("font-family", "Courier New")
+          .style("font-size", "12px")
+          .style("font-weight", "bold")
+          .style("fill", q.color)
+          .text(q.text.split("\n")[1]);
+      });
+
+      // Tooltip
+      const tooltip = d3.select("body")
+        .append("div")
+        .attr("class", "scatter-tooltip")
+        .style("position", "absolute")
+        .style("z-index", "9999")
+        .style("background", "#2a2a2a")
+        .style("color", "#fff")
+        .style("padding", "6px 10px")
+        .style("font-size", "13px")
+        .style("font-family", "'Courier New', monospace")
+        .style("border-radius", "6px")
+        .style("display", "none")
+        .style("pointer-events", "none");
+
+      // 散点
+      g.selectAll("circle")
+        .data(data)
+        .enter()
+        .append("circle")
+        .attr("cx", d => x(d["Core in 2025 (%)"]))
+        .attr("cy", d => y(d["Expected increase in 2030 (%)"]))
+        .attr("r", 6)
+        .attr("fill", d => colorMap[d.Category])
+        .attr("stroke", "#fff")
+        .attr("stroke-width", 1)
+        .attr("opacity", 0.8)
+        .style("cursor", "pointer")
+        .on("mouseover", function(event, d) {
+          d3.select(this)
+            .transition()
+            .duration(200)
+            .attr("r", 8)
+            .attr("opacity", 1);
+
+          tooltip
+            .style("left", event.pageX + 10 + "px")
+            .style("top", event.pageY - 10 + "px")
+            .style("display", "block")
+            .html(`<strong>${d.Skill}</strong><br>
+                   Core in 2025: ${d["Core in 2025 (%)"]}%<br>
+                   Expected increase: ${d["Expected increase in 2030 (%)"]}%<br>
+                   Category: ${d.Category}`);
+        })
+        .on("mouseout", function() {
+          d3.select(this)
+            .transition()
+            .duration(200)
+            .attr("r", 6)
+            .attr("opacity", 0.8);
+
+          tooltip.style("display", "none");
+        });
+
+      // 坐标轴
+      g.append("g")
+        .attr("transform", `translate(0,${innerHeight})`)
+        .call(d3.axisBottom(x).ticks(8).tickFormat(d => d + "%"))
+        .selectAll("text")
+        .style("font-size", "12px")
+        .style("font-family", "'Courier New', monospace");
+
+      g.append("g")
+        .call(d3.axisLeft(y).ticks(10).tickFormat(d => d + "%"))
+        .selectAll("text")
+        .style("font-size", "12px")
+        .style("font-family", "'Courier New', monospace");
+
+      // 轴标签 - 精简文字
+      svg.append("text")
+        .attr("x", margin.left + innerWidth / 2)
+        .attr("y", height - 90)
+        .attr("text-anchor", "middle")
+        .text("Core skill in 2025 (%)")
+        .style("font-family", "'Courier New', monospace")
+        .style("font-size", "12px");
+
+      svg.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("x", -height / 2 + 40)
+        .attr("y", 20)
+        .attr("text-anchor", "middle")
+        .text("Expected increase by 2030 (%)")
+        .style("font-family", "'Courier New', monospace")
+        .style("font-size", "12px");
+
+      // 图例 - 下方，分两行
+      const legend = svg.append("g")
+        .attr("transform", `translate(${margin.left + 20}, ${height - 50})`);
+
+      const categories = Object.keys(colorMap);
+      const firstRow = categories.slice(0, 4);
+      const secondRow = categories.slice(4);
+
+      // 第一行
+      firstRow.forEach((category, i) => {
+        const row = legend.append("g")
+          .attr("transform", `translate(${i * 150}, 0)`)
+          .style("cursor", "pointer")
+          .on("mouseover", function() {
+            // 高亮当前类别
+            g.selectAll("circle")
+              .attr("opacity", d => d.Category === category ? 1 : 0.2);
+            d3.select(this).select("text").style("font-weight", "bold");
+          })
+          .on("mouseout", function() {
+            // 恢复所有点
+            g.selectAll("circle").attr("opacity", 0.8);
+            d3.select(this).select("text").style("font-weight", "normal");
+          });
+
+        row.append("circle")
+          .attr("r", 4)
+          .attr("fill", colorMap[category]);
+
+        row.append("text")
+          .attr("x", 8)
+          .attr("y", 4)
+          .text(category)
+          .style("font-size", "12px")
+          .style("font-family", "'Courier New', monospace");
+      });
+
+      // 第二行
+      secondRow.forEach((category, i) => {
+        const row = legend.append("g")
+          .attr("transform", `translate(${i * 150}, 20)`)
+          .style("cursor", "pointer")
+          .on("mouseover", function() {
+            // 高亮当前类别
+            g.selectAll("circle")
+              .attr("opacity", d => d.Category === category ? 1 : 0.2);
+            d3.select(this).select("text").style("font-weight", "bold");
+          })
+          .on("mouseout", function() {
+            // 恢复所有点
+            g.selectAll("circle").attr("opacity", 0.8);
+            d3.select(this).select("text").style("font-weight", "normal");
+          });
+
+        row.append("circle")
+          .attr("r", 4)
+          .attr("fill", colorMap[category]);
+
+        row.append("text")
+          .attr("x", 8)
+          .attr("y", 4)
+          .text(category)
+          .style("font-size", "12px")
+          .style("font-family", "'Courier New', monospace");
+      });
+
+      resolve();
+    });
+  });
+};
 
 chartRenderers[12] = function(titleText, dataPath, chartArea) {
   let hasShownDialogue4 = false;
@@ -563,5 +837,8 @@ chartRenderers[13] = function(titleText, dataPath, chartArea) {
     resolve();
   });
 };
+
+
+
 
 
