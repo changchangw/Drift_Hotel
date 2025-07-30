@@ -4,7 +4,7 @@ const chartConfigs = [
   {
     title: "Word cloud of public sentiment towards AI by UK Adults",
     chartType: 1,
-    dataPath: "assets/chapter2/wordcloud.csv",
+    dataPath: "assets/chapter2/RTA_PADAI_Tracker_-_Q22_Wave_4_-_Word_frequency.csv",
     source: "Source: Public attitudes to data and AI: Tracker survey (Wave 4) report, 2024"
   },
   {
@@ -48,6 +48,18 @@ const chartConfigs = [
     chartType: 8,
     dataPath: "", // 此图无需CSV数据，可设为""
     source: "Source: ILO Harmonized Microdata collection and Gmyrek et al. (2025) occupational AI exposure measure"
+  },
+  {
+    title: "How humans and AI share the work?",
+    chartType: 9,
+    dataPath: "",
+    source: "Future of Work with AI Agents: Auditing Automation and Augmentation Potential across the U.S. Workforce, 2025"
+  },
+  {
+    title: "The shifting human-machine frontier (2025–2030)",
+    chartType: 10,
+    dataPath: "",  // 无需加载外部数据
+    source: "Future of Jobs Report, 2025"
   }
   
 ];

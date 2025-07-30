@@ -17,13 +17,13 @@ const chartRenderers = {
 
     return new Promise((resolve) => {
       d3.csv(csvPath).then(data => {
-        data.forEach(d => d.estimated_frequency = +d.estimated_frequency);
+        data.forEach(d => d.Count = +d.Count);
 
         d3.layout.cloud()
           .size([width, height])
           .words(data.map(d => ({
-            text: d.word,
-            size: d.estimated_frequency / 4 + 10
+            text: d.Item,
+            size: d.Count / 4 + 10
           })))
           .padding(6)
           .rotate(() => ~~(Math.random() * 2) * 90)

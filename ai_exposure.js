@@ -757,13 +757,13 @@ chartRenderers[8] = function(titleText, dataPath, chartArea) {
     });
 
     // ✅ 光照图层
-    svg.append("image")
+    /*svg.append("image")
       .attr("href", "assets/chapter2/light.png")
       .attr("x", 140)
       .attr("y", 126)
       .attr("width", 432)
       .attr("height", 180);
-
+    */
     resolve();
   });
 };
