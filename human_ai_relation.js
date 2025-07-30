@@ -245,3 +245,108 @@ chartRenderers[10] = function(titleText, dataPath, chartArea) {
   });
 };
 
+chartRenderers[11] = function(titleText, dataPath, chartArea) {
+  return new Promise(resolve => {
+    const width = 720;
+    const height = 400;
+    const margin = { top: 210, right: 40, bottom: 50, left: 180 };
+    const innerWidth = width - margin.left - margin.right;
+    const innerHeight = height - margin.top - margin.bottom;
+
+    const data = [
+      { field: "Arts, Design & Media", value: 17.1 },
+      { field: "Finance & Business", value: 48.8 },
+      { field: "Management", value: 51.1 },
+      { field: "Computer & Math", value: 53.8 }
+    ];
+
+    const svg = chartArea.append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+    const g = svg.append("g")
+      .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    const y = d3.scaleBand()
+      .domain(data.map(d => d.field))
+      .range([0, innerHeight])
+      .padding(0.4); // 更窄的条形图（原来是0.25）
+
+    const x = d3.scaleLinear()
+      .domain([0, 100])
+      .range([0, innerWidth]);
+
+    const color = d => d.field.includes("Arts") ? "#c2765a" : "#3b4b68";
+
+    g.selectAll("rect")
+      .data(data)
+      .enter()
+      .append("rect")
+      .attr("y", d => y(d.field))
+      .attr("x", 0)
+      .attr("height", y.bandwidth())
+      .attr("width", d => x(d.value))
+      .attr("fill", d => color(d));
+
+    // 左轴（领域名）
+    g.append("g")
+      .call(d3.axisLeft(y))
+      .selectAll("text")
+      .style("font-family", "'Courier New', monospace")
+      .style("font-size", "12px");
+
+    // 底部轴（数值刻度）
+    g.append("g")
+      .attr("transform", `translate(0, ${innerHeight})`)
+      .call(d3.axisBottom(x).ticks(5).tickFormat(d => d + "%"))
+      .selectAll("text")
+      .style("font-family", "'Courier New', monospace")
+      .style("font-size", "12px");
+
+    // 添加 x轴标题
+    svg.append("text")
+      .attr("x", margin.left + innerWidth / 2)
+      .attr("y", margin.top + innerHeight + 50)
+      .attr("text-anchor", "middle")
+      .style("font-family", "'Courier New', monospace")
+      .style("font-size", "12px")
+      .text("Automation desire (%)");
+
+    // 数值标签
+    g.selectAll("text.value-label")
+      .data(data)
+      .enter()
+      .append("text")
+      .attr("class", "value-label")
+      .attr("x", d => x(d.value) + 6)
+      .attr("y", d => y(d.field) + y.bandwidth() / 2 + 4)
+      .text(d => `${d.value}%`)
+      .style("font-family", "'Courier New', monospace")
+      .style("font-size", "12px");
+
+    d3.select("#arts-description").remove(); // ✅ 先移除旧的
+
+    // ✅ 添加下方解释文字（上下结构）
+    d3.select("#datavis-container")
+      .append("div")
+      .attr("id", "arts-description")
+      .style("margin-top", "180px")
+      .style("margin-left", "204px")
+      .style("max-width", "600px")
+      .style("font-family", "'Amatica SC', cursive")
+      .style("font-size", "18px")
+      .style("line-height", "1.5")
+      .style("text-align", "left")
+      .style("color", "#1e1e1e")
+      .html(`
+        <b>Arts, Design & Media don’t want automation.</b><br><br>
+        🎨 “I want it to make things less tedious… but no content creation.”<br>
+        🖌️ “I would never use AI to replace artists.”<br>
+        🧠 “AI can support my research, but I create my design by myself.”<br><br>
+      `)      
+
+    resolve();
+  });
+};
+
+

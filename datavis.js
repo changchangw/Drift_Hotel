@@ -53,13 +53,19 @@ const chartConfigs = [
     title: "How humans and AI share the work?",
     chartType: 9,
     dataPath: "",
-    source: "Future of Work with AI Agents: Auditing Automation and Augmentation Potential across the U.S. Workforce, 2025"
+    source: "Source: Future of Work with AI Agents: Auditing Automation and Augmentation Potential across the U.S. Workforce, 2025"
   },
   {
     title: "The shifting human-machine frontier (2025–2030)",
     chartType: 10,
     dataPath: "",  // 无需加载外部数据
-    source: "Future of Jobs Report, 2025"
+    source: "Source: Future of Jobs Report, 2025"
+  },
+  {
+    title: "Automation Appetite by Occupation Field",
+    chartType: 11,
+    dataPath: "", // 本图数据是内置数组，无需文件
+    source: "Source: Future of Work with AI Agents: Auditing Automation and Augmentation Potential across the U.S. Workforce, 2025"
   }
   
 ];
@@ -93,6 +99,9 @@ function renderIncomeExposure(config, gender) {
 }
 
 function initChart(index) {
+  // ✅ 清除 arts-description（如果有）
+  d3.select("#arts-description").remove();
+
   const config = chartConfigs[index];
   if (!config) return console.warn("No chart config found for index", index);
 
