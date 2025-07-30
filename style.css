@@ -185,7 +185,7 @@
   word-break: break-word;
 }
 
-#datavis-tabs, #gender-tabs {
+#datavis-tabs, #gender-tabs, #agency-tabs {
   position: absolute;
   bottom: 110px; /* 图表下方留空 */
   left: 42%;

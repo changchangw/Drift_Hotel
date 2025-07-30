@@ -56,14 +56,21 @@ const chartConfigs = [
     source: "Source: Future of Work with AI Agents: Auditing Automation and Augmentation Potential across the U.S. Workforce, 2025"
   },
   {
-    title: "The shifting human-machine frontier (2025–2030)",
+    title: "Human agency requirements for H5-level tasks",
     chartType: 10,
+    dataPath: "assets/chapter2/H5_task_characteristics.csv",
+    source: "Source: Future of Work with AI Agents: Auditing Automation and Augmentation Potential across the U.S. Workforce, 2025"
+  },
+  
+  {
+    title: "The shifting human-machine frontier (2025–2030)",
+    chartType: 12,
     dataPath: "",  // 无需加载外部数据
     source: "Source: Future of Jobs Report, 2025"
   },
   {
     title: "Automation Appetite by Occupation Field",
-    chartType: 11,
+    chartType: 13,
     dataPath: "", // 本图数据是内置数组，无需文件
     source: "Source: Future of Work with AI Agents: Auditing Automation and Augmentation Potential across the U.S. Workforce, 2025"
   }
@@ -107,6 +114,14 @@ function initChart(index) {
 
   const potentialTabs = document.getElementById("datavis-tabs");
   const genderTabs = document.getElementById("gender-tabs");
+  
+  // ✅ 通用隐藏所有 tab 函数
+  function hideAllTabs() {
+    document.getElementById("datavis-tabs").style.display = "none";
+    document.getElementById("gender-tabs").style.display = "none";
+    document.getElementById("agency-tabs").style.display = "none";
+  }
+  hideAllTabs(); // 每次 initChart 前先全部隐藏
 
   // chart 2 tab逻辑
   if (index === 2) {
@@ -161,6 +176,13 @@ function initChart(index) {
         chartRenderers[7](config.title, config.dataPath, chartArea, currentGender);
       };
     });
+  }
+  // chart 10: 显示 agency-tabs 切换 worker/expert
+  else if (index === 9) {
+    document.getElementById("agency-tabs").style.display = "flex";
+
+    const renderer = chartRenderers[10];
+    initDataVis(config.title, config.dataPath, renderer);
   }
 
   // 其他图表无 tab

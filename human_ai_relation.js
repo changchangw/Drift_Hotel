@@ -97,6 +97,221 @@ chartRenderers[9] = function(titleText, dataPath, chartArea) {
 };
 
 chartRenderers[10] = function(titleText, dataPath, chartArea) {
+  return new Promise(resolve => {
+    d3.csv(dataPath).then(data => {
+      const categories = [
+        "Interpersonal Communication",
+        "Domain Expertise",
+        "Physical Action",
+        "Uncertainty"
+      ];
+      const width = 800;
+      const height = 480;
+      const radius = Math.min(width, height) / 2 - 100;
+      const colorMap = ["#003366", "#8B0000"];
+      const font = "Courier New";
+      const taskTypes = ["All Tasks", "H5 Tasks"];
+      const legendKeys = ["All", "H5"];
+      const sourceTabs = ["Worker", "Expert"];
+      let currentSource = "Worker";
+      const highlightOpacity = 1;
+      const dimOpacity = 0.18;
+
+      const tabContainer = d3.select("#agency-tabs").style("display", "flex");
+      tabContainer.html("");
+      sourceTabs.forEach(source => {
+        const btn = tabContainer.append("button")
+          .attr("class", "datavis-tab" + (source === currentSource ? " active" : ""))
+          .attr("data-source", source)
+          .text(source)
+          .on("click", function () {
+            currentSource = source;
+            render();
+            tabContainer.selectAll("button")
+              .classed("active", function() {
+                return d3.select(this).attr("data-source") === currentSource;
+              });
+          });
+      });
+
+      function render() {
+        chartArea.selectAll("*").remove();
+        const svg = chartArea.append("svg")
+          .attr("width", width)
+          .attr("height", height);
+        const g = svg.append("g")
+          .attr("transform", `translate(${width / 2 - 50},${height / 2 -20})`);
+        const angleSlice = (2 * Math.PI) / categories.length;
+        const levels = 4;
+        const maxValue = 4;
+
+        // 圆圈背景网格
+        for (let level = 1; level <= levels; level++) {
+          const r = radius * level / levels;
+          g.append("circle")
+            .attr("r", r)
+            .attr("fill", "rgba(150, 120, 90, 0.1)")
+            .attr("stroke", "rgba(150, 120, 90, 1)")
+            .attr("stroke-dasharray", "2,2");
+        }
+
+        // 轴线与标签
+        categories.forEach((cat, i) => {
+          const angle = angleSlice * i - Math.PI / 2;
+          const x = Math.cos(angle) * radius;
+          const y = Math.sin(angle) * radius;
+          g.append("line")
+            .attr("x1", 0).attr("y1", 0)
+            .attr("x2", x).attr("y2", y)
+            .attr("stroke", "#999");
+          g.append("text")
+            .attr("x", Math.cos(angle) * (radius + 80))
+            .attr("y", Math.sin(angle) * (radius + 20))
+            .attr("text-anchor", "middle")
+            .attr("alignment-baseline", "middle")
+            .style("font-family", font)
+            .style("font-size", "14px")
+            .text(cat);
+        });
+
+        // 先绘制面积大的，再绘制面积小的（All Tasks先，H5 Tasks后）
+        const filtered = data.filter(d => d.Source === currentSource);
+        const order = [0, 1]; // 先All，再H5
+        order.forEach(idx => {
+          const taskType = taskTypes[idx];
+          const points = categories.map((cat, i) => {
+            const val = +filtered.find(d => d.TaskType === taskType)[cat];
+            return [
+              Math.cos(angleSlice * i - Math.PI / 2) * radius * val / maxValue,
+              Math.sin(angleSlice * i - Math.PI / 2) * radius * val / maxValue,
+              val
+            ];
+          });
+          points.push(points[0]); // 闭合路径
+
+          // 面积
+          g.append("path")
+            .attr("class", `radar-area radar-area-${legendKeys[idx]}`)
+            .attr("d", d3.line()(points.map(p => [p[0], p[1]])))
+            .attr("fill", colorMap[idx])
+            .attr("stroke", "none")
+            .attr("fill-opacity", 0.18)
+            .attr("opacity", 1)
+            .style("cursor", "pointer")
+            .on("mouseover", function() { highlight(idx); })
+            .on("mouseout", resetHighlight);
+        });
+        order.forEach(idx => {
+          const taskType = taskTypes[idx];
+          const points = categories.map((cat, i) => {
+            const val = +filtered.find(d => d.TaskType === taskType)[cat];
+            return [
+              Math.cos(angleSlice * i - Math.PI / 2) * radius * val / maxValue,
+              Math.sin(angleSlice * i - Math.PI / 2) * radius * val / maxValue,
+              val
+            ];
+          });
+          points.push(points[0]); // 闭合路径
+
+          // 线
+          g.append("path")
+            .attr("class", `radar-line radar-line-${legendKeys[idx]}`)
+            .attr("d", d3.line()(points.map(p => [p[0], p[1]])))
+            .attr("fill", "none")
+            .attr("stroke", colorMap[idx])
+            .attr("stroke-width", 2)
+            .attr("opacity", 1)
+            .style("cursor", "pointer")
+            .on("mouseover", function() { highlight(idx); })
+            .on("mouseout", resetHighlight);
+
+          // 四角数值（默认隐藏）
+          points.slice(0, 4).forEach((p, i) => {
+            g.append("text")
+              .attr("class", `radar-corner radar-corner-${legendKeys[idx]}`)
+              .attr("x", p[0])
+              .attr("y", p[1] + (p[1] > 0 ? 18 : -8))
+              .attr("text-anchor", "middle")
+              .attr("font-size", "14px")
+              .attr("font-family", font)
+              .attr("font-weight", "bold")
+              .attr("fill", colorMap[idx])
+              .attr("opacity", 0)
+              .text(points[i][2]);
+          });
+        });
+
+        // 图例右上角
+        const legend = svg.append("g")
+          .attr("transform", `translate(${width - 220},${50})`);
+        taskTypes.forEach((label, i) => {
+          const row = legend.append("g")
+            .attr("class", `legend-row legend-${legendKeys[i]}`)
+            .attr("transform", `translate(0,${i * 28})`)
+            .style("cursor", "pointer")
+            .on("mouseover", function() { highlight(i); })
+            .on("mouseout", resetHighlight);
+          row.append("line")
+            .attr("x1", 0).attr("y1", 0).attr("x2", 24).attr("y2", 0)
+            .attr("stroke", colorMap[i])
+            .attr("stroke-width", 2)
+            .attr("opacity", 1)
+            .attr("class", `legend-line legend-line-${legendKeys[i]}`);
+          row.append("text")
+            .attr("x", 30).attr("y", 4)
+            .text(label)
+            .attr("class", `legend-text legend-text-${legendKeys[i]}`)
+            .style("font-family", font)
+            .style("font-size", "14px")
+            .attr("fill", "black")
+            .attr("font-weight", "normal");
+        });
+
+        // 悬浮高亮逻辑
+        function highlight(idx) {
+          // 面积高亮
+          g.selectAll(".radar-area")
+            .attr("opacity", (d, i) => i === idx ? highlightOpacity : dimOpacity)
+            .attr("fill-opacity", (d, i) => i === idx ? 0.35 : 0.18);
+          // 线条高亮
+          g.selectAll(".radar-line")
+            .attr("stroke-width", (d, i) => i === idx ? 4 : 2)
+            .attr("opacity", (d, i) => i === idx ? highlightOpacity : dimOpacity);
+          // 图例高亮
+          svg.selectAll(".legend-line")
+            .attr("opacity", (d, i) => i === idx ? highlightOpacity : dimOpacity)
+            .attr("stroke-width", (d, i) => i === idx ? 4 : 2);
+          svg.selectAll(".legend-text")
+            .attr("font-weight", (d, i) => i === idx ? "bold" : "normal")
+            .attr("opacity", (d, i) => i === idx ? highlightOpacity : dimOpacity);
+          // 四角数值显示
+          g.selectAll(`.radar-corner`).attr("opacity", 0);
+          g.selectAll(`.radar-corner-${legendKeys[idx]}`).attr("opacity", 1);
+        }
+        function resetHighlight() {
+          g.selectAll(".radar-area")
+            .attr("opacity", 1)
+            .attr("fill-opacity", 0.18);
+          g.selectAll(".radar-line")
+            .attr("stroke-width", 2)
+            .attr("opacity", 1);
+          svg.selectAll(".legend-line")
+            .attr("opacity", 1)
+            .attr("stroke-width", 2);
+          svg.selectAll(".legend-text")
+            .attr("font-weight", "normal")
+            .attr("opacity", 1);
+          g.selectAll(`.radar-corner`).attr("opacity", 0);
+        }
+      }
+      render();
+      resolve();
+    });
+  });
+};
+
+
+chartRenderers[12] = function(titleText, dataPath, chartArea) {
   let hasShownDialogue4 = false;
 
   function showChart10DialogueImage() {
@@ -245,7 +460,7 @@ chartRenderers[10] = function(titleText, dataPath, chartArea) {
   });
 };
 
-chartRenderers[11] = function(titleText, dataPath, chartArea) {
+chartRenderers[13] = function(titleText, dataPath, chartArea) {
   return new Promise(resolve => {
     const width = 720;
     const height = 400;
