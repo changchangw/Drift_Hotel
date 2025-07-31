@@ -184,7 +184,7 @@ const scenes = {
   26: { image: 'assets/chapter1/room2/2-1.png', action: () => goToSceneInstant(27) },
   27: { image: 'assets/chapter1/room2/2-2.png', action: () => goToSceneInstant(28) },
   28: { image: 'assets/chapter1/room2/2-3.png', action: () => goToSceneInstant(30) },
-  // 29: { image: 'assets/chapter1/room2/2-4.png', action: () => goToSceneInstant(30) },
+  29: { image: 'assets/chapter1/room2/2-4.png', action: () => goToSceneInstant(30) },
   30: {
     image: 'assets/chapter1/room2/2-5.png',
     action: () => {
@@ -326,6 +326,12 @@ let currentScene = 1;
 const sceneImage = document.getElementById('scene-image');
 const hotspotContainer = document.getElementById('hotspot-container');
 
+// 音乐控制变量
+let isMusicPlaying = false;
+const musicControl = document.getElementById('music-control');
+const musicIcon = document.getElementById('music-icon');
+const backgroundMusic = document.getElementById('background-music');
+
 function goToScene(index) {
   const overlay = document.getElementById('fade-overlay');
   overlay.style.opacity = 1; // 开始变黑
@@ -336,6 +342,24 @@ function goToScene(index) {
 
     updateHotspots();
     renderMarks(); 
+    
+    // 音乐控制逻辑
+    // 在所有prologue、cover和特定页面不显示音乐按钮
+    const isPrologueOrCover = index === 2 || index === 3 || index === 51 || index === 53 || index === 54;
+    const isSpecialScene = index === 52 || index === 61 || index === 62;
+    
+    if (isPrologueOrCover || isSpecialScene) {
+      // 在prologue、cover和特定页面隐藏音乐按钮
+      musicControl.style.display = 'none';
+    } else {
+      // 显示音乐控制按钮
+      musicControl.style.display = 'block';
+      
+      // 如果音乐还没开始播放，自动开始播放
+      if (!isMusicPlaying) {
+        startMusic();
+      }
+    }
 
     if (index === 4) {
       // if it is the first entry
@@ -366,6 +390,9 @@ function goToScene(index) {
     setTimeout(() => {
       overlay.style.opacity = 0;
     }, 50);
+    
+    // 处理最后一页音乐停止
+    handleLastScene();
   }, 600);
 }
 
@@ -440,7 +467,56 @@ window.addEventListener('click', () => {
   hintImage.style.display = 'none';
 });
 
-goToScene(52); //测试用，正式应为1
+// 音乐控制函数
+function startMusic() {
+  console.log('尝试播放音乐...');
+  backgroundMusic.play().then(() => {
+    console.log('音乐播放成功');
+    isMusicPlaying = true;
+    musicIcon.src = 'assets/icons/music.png';
+  }).catch(error => {
+    console.log('音乐播放失败:', error);
+    // 尝试用户交互后播放
+    document.addEventListener('click', function playMusicOnClick() {
+      backgroundMusic.play().then(() => {
+        console.log('用户交互后音乐播放成功');
+        isMusicPlaying = true;
+        musicIcon.src = 'assets/icons/music.png';
+      }).catch(err => {
+        console.log('用户交互后音乐播放仍然失败:', err);
+      });
+      document.removeEventListener('click', playMusicOnClick);
+    }, { once: true });
+  });
+}
+
+function stopMusic() {
+  backgroundMusic.pause();
+  backgroundMusic.currentTime = 0;
+  isMusicPlaying = false;
+  musicIcon.src = 'assets/icons/music_off.png';
+}
+
+function toggleMusic() {
+  if (isMusicPlaying) {
+    stopMusic();
+  } else {
+    startMusic();
+  }
+}
+
+// 音乐按钮点击事件
+musicControl.addEventListener('click', toggleMusic);
+
+// 处理最后一页音乐停止
+function handleLastScene() {
+  if (currentScene === 62) {
+    stopMusic();
+    musicControl.style.display = 'none';
+  }
+}
+
+//goToScene(52); //测试用，正式应为1
 
 // Chapter 3 启动函数
 window.startChapter3 = function() {
