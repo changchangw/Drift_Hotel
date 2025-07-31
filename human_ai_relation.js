@@ -1092,6 +1092,47 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
           .style("font-family", "'Courier New', monospace");
       });
 
+      // 添加出口按钮到datavis-container（仅在chart14时显示）
+      // 先移除已存在的出口按钮
+      d3.select("#exit-button").remove();
+      
+      // 只在chart14时添加出口按钮
+      if (titleText.includes("Automation Desire-Capability Landscape")) {
+        const exitButton = d3.select("#datavis-container")
+          .append("div")
+          .attr("id", "exit-button")
+          .style("position", "absolute")
+          .style("top", "450px")
+          .style("right", "124px")
+          .style("width", "184px")
+          .style("height", "184px")
+          .style("cursor", "pointer")
+          .style("z-index", "10")
+          .on("click", function(event) {
+            event.stopPropagation(); // 阻止事件冒泡
+            console.log("Exit button clicked"); // 调试信息
+            
+            // 显示dialogue5
+            showDialogueBoxById("dialogue-box5");
+            console.log("Dialogue box should be shown"); // 调试信息
+            
+                      // 添加点击事件，点击屏幕任意地方都能消失并跳转到chapter3
+          document.addEventListener("click", function goToChapter3(event) {
+            console.log("Screen clicked, going to chapter3"); // 调试信息
+            hideDialogueBoxById("dialogue-box5");
+            document.removeEventListener("click", goToChapter3);
+            // 触发chapter3
+            window.startChapter3();
+          }, { once: true });
+          });
+
+        // 使用trigger.png切图
+        exitButton.append("img")
+          .attr("src", "assets/icons/trigger.png")
+          .attr("width", "184")
+          .attr("height", "184");
+      }
+
       resolve();
     });
   });

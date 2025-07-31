@@ -307,7 +307,19 @@ const scenes = {
         }, 50);
       }, 600); // 与其他场景切换节奏一致
     }
-  }  
+  },
+  
+  // Chapter 3 scenes
+  53: { image: 'assets/chapter3/cover.png', action: () => goToScene(54) },
+  54: { image: 'assets/chapter3/prologue.png', action: () => goToScene(55) },
+  55: { image: 'assets/chapter3/1.png', action: () => goToScene(56) },
+  56: { image: 'assets/chapter3/2.png', action: () => goToScene(57) },
+  57: { image: 'assets/chapter3/3.png', action: () => goToScene(58) },
+  58: { image: 'assets/chapter3/4.png', action: () => goToScene(59) },
+  59: { image: 'assets/chapter3/5.png', action: () => goToScene(60) },
+  60: { image: 'assets/chapter3/6.png', action: () => goToScene(61) },
+  61: { image: 'assets/chapter3/7.png', action: () => goToScene(62) },
+  62: { image: 'assets/chapter3/cover.png', action: () => goToScene(53) } // 循环回到开始
 };
 
 let currentScene = 1;
@@ -429,3 +441,16 @@ window.addEventListener('click', () => {
 });
 
 goToScene(52); //测试用，正式应为1
+
+// Chapter 3 启动函数
+window.startChapter3 = function() {
+  const overlay = document.getElementById("fade-overlay");
+  overlay.style.opacity = 1;
+
+  setTimeout(() => {
+    document.getElementById('datavis-container').style.display = 'none';
+    document.getElementById('scene-container').style.display = 'block';
+    currentScene = 53;
+    goToScene(53);
+  }, 600);
+};
