@@ -103,6 +103,21 @@ function hideDialogueBox() {
   }, 400);
 }
 
+function showDialogueBoxById(id) {
+  const box = document.getElementById(id);
+  box.style.display = "block";
+  void box.offsetWidth;
+  box.style.opacity = "1";
+}
+
+function hideDialogueBoxById(id) {
+  const box = document.getElementById(id);
+  box.style.opacity = "0";
+  setTimeout(() => {
+    box.style.display = "none";
+  }, 400);
+}
+
 function renderPotentialWithKey(config, key) {
   const renderer = (titleText, dataPath, chartArea) => {
     return chartRenderers[3](dataPath, key);
@@ -315,6 +330,15 @@ document.addEventListener("click", (e) => {
   const popup = document.getElementById("source-popup");
   if (!popup.contains(e.target) && e.target.id !== "source-icon") {
     popup.style.display = "none";
+  }
+  
+  // 如果dialogue5正在显示，点击屏幕任意地方使其消失
+  const dialogueBox5 = document.getElementById('dialogue-box5');
+  if (dialogueBox5 && dialogueBox5.style.display === 'block') {
+    // 检查点击的不是dialogue5本身
+    if (!dialogueBox5.contains(e.target)) {
+      hideDialogueBoxById("dialogue-box5");
+    }
   }
 });
 

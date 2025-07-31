@@ -827,12 +827,22 @@ chartRenderers[13] = function(titleText, dataPath, chartArea) {
       .style("line-height", "1.5")
       .style("text-align", "left")
       .style("color", "#1e1e1e")
+      .style("cursor", "pointer") // 添加鼠标手型
       .html(`
-        <b>Arts, Design & Media don’t want automation.</b><br><br>
-        🎨 “I want it to make things less tedious… but no content creation.”<br>
-        🖌️ “I would never use AI to replace artists.”<br>
-        🧠 “AI can support my research, but I create my design by myself.”<br><br>
-      `)      
+        <b>Arts, Design & Media don't want automation.</b><br><br>
+        🎨 "I want it to make things less tedious… but no content creation."<br>
+        🖌️ "I would never use AI to replace artists."<br>
+        🧠 "AI can support my research, but I create my design by myself."<br><br>
+      `)
+      .on("mouseover", function() {
+        // 悬浮时显示dialogue5
+        showDialogueBoxById("dialogue-box5");
+      })
+      .on("click", function(event) {
+        event.stopPropagation(); // 阻止事件冒泡
+        // 点击时隐藏dialogue5
+        hideDialogueBoxById("dialogue-box5");
+      });
 
     resolve();
   });
@@ -1152,18 +1162,14 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
             event.stopPropagation(); // 阻止事件冒泡
             console.log("Exit button clicked"); // 调试信息
             
-            // 显示dialogue5
-            showDialogueBoxById("dialogue-box5");
-            console.log("Dialogue box should be shown"); // 调试信息
+            // 禁用dialogue5的显示功能
+            if (window.dialogue5Disabled !== undefined) {
+              window.dialogue5Disabled = true;
+            }
             
-                      // 添加点击事件，点击屏幕任意地方都能消失并跳转到chapter3
-          document.addEventListener("click", function goToChapter3(event) {
-            console.log("Screen clicked, going to chapter3"); // 调试信息
-            hideDialogueBoxById("dialogue-box5");
-            document.removeEventListener("click", goToChapter3);
-            // 触发chapter3
+            // 直接跳转到chapter3，不显示dialogue5
+            console.log("Going to chapter3"); // 调试信息
             window.startChapter3();
-          }, { once: true });
           });
 
         // 使用trigger.png切图

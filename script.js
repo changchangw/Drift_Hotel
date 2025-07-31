@@ -318,8 +318,7 @@ const scenes = {
   58: { image: 'assets/chapter3/4.png', action: () => goToScene(59) },
   59: { image: 'assets/chapter3/5.png', action: () => goToScene(60) },
   60: { image: 'assets/chapter3/6.png', action: () => goToScene(61) },
-  61: { image: 'assets/chapter3/7.png', action: () => goToScene(62) },
-  62: { image: 'assets/chapter3/cover.png', action: () => {} } // 最后一页，点击无动作
+  61: { image: 'assets/chapter3/7.png', action: () => {} }// 最后一页，点击无动作
 };
 
 let currentScene = 1;
