@@ -452,8 +452,8 @@ chartRenderers[11] = function(titleText, dataPath, chartArea) {
         .attr("cy", d => y(d["Expected increase in 2030 (%)"]))
         .attr("r", 6)
         .attr("fill", d => colorMap[d.Category])
-        .attr("stroke", "#fff")
-        .attr("stroke-width", 1)
+        //.attr("stroke", "#fff")
+        //.attr("stroke-width", 1)
         .attr("opacity", 0.8)
         .style("cursor", "pointer")
         .on("mouseover", function(event, d) {
@@ -835,6 +835,265 @@ chartRenderers[13] = function(titleText, dataPath, chartArea) {
       `)      
 
     resolve();
+  });
+};
+
+chartRenderers[14] = function(titleText, dataPath, chartArea) {
+  return new Promise(resolve => {
+    d3.csv(dataPath).then(data => {
+      const width = 720;
+      const height = 480;
+      const margin = { top: 30, right: 30, bottom: 120, left: 60 };
+      const innerWidth = width - margin.left - margin.right;
+      const innerHeight = height - margin.top - margin.bottom;
+
+      // 颜色映射
+      const colorMap = {
+        "Computer and Mathematical": "#2E5A88",
+        "Management": "#956800",
+        "Business and Financial Operations": "#1B4D3E",
+        "Arts, Designs, and Media": "#8B0000"
+      };
+
+      // 数据预处理
+      data.forEach(d => {
+        d.AI_Capability = +d.AI_Capability;
+        d.Automation_Desire = +d.Automation_Desire;
+        
+        // 添加轻微打散效果
+        d.jitterX = (Math.random() - 0.5) * 0.1; // ±0.05的随机偏移
+        d.jitterY = (Math.random() - 0.5) * 0.1;
+      });
+
+      const svg = chartArea.append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+      const g = svg.append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+      // 比例尺
+      const x = d3.scaleLinear()
+        .domain([1, 5])
+        .range([0, innerWidth]);
+
+      const y = d3.scaleLinear()
+        .domain([1, 5])
+        .range([innerHeight, 0]);
+
+      // 分割线
+      const xThreshold = 3;
+      const yThreshold = 3;
+
+      // 象限背景块
+      const quadrantBackgrounds = [
+        { x: 0, y: 0, width: x(xThreshold), height: y(yThreshold), fill: "rgba(255, 140, 0, 0.1)", label: "R&D Opportunity Zone" }, // 左上
+        { x: x(xThreshold), y: 0, width: innerWidth - x(xThreshold), height: y(yThreshold), fill: "rgba(34, 139, 34, 0.1)", label: "Automation 'Green Light' Zone" }, // 右上
+        { x: 0, y: y(yThreshold), width: x(xThreshold), height: innerHeight - y(yThreshold), fill: "rgba(172, 183, 214, 0.1)", label: "Low Priority Zone" }, // 左下
+        { x: x(xThreshold), y: y(yThreshold), width: innerWidth - x(xThreshold), height: innerHeight - y(yThreshold), fill: "rgba(220, 20, 60, 0.1)", label: "Automation 'Red Light' Zone" } // 右下
+      ];
+
+              // 添加象限背景
+        quadrantBackgrounds.forEach(bg => {
+          g.append("rect")
+            .attr("x", bg.x)
+            .attr("y", bg.y)
+            .attr("width", bg.width)
+            .attr("height", bg.height)
+            .attr("fill", bg.fill);
+
+          // 添加象限标签 - 上两个象限在顶部，下两个象限在底部
+          const isTopQuadrant = bg.y < y(yThreshold);
+          const labelY = isTopQuadrant ? bg.y + 20 : bg.y + bg.height - 20;
+          
+          g.append("text")
+            .attr("x", bg.x + bg.width / 2)
+            .attr("y", labelY)
+            .attr("text-anchor", "middle")
+            .attr("dominant-baseline", isTopQuadrant ? "hanging" : "auto")
+            .style("font-family", "Courier New")
+            .style("font-size", "12px")
+            .style("font-weight", "bold")
+            .style("fill", "#000000")
+            .text(bg.label);
+        });
+
+      // 垂直分割线
+      g.append("line")
+        .attr("x1", x(xThreshold))
+        .attr("y1", 0)
+        .attr("x2", x(xThreshold))
+        .attr("y2", innerHeight)
+        .attr("stroke", "#999")
+        .attr("stroke-dasharray", "5,5")
+        .attr("stroke-width", 1);
+
+      // 水平分割线
+      g.append("line")
+        .attr("x1", 0)
+        .attr("y1", y(yThreshold))
+        .attr("x2", innerWidth)
+        .attr("y2", y(yThreshold))
+        .attr("stroke", "#999")
+        .attr("stroke-dasharray", "5,5")
+        .attr("stroke-width", 1);
+
+      // Tooltip
+      const tooltip = d3.select("body")
+        .append("div")
+        .attr("class", "scatter-tooltip")
+        .style("position", "absolute")
+        .style("z-index", "9999")
+        .style("background", "#2a2a2a")
+        .style("color", "#fff")
+        .style("padding", "6px 10px")
+        .style("font-size", "13px")
+        .style("font-family", "'Courier New', monospace")
+        .style("border-radius", "6px")
+        .style("display", "none")
+        .style("pointer-events", "none");
+
+      // 散点
+      g.selectAll("circle")
+        .data(data)
+        .enter()
+        .append("circle")
+        .attr("cx", d => x(d.AI_Capability + d.jitterX))
+        .attr("cy", d => y(d.Automation_Desire + d.jitterY))
+        .attr("r", 4)
+        .attr("fill", d => colorMap[d.Category] || "#999")
+        //.attr("stroke", "#fff")
+        //.attr("stroke-width", 1)
+        .attr("opacity", 0.8)
+        .attr("class", d => `scatter-point scatter-${d.Category.replace(/\s+/g, "-")}`)
+        .style("cursor", "pointer")
+        .on("mouseover", function(event, d) {
+          d3.select(this)
+            .transition()
+            .duration(200)
+            .attr("r", 6)
+            .attr("opacity", 1);
+
+          tooltip
+            .style("left", event.pageX + 10 + "px")
+            .style("top", event.pageY - 10 + "px")
+            .style("display", "block")
+            .html(`<strong>${d.Occupation}</strong><br>
+                   Task: ${d.Task}<br>
+                   AI Capability: ${d.AI_Capability}<br>
+                   Automation Desire: ${d.Automation_Desire}<br>
+                   Category: ${d.Category}`);
+        })
+        .on("mouseout", function() {
+          d3.select(this)
+            .transition()
+            .duration(200)
+            .attr("r", 4)
+            .attr("opacity", 0.8);
+
+          tooltip.style("display", "none");
+        });
+
+      // 坐标轴
+      g.append("g")
+        .attr("transform", `translate(0,${innerHeight})`)
+        .call(d3.axisBottom(x).ticks(5))
+        .selectAll("text")
+        .style("font-size", "12px")
+        .style("font-family", "'Courier New', monospace");
+
+      g.append("g")
+        .call(d3.axisLeft(y).ticks(5))
+        .selectAll("text")
+        .style("font-size", "12px")
+        .style("font-family", "'Courier New', monospace");
+
+      // 轴标签
+      svg.append("text")
+        .attr("x", margin.left + innerWidth / 2)
+        .attr("y", height - 80)
+        .attr("text-anchor", "middle")
+        .text("AI Expert-rated Automation Capability")
+        .style("font-family", "'Courier New', monospace")
+        .style("font-size", "12px");
+
+      svg.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("x", -height / 2 + 40)
+        .attr("y", 20)
+        .attr("text-anchor", "middle")
+        .text("Worker-rated Automation Desire")
+        .style("font-family", "'Courier New', monospace")
+        .style("font-size", "12px");
+
+      // 图例 - 下方，分两行
+      const legend = svg.append("g")
+        .attr("transform", `translate(${margin.left + 80}, ${height - 50})`);
+
+      const categories = Object.keys(colorMap);
+      const firstRow = categories.slice(0, 2);
+      const secondRow = categories.slice(2);
+
+             // 第一行
+       firstRow.forEach((category, i) => {
+         const row = legend.append("g")
+           .attr("transform", `translate(${i * 300}, 0)`)
+           .style("cursor", "pointer")
+           .on("mouseover", function() {
+             // 高亮当前类别
+             g.selectAll("circle")
+               .attr("opacity", d => d.Category === category ? 1 : 0.2);
+             d3.select(this).select("text").style("font-weight", "bold");
+           })
+           .on("mouseout", function() {
+             // 恢复所有点
+             g.selectAll("circle").attr("opacity", 0.8);
+             d3.select(this).select("text").style("font-weight", "normal");
+           });
+
+        row.append("circle")
+          .attr("r", 4)
+          .attr("fill", colorMap[category]);
+
+        row.append("text")
+          .attr("x", 8)
+          .attr("y", 4)
+          .text(category)
+          .style("font-size", "12px")
+          .style("font-family", "'Courier New', monospace");
+      });
+
+             // 第二行
+       secondRow.forEach((category, i) => {
+         const row = legend.append("g")
+           .attr("transform", `translate(${i * 300}, 20)`)
+           .style("cursor", "pointer")
+           .on("mouseover", function() {
+             // 高亮当前类别
+             g.selectAll("circle")
+               .attr("opacity", d => d.Category === category ? 1 : 0.2);
+             d3.select(this).select("text").style("font-weight", "bold");
+           })
+           .on("mouseout", function() {
+             // 恢复所有点
+             g.selectAll("circle").attr("opacity", 0.8);
+             d3.select(this).select("text").style("font-weight", "normal");
+           });
+
+        row.append("circle")
+          .attr("r", 4)
+          .attr("fill", colorMap[category]);
+
+        row.append("text")
+          .attr("x", 8)
+          .attr("y", 4)
+          .text(category)
+          .style("font-size", "12px")
+          .style("font-family", "'Courier New', monospace");
+      });
+
+      resolve();
+    });
   });
 };
 

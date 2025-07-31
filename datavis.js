@@ -78,6 +78,12 @@ const chartConfigs = [
     chartType: 13,
     dataPath: "", // 本图数据是内置数组，无需文件
     source: "Source: Future of Work with AI Agents: Auditing Automation and Augmentation Potential across the U.S. Workforce, 2025"
+  },
+  {
+    title: "Automation Desire-Capability Landscape",
+    chartType: 14,
+    dataPath: "assets/chapter2/desire_capability_four_categories.csv",
+    source: "Source: Future of Work with AI Agents: Auditing Automation and Augmentation Potential across the U.S. Workforce, 2025"
   }
   
 ];

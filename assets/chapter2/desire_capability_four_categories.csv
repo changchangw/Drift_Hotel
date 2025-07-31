@@ -1,0 +1,518 @@
+Task ID,Task,Occupation,AI_Capability,Automation_Desire,Category
+3226,"Inspect layouts and advertising copy, and edit scripts, audio, video, and other promotional material for adherence to specifications.",Advertising and Promotions Managers,4.0,3.7,Management
+3242,Coordinate with the media to disseminate advertising.,Advertising and Promotions Managers,3.333333333333333,3.0,Management
+3223,Prepare budgets and submit estimates for program costs as part of campaign plan development.,Advertising and Promotions Managers,4.0,2.9,Management
+3243,Contact organizations to explain services and facilities offered.,Advertising and Promotions Managers,2.0,3.1666666666666665,Management
+3233,Monitor and analyze sales promotion results to determine cost effectiveness of promotion campaigns.,Advertising and Promotions Managers,4.5,3.6666666666666665,Management
+3234,"Read trade journals and professional literature to stay informed on trends, innovations, and changes that affect media planning.",Advertising and Promotions Managers,2.5,3.5,Management
+978,Review project plans to plan and coordinate project activity.,Computer and Information Systems Managers,2.0,3.2,Management
+969,"Assign and review the work of systems analysts, programmers, and other computer-related workers.",Computer and Information Systems Managers,2.0,3.5,Management
+971,"Develop computer information resources, providing for data security and control, strategic computing, and disaster recovery.",Computer and Information Systems Managers,3.0,3.6,Management
+970,Stay abreast of advances in technology.,Computer and Information Systems Managers,2.5,3.3,Management
+972,Review and approve all systems charts and programs prior to their implementation.,Computer and Information Systems Managers,2.5,2.7,Management
+980,Prepare and review operational reports or project progress reports.,Computer and Information Systems Managers,3.5,3.1818181818181817,Management
+979,Evaluate data processing proposals to assess project feasibility and requirements.,Computer and Information Systems Managers,2.0,3.6,Management
+974,Control operational budget and expenditures.,Computer and Information Systems Managers,2.0,3.7,Management
+966,"Manage backup, security and user help systems.",Computer and Information Systems Managers,3.5,3.0,Management
+21319,Oversee the flow of cash or financial instruments.,Financial Managers,3.0,2.8,Management
+21315,Evaluate data pertaining to costs to plan budgets.,Financial Managers,4.0,2.6666666666666665,Management
+21321,Develop or analyze information to assess the current or future financial status of firms.,Financial Managers,4.0,2.571428571428572,Management
+21318,"Approve, reject, or coordinate the approval or rejection of lines of credit or commercial, real estate, or personal loans.",Financial Managers,3.0,3.0,Management
+21320,"Prepare financial or regulatory reports required by laws, regulations, or boards of directors.",Financial Managers,4.0,2.571428571428572,Management
+21317,"Examine, evaluate, or process loan applications.",Financial Managers,4.0,2.8,Management
+21314,Prepare operational or risk reports for management analysis.,Financial Managers,4.0,3.0,Management
+21326,Review collection reports to determine the status of collections and the amounts of outstanding balances.,Financial Managers,5.0,3.25,Management
+21329,Review reports of securities transactions or price lists to analyze market conditions.,Financial Managers,4.5,3.0,Management
+8870,Evaluate needs for procurement of funds and investment of surpluses and make appropriate recommendations.,Treasurers and Controllers,3.0,2.0,Management
+20168,"Monitor financial activities and details, such as cash flow and reserve levels, to ensure that all legal and regulatory requirements are met.",Treasurers and Controllers,4.0,3.0,Management
+8861,"Receive, record, and authorize requests for disbursements in accordance with company policies and procedures.",Treasurers and Controllers,3.5,2.6,Management
+8865,"Coordinate and direct the financial planning, budgeting, procurement, or investment activities of all or part of an organization.",Treasurers and Controllers,3.0,2.0,Management
+8867,"Analyze the financial details of past, present, and expected operations to identify development opportunities and areas where improvement is needed.",Treasurers and Controllers,4.0,2.5,Management
+8873,"Compute, withhold, and account for all payroll deductions.",Treasurers and Controllers,4.666666666666667,3.0,Management
+15415,Review and update standard operating procedures or quality assurance manuals.,Quality Control Systems Managers,4.0,3.4285714285714284,Management
+15430,Monitor performance of quality control systems to ensure effectiveness and efficiency.,Quality Control Systems Managers,4.333333333333333,3.125,Management
+15414,Review quality documentation necessary for regulatory submissions and inspections.,Quality Control Systems Managers,4.333333333333333,3.25,Management
+15428,Analyze quality control test results and provide feedback and interpretation to production management or staff.,Quality Control Systems Managers,5.0,2.5,Management
+15424,"Direct the tracking of defects, test results, or other regularly reported quality control data.",Quality Control Systems Managers,5.0,4.5,Management
+15416,"Produce reports regarding nonconformance of products or processes, daily production quality, root cause analyses, or quality trends.",Quality Control Systems Managers,3.0,2.8,Management
+15427,"Communicate quality control information to all relevant organizational departments, outside vendors, or contractors.",Quality Control Systems Managers,3.0,2.8,Management
+15425,Create and implement inspection and testing criteria or procedures.,Quality Control Systems Managers,2.333333333333333,3.0,Management
+15423,"Document testing procedures, methodologies, or criteria.",Quality Control Systems Managers,5.0,2.833333333333333,Management
+15456,"Review logs, datasheets, or reports to ensure adequate production levels or to identify abnormalities with biofuels production equipment or processes.",Biofuels Production Managers,4.0,2.6,Management
+15458,"Monitor meters, flow gauges, or other real-time data to ensure proper operation of biofuels production equipment, implementing corrective measures as needed.",Biofuels Production Managers,2.5,4.0,Management
+15461,"Adjust temperature, pressure, vacuum, level, flow rate, or transfer of biofuels to maintain processes at required levels.",Biofuels Production Managers,4.5,3.6666666666666665,Management
+15460,"Approve proposals for the acquisition, replacement, or repair of biofuels processing equipment or the implementation of new production processes.",Biofuels Production Managers,4.0,4.0,Management
+15457,Prepare and manage biofuels plant or unit budgets.,Biofuels Production Managers,3.6666666666666665,3.75,Management
+15459,"Conduct cost, material, and efficiency studies for biofuels production plants or operations.",Biofuels Production Managers,4.0,3.6666666666666665,Management
+1021,"Locate vendors of materials, equipment or supplies, and interview them to determine product availability and terms of sales.",Purchasing Managers,2.6666666666666665,2.0,Management
+1033,Prepare bid awards requiring board approval.,Purchasing Managers,4.0,3.2857142857142856,Management
+1025,Review purchase order claims and contracts for conformance to company policy.,Purchasing Managers,4.333333333333333,3.7,Management
+1031,"Review, evaluate, and approve specifications for issuing and awarding bids.",Purchasing Managers,4.0,3.6,Management
+1035,Administer online purchasing systems.,Purchasing Managers,5.0,2.5,Management
+1022,Prepare and process requisitions and purchase orders for supplies and equipment.,Purchasing Managers,2.6666666666666665,2.3,Management
+1026,Analyze market and delivery systems to assess present and future material availability.,Purchasing Managers,4.0,2.9,Management
+1020,Maintain records of goods ordered and received.,Purchasing Managers,4.5,2.8,Management
+20942,"Determine appropriate equipment and staffing levels to load, unload, move, or store materials.",Supply Chain Managers,3.0,3.6666666666666665,Management
+20943,"Manage activities related to strategic or tactical purchasing, material requirements planning, controlling inventory, warehousing, or receiving.",Supply Chain Managers,3.6666666666666665,3.1666666666666665,Management
+15680,Select transportation routes to maximize economy by combining shipments or consolidating warehousing and distribution.,Supply Chain Managers,4.333333333333333,4.0,Management
+15700,"Develop procedures for coordination of supply chain management with other functional areas, such as sales, marketing, finance, production, or quality assurance.",Supply Chain Managers,3.0,2.333333333333333,Management
+15696,"Analyze inventories to determine how to increase inventory turns, reduce waste, or optimize customer service.",Supply Chain Managers,4.0,3.8333333333333335,Management
+15697,Analyze information about supplier performance or procurement program success.,Supply Chain Managers,4.0,2.75,Management
+20945,Monitor suppliers' activities to assess performance in meeting quality or delivery requirements.,Supply Chain Managers,4.0,2.6666666666666665,Management
+20946,Monitor forecasts and quotas to identify changes and predict effects on supply chain activities.,Supply Chain Managers,3.5,3.8,Management
+15691,"Document physical supply chain processes, such as workflows, cycle times, position responsibilities, or system flows.",Supply Chain Managers,4.0,3.5,Management
+985,"Provide current and prospective employees with information about policies, job duties, working conditions, wages, opportunities for promotion, and employee benefits.",Human Resources Managers,5.0,3.1,Management
+982,"Administer compensation, benefits, and performance management systems, and safety and recreation programs.",Human Resources Managers,2.5,4.0,Management
+994,Analyze statistical data and reports to identify and determine causes of personnel problems and develop recommendations for improvement of organization's personnel policies and practices.,Human Resources Managers,2.6666666666666665,2.4,Management
+993,"Maintain records and compile statistical reports concerning personnel-related data such as hires, transfers, performance appraisals, and absenteeism rates.",Human Resources Managers,5.0,3.1,Management
+1002,"Develop, administer, and evaluate applicant tests.",Human Resources Managers,3.5,3.1,Management
+49,"Develop and maintain computerized record management systems to store and process data, such as personnel activities and information, and to produce reports.",Medical and Health Services Managers,5.0,3.4,Management
+51,"Conduct and administer fiscal operations, including accounting, planning budgets, authorizing expenditures, establishing rates for services, and coordinating financial reporting.",Medical and Health Services Managers,3.6666666666666665,3.3,Management
+55,"Maintain awareness of advances in medicine, computerized diagnostic and treatment equipment, data processing technology, government regulations, health insurance changes, and financing options.",Medical and Health Services Managers,4.0,2.3,Management
+52,"Establish work schedules and assignments for staff, according to workload, space, and equipment availability.",Medical and Health Services Managers,3.5,3.6,Management
+61,Review and analyze facility activities and data to aid planning and cash and risk management and to improve service utilization.,Medical and Health Services Managers,2.333333333333333,2.9,Management
+57,"Prepare activity reports to inform management of the status and implementation plans of programs, services, and quality initiatives.",Medical and Health Services Managers,3.0,2.8,Management
+15612,"Schedule subjects for appointments, procedures, or inpatient stays as required by study protocols.",Clinical Research Coordinators,1.5,3.1,Management
+15595,"Prepare study-related documentation, such as protocol worksheets, procedural manuals, adverse event reports, institutional review board documents, or progress reports.",Clinical Research Coordinators,3.0,2.7,Management
+15594,Record adverse event and side effect data and confer with investigators regarding the reporting of events to oversight agencies.,Clinical Research Coordinators,2.6666666666666665,2.4,Management
+15614,"Maintain required records of study activity including case report forms, drug dispensation records, or regulatory forms.",Clinical Research Coordinators,4.5,3.3,Management
+15593,"Review proposed study protocols to evaluate factors such as sample collection processes, data management plans, or potential subject risks.",Clinical Research Coordinators,2.333333333333333,2.4,Management
+15608,"Collaborate with investigators to prepare presentations or reports of clinical study procedures, results, and conclusions.",Clinical Research Coordinators,3.5,2.8,Management
+15592,Track enrollment status of subjects and document dropout information such as dropout causes and subject contact efforts.,Clinical Research Coordinators,3.0,2.9,Management
+15609,"Code, evaluate, or interpret collected study data.",Clinical Research Coordinators,4.0,2.8,Management
+15600,Maintain contact with sponsors to schedule and coordinate site visits or to answer questions about issues such as incomplete data.,Clinical Research Coordinators,3.0,2.9,Management
+15598,Order drugs or devices necessary for study completion.,Clinical Research Coordinators,4.5,3.3,Management
+15607,Communicate with laboratories or investigators regarding laboratory findings.,Clinical Research Coordinators,2.0,3.4,Management
+15583,"Review scientific literature, participate in continuing education activities, or attend conferences and seminars to maintain current knowledge of clinical studies affairs and issues.",Clinical Research Coordinators,2.25,2.1,Management
+15590,Contact industry representatives to ensure equipment and software specifications necessary for successful study completion.,Clinical Research Coordinators,2.333333333333333,3.2222222222222223,Management
+15584,Register protocol patients with appropriate statistical centers as required.,Clinical Research Coordinators,4.0,4.0,Management
+18037,"Review all regulatory agency submission materials to ensure timeliness, accuracy, comprehensiveness, or compliance with regulatory standards.",Regulatory Affairs Managers,2.6666666666666665,3.142857142857143,Management
+18022,"Direct the preparation and submission of regulatory agency applications, reports, or correspondence.",Regulatory Affairs Managers,2.6666666666666665,3.0,Management
+18030,"Maintain current knowledge of relevant regulations, including proposed and final rules.",Regulatory Affairs Managers,1.5,3.7142857142857135,Management
+18038,Review materials such as marketing literature or user manuals to ensure that regulatory agency requirements are met.,Regulatory Affairs Managers,3.333333333333333,3.333333333333333,Management
+18032,Monitor emerging trends regarding industry regulations to determine potential impacts on organizational processes.,Regulatory Affairs Managers,2.6666666666666665,4.0,Management
+1146,Monitor and follow applicable laws and regulations.,"Purchasing Agents, Except Wholesale, Retail, and Farm Products",3.6666666666666665,2.6666666666666665,Business and Financial Operations
+1143,"Prepare purchase orders, solicit bid proposals, and review requisitions for goods and services.","Purchasing Agents, Except Wholesale, Retail, and Farm Products",3.0,3.0,Business and Financial Operations
+1145,"Analyze price proposals, financial reports, and other data and information to determine reasonable prices.","Purchasing Agents, Except Wholesale, Retail, and Farm Products",4.0,3.125,Business and Financial Operations
+1151,"Maintain and review computerized or manual records of purchased items, costs, deliveries, product performance, and inventories.","Purchasing Agents, Except Wholesale, Retail, and Farm Products",3.25,2.8,Business and Financial Operations
+1144,"Research and evaluate suppliers, based on price, quality, selection, service, support, availability, reliability, production and distribution capabilities, and the supplier's reputation and history.","Purchasing Agents, Except Wholesale, Retail, and Farm Products",2.6666666666666665,2.571428571428572,Business and Financial Operations
+1148,"Monitor shipments to ensure that goods come in on time, and resolve problems related to undelivered goods.","Purchasing Agents, Except Wholesale, Retail, and Farm Products",4.0,2.7,Business and Financial Operations
+1153,Study sales records and inventory levels of current stock to develop strategic purchasing programs that facilitate employee access to supplies.,"Purchasing Agents, Except Wholesale, Retail, and Farm Products",4.0,3.0,Business and Financial Operations
+1157,"Write and review product specifications, maintaining a working technical knowledge of the goods or services to be purchased.","Purchasing Agents, Except Wholesale, Retail, and Farm Products",2.6666666666666665,2.7142857142857144,Business and Financial Operations
+1152,"Review catalogs, industry periodicals, directories, trade journals, and Internet sites and consult with other department personnel to locate necessary goods and services.","Purchasing Agents, Except Wholesale, Retail, and Farm Products",3.5,3.142857142857143,Business and Financial Operations
+21447,"Evaluate applications, records, or documents to gather information about eligibility or liability issues.",Compliance Officers,4.0,3.5,Business and Financial Operations
+21449,"Prepare reports of activities, evaluations, recommendations, or decisions.",Compliance Officers,3.6666666666666665,3.5,Business and Financial Operations
+21457,Prepare correspondence to inform concerned parties of licensing decisions or appeals processes.,Compliance Officers,4.5,4.25,Business and Financial Operations
+80,"Analyze blueprints and other documentation to prepare time, cost, materials, and labor estimates.",Cost Estimators,3.5,2.2857142857142856,Business and Financial Operations
+20846,Collect historical cost data to estimate costs for current or future products.,Cost Estimators,4.0,1.8571428571428568,Business and Financial Operations
+84,"Prepare estimates used by management for purposes such as planning, organizing, and scheduling work.",Cost Estimators,3.333333333333333,2.2857142857142856,Business and Financial Operations
+87,Prepare cost and expenditure statements and other necessary documentation at regular intervals for the duration of the project.,Cost Estimators,4.0,2.857142857142857,Business and Financial Operations
+18859,Hire employees and process hiring-related paperwork.,Human Resources Specialists,2.75,2.9,Business and Financial Operations
+18866,"Prepare or maintain employment records related to events, such as hiring, termination, leaves, transfers, or promotions, using human resources management system software.",Human Resources Specialists,4.0,2.8,Business and Financial Operations
+18868,Review employment applications and job orders to match applicants with job requirements.,Human Resources Specialists,3.5,3.0,Business and Financial Operations
+18860,"Inform job applicants of details such as duties and responsibilities, compensation, benefits, schedules, working conditions, or promotion opportunities.",Human Resources Specialists,3.0,2.0,Business and Financial Operations
+18857,Contact job applicants to inform them of the status of their applications.,Human Resources Specialists,5.0,2.5,Business and Financial Operations
+18865,"Perform searches for qualified job candidates, using sources such as computer databases, networking, Internet recruiting resources, media advertisements, job fairs, recruiting firms, or employee referrals.",Human Resources Specialists,3.0,2.9,Business and Financial Operations
+18853,Analyze employment-related data and prepare required reports.,Human Resources Specialists,4.0,3.1,Business and Financial Operations
+21097,Administer employee benefit plans.,Human Resources Specialists,2.0,2.142857142857143,Business and Financial Operations
+18869,"Schedule or administer skill, intelligence, psychological, or drug tests for current or prospective employees.",Human Resources Specialists,2.0,2.4444444444444446,Business and Financial Operations
+18855,Conduct reference or background checks on job applicants.,Human Resources Specialists,3.0,2.4,Business and Financial Operations
+18876,"Review and evaluate applicant qualifications or eligibility for specified licensing, according to established guidelines and designated licensing codes.",Human Resources Specialists,4.0,3.0,Business and Financial Operations
+15898,Maintain databases of logistics information.,Logistics Analysts,4.5,2.875,Business and Financial Operations
+20009,"Remotely monitor the flow of vehicles or inventory, using Web-based logistics information systems to track vehicles or containers.",Logistics Analysts,3.0,3.0,Business and Financial Operations
+15889,"Communicate with or monitor service providers, such as ocean carriers, air freight forwarders, global consolidators, customs brokers, or trucking companies.",Logistics Analysts,2.0,2.333333333333333,Business and Financial Operations
+15890,Track product flow from origin to final delivery.,Logistics Analysts,2.0,3.0,Business and Financial Operations
+15903,"Interpret data on logistics elements, such as availability, maintainability, reliability, supply chain management, strategic sourcing or distribution, supplier management, or transportation.",Logistics Analysts,2.6666666666666665,2.6,Business and Financial Operations
+15893,Recommend improvements to existing or planned logistics processes.,Logistics Analysts,3.5,2.25,Business and Financial Operations
+15904,"Apply analytic methods or tools to understand, predict, or control logistics operations or processes.",Logistics Analysts,3.0,4.333333333333333,Business and Financial Operations
+15895,Prepare reports on logistics performance measures.,Logistics Analysts,3.6666666666666665,3.6666666666666665,Business and Financial Operations
+15883,Enter logistics-related data into databases.,Logistics Analysts,4.5,2.8,Business and Financial Operations
+15894,"Provide ongoing analyses in areas such as transportation costs, parts procurement, back orders, or delivery processes.",Logistics Analysts,3.5,2.4,Business and Financial Operations
+15897,"Monitor inventory transactions at warehouse facilities to assess receiving, storage, shipping, or inventory integrity.",Logistics Analysts,1.5,3.0,Business and Financial Operations
+15899,Maintain logistics records in accordance with corporate policies.,Logistics Analysts,4.0,2.8,Business and Financial Operations
+15902,"Compute reporting metrics, such as on-time delivery rates, order fulfillment rates, or inventory turns.",Logistics Analysts,4.0,2.25,Business and Financial Operations
+15887,Contact potential vendors to determine material availability.,Logistics Analysts,4.0,1.5,Business and Financial Operations
+15884,Develop or maintain payment systems to ensure accuracy of vendor payments.,Logistics Analysts,4.0,2.4,Business and Financial Operations
+15885,Determine packaging requirements.,Logistics Analysts,4.0,2.333333333333333,Business and Financial Operations
+7276,Gather and organize information on problems or procedures.,Management Analysts,4.333333333333333,3.25,Business and Financial Operations
+7277,Analyze data gathered and develop solutions or alternative methods of proceeding.,Management Analysts,4.0,2.833333333333333,Business and Financial Operations
+7282,"Document findings of study and prepare recommendations for implementation of new systems, procedures, or organizational changes.",Management Analysts,4.0,2.8,Business and Financial Operations
+7285,"Plan study of work problems and procedures, such as organizational change, communications, information flow, integrated production methods, inventory control, or cost analysis.",Management Analysts,3.333333333333333,2.2,Business and Financial Operations
+18931,Write and send letters of thanks to donors.,Fundraisers,4.5,3.5,Business and Financial Operations
+18907,Create or update donor databases.,Fundraisers,4.333333333333333,3.6666666666666665,Business and Financial Operations
+18912,Develop strategies to encourage new or increased contributions.,Fundraisers,2.0,2.0,Business and Financial Operations
+18911,"Develop or implement fundraising activities, such as annual giving campaigns or direct mail programs.",Fundraisers,2.333333333333333,3.1666666666666665,Business and Financial Operations
+18926,"Conduct research to identify the goals, net worth, charitable donation history, or other data related to potential donors, potential investors, or general donor markets.",Fundraisers,3.0,3.2,Business and Financial Operations
+18919,Monitor progress of fundraising drives.,Fundraisers,4.0,4.0,Business and Financial Operations
+18932,Write reports or prepare presentations to communicate fundraising program data.,Fundraisers,3.0,3.5,Business and Financial Operations
+18908,"Design or produce materials such as posters, Web sites, or newsletters to promote, market, or advertise fundraising events.",Fundraisers,4.0,3.2857142857142856,Business and Financial Operations
+18924,"Write speeches, press releases, or other promotional materials to increase awareness of the causes, missions, or goals of organizations seeking funds.",Fundraisers,3.333333333333333,2.7142857142857144,Business and Financial Operations
+18918,"Monitor budgets, expense reports, or other financial data for fundraising organizations.",Fundraisers,4.0,3.571428571428572,Business and Financial Operations
+20475,"Obtain, organize, or develop training procedure manuals, guides, or course materials, such as handouts or visual materials.",Training and Development Specialists,3.6666666666666665,3.5,Business and Financial Operations
+19559,"Evaluate modes of training delivery, such as in-person or virtual, to optimize training effectiveness, training costs, or environmental impacts.",Training and Development Specialists,3.0,2.6666666666666665,Business and Financial Operations
+98,"Monitor, evaluate, or record training activities or program effectiveness.",Training and Development Specialists,2.6666666666666665,3.6,Business and Financial Operations
+20474,"Design, plan, organize, or direct orientation and training programs for employees or customers.",Training and Development Specialists,3.0,3.375,Business and Financial Operations
+102,Develop alternative training methods if expected improvements are not seen.,Training and Development Specialists,3.0,2.6666666666666665,Business and Financial Operations
+101,"Evaluate training materials prepared by instructors, such as outlines, text, or handouts.",Training and Development Specialists,3.5,3.8,Business and Financial Operations
+20476,Monitor training costs and prepare budget reports to justify expenditures.,Training and Development Specialists,3.0,3.333333333333333,Business and Financial Operations
+106,Devise programs to develop executive potential among employees in lower-level positions.,Training and Development Specialists,2.0,2.8,Business and Financial Operations
+93,"Keep up with developments in area of expertise by reading current journals, books, or magazine articles.",Training and Development Specialists,4.0,3.6,Business and Financial Operations
+95,"Schedule classes based on availability of classrooms, equipment, or instructors.",Training and Development Specialists,4.0,4.0,Business and Financial Operations
+20328,Manage tracking and reporting of search-related activities and provide analyses to marketing executives.,Search Marketing Strategists,3.6666666666666665,3.1,Business and Financial Operations
+20329,"Optimize digital assets, such as text, graphics, or multimedia assets, for search engine optimization (SEO) or for display and usability on internet-connected devices.",Search Marketing Strategists,4.0,3.5,Business and Financial Operations
+16192,"Collect and analyze Web metrics, such as visits, time on site, page views per visit, transaction volume and revenue, traffic mix, click-through rates, conversion rates, cost per acquisition, or cost per click.",Search Marketing Strategists,5.0,3.6666666666666665,Business and Financial Operations
+16182,Participate in the development or implementation of online marketing strategy.,Search Marketing Strategists,4.0,3.0,Business and Financial Operations
+16190,Optimize Web site exposure by analyzing search engine patterns to direct online placement of keywords or other content.,Search Marketing Strategists,4.333333333333333,3.4285714285714284,Business and Financial Operations
+20318,Assist in setting up or optimizing analytics tools for tracking visitors' behaviors.,Search Marketing Strategists,4.5,3.5,Business and Financial Operations
+20326,Identify appropriate Key Performance Indicators (KPIs) and report key metrics from digital campaigns.,Search Marketing Strategists,4.333333333333333,3.2,Business and Financial Operations
+20321,Create content strategies for digital media.,Search Marketing Strategists,4.0,3.2,Business and Financial Operations
+20319,Combine secondary data sources with keyword research to more accurately profile and satisfy user intent.,Search Marketing Strategists,4.333333333333333,3.2857142857142856,Business and Financial Operations
+20330,Optimize shopping cart experience or Web site conversion rates against Key Performance Indicators (KPIs).,Search Marketing Strategists,4.0,4.0,Business and Financial Operations
+20327,"Improve search-related activities through ongoing analysis, experimentation, or optimization tests, using A/B or multivariate methods.",Search Marketing Strategists,4.333333333333333,4.142857142857143,Business and Financial Operations
+16191,"Conduct online marketing initiatives, such as paid ad placement, affiliate programs, sponsorship programs, email promotions, or viral marketing campaigns on social media Web sites.",Search Marketing Strategists,2.6666666666666665,3.2,Business and Financial Operations
+16186,"Conduct market research analysis to identify search query trends, real-time search and news media activity, popular social media topics, electronic commerce trends, market opportunities, or competitor performance.",Search Marketing Strategists,4.333333333333333,3.6,Business and Financial Operations
+16179,Propose online or multiple-sales-channel campaigns to marketing executives.,Search Marketing Strategists,3.0,3.2,Business and Financial Operations
+15980,"Monitor or track sustainability indicators, such as energy usage, natural resource usage, waste generation, and recycling.",Sustainability Specialists,4.333333333333333,3.0,Business and Financial Operations
+15979,"Assess or propose sustainability initiatives, considering factors such as cost effectiveness, technical feasibility, and acceptance.",Sustainability Specialists,3.5,2.75,Business and Financial Operations
+15973,Provide technical or administrative support for sustainability programs or issues.,Sustainability Specialists,3.0,3.0,Business and Financial Operations
+15968,Review and revise sustainability proposals or policies.,Sustainability Specialists,3.0,3.1666666666666665,Business and Financial Operations
+15976,Develop reports or presentations to communicate the effectiveness of sustainability initiatives.,Sustainability Specialists,3.5,2.4,Business and Financial Operations
+15975,Create or maintain plans or other documents related to sustainability projects.,Sustainability Specialists,4.5,3.1666666666666665,Business and Financial Operations
+15978,Collect information about waste stream management or green building practices to inform decision makers.,Sustainability Specialists,2.5,2.6,Business and Financial Operations
+15969,"Research or review regulatory, technical, or market issues related to sustainability.",Sustainability Specialists,4.0,2.833333333333333,Business and Financial Operations
+15731,"Receive and process payments from customers, using electronic transaction services.",Online Merchants,5.0,2.4,Business and Financial Operations
+15710,"Create, manage, or automate orders or invoices, using order management or invoicing software.",Online Merchants,5.0,3.1,Business and Financial Operations
+15709,Deliver e-mail confirmation of completed transactions and shipment.,Online Merchants,5.0,4.1,Business and Financial Operations
+15728,"Correspond with online customers via electronic mail, telephone, or other electronic messaging to address questions or complaints about products, policies, or shipping methods.",Online Merchants,3.6666666666666665,3.2,Business and Financial Operations
+15707,Determine and set product prices.,Online Merchants,4.0,2.3,Business and Financial Operations
+15730,"Calculate purchase subtotals, taxes, and shipping costs for submission to customers.",Online Merchants,5.0,2.7,Business and Financial Operations
+15734,"Compose descriptions of merchandise for posting to online storefront, auction sites, or other shopping Web sites.",Online Merchants,4.666666666666667,3.6,Business and Financial Operations
+15703,"Upload digital media, such as photos, video, or scanned images to online storefront, auction sites, or other shopping Web sites.",Online Merchants,4.0,2.6,Business and Financial Operations
+15735,"Calculate revenue, sales, and expenses, using financial accounting or spreadsheet software.",Online Merchants,5.0,4.4,Business and Financial Operations
+15714,Cancel orders based on customer requests or inventory or delivery problems.,Online Merchants,5.0,3.5,Business and Financial Operations
+15732,"Prepare or organize online storefront marketing material, including product descriptions or subject lines, optimizing content to search engine criteria.",Online Merchants,3.0,3.142857142857143,Business and Financial Operations
+15704,Order or purchase merchandise to maintain optimal inventory levels.,Online Merchants,3.0,2.2,Business and Financial Operations
+15711,Create or maintain database of customer accounts.,Online Merchants,4.333333333333333,4.5,Business and Financial Operations
+15717,"Promote products in online communities through weblog or discussion-forum postings, e-mail marketing programs, or online advertising.",Online Merchants,4.5,3.0,Business and Financial Operations
+15721,"Investigate products or markets to determine areas for opportunity or viability for merchandising specific products, using online or offline sources.",Online Merchants,2.333333333333333,4.0,Business and Financial Operations
+21511,"Examine and evaluate financial and information systems, recommending controls to ensure system reliability and data integrity.",Accountants and Auditors,3.5,3.3,Business and Financial Operations
+21514,"Prepare, examine, or analyze accounting records, financial statements, or other financial reports to assess accuracy, completeness, and conformance to reporting and procedural standards.",Accountants and Auditors,3.6666666666666665,1.75,Business and Financial Operations
+21515,Prepare adjusting journal entries.,Accountants and Auditors,4.0,2.7,Business and Financial Operations
+21516,Review accounts for discrepancies and reconcile differences.,Accountants and Auditors,4.5,2.125,Business and Financial Operations
+21519,"Analyze business operations, trends, costs, revenues, financial commitments, and obligations to project future revenues and expenses or to provide advice.",Accountants and Auditors,4.333333333333333,2.0,Business and Financial Operations
+21520,Report to management regarding the finances of establishment.,Accountants and Auditors,3.333333333333333,2.2,Business and Financial Operations
+21522,"Evaluate taxpayer finances to determine tax liability, using knowledge of interest and discount rates, annuities, valuation of stocks and bonds, and amortization valuation of depletable assets.",Accountants and Auditors,3.5,3.111111111111111,Business and Financial Operations
+21549,"Compute final estimation of property values, taking into account such factors as depreciation, replacement costs, value comparisons of similar properties, and income potential.",Appraisers and Assessors of Real Estate,2.75,2.75,Business and Financial Operations
+21550,"Prepare written reports that estimate property values, outline methods by which the estimations were made, and meet appraisal standards.",Appraisers and Assessors of Real Estate,2.6666666666666665,3.625,Business and Financial Operations
+21552,Collect and analyze relevant data to identify real estate market trends.,Appraisers and Assessors of Real Estate,4.0,2.9,Business and Financial Operations
+21553,"Prepare and maintain current data on each parcel assessed, including maps of boundaries, inventories of land and structures, property characteristics, and any applicable exemptions.",Appraisers and Assessors of Real Estate,3.5,3.1666666666666665,Business and Financial Operations
+21555,Identify the ownership of each piece of taxable property.,Appraisers and Assessors of Real Estate,3.0,3.0,Business and Financial Operations
+21557,Complete and maintain assessment rolls that show the assessed values and status of all property in a municipality.,Appraisers and Assessors of Real Estate,3.333333333333333,3.8,Business and Financial Operations
+21558,"Review information about transfers of property to ensure its accuracy, checking basic information on buyers, sellers, and sales prices and making corrections as necessary.",Appraisers and Assessors of Real Estate,3.0,3.4285714285714284,Business and Financial Operations
+21562,Examine income records and operating costs of income properties.,Appraisers and Assessors of Real Estate,2.6666666666666665,2.5,Business and Financial Operations
+21565,"Search public records for transactions such as sales, leases, and assessments.",Appraisers and Assessors of Real Estate,2.0,3.375,Business and Financial Operations
+21566,Check building codes and zoning bylaws to determine any effects on the properties being appraised.,Appraisers and Assessors of Real Estate,3.0,3.5,Business and Financial Operations
+21567,Verify legal descriptions of properties by comparing them to county records.,Appraisers and Assessors of Real Estate,4.0,3.571428571428572,Business and Financial Operations
+21570,Obtain county land values and sales information about nearby properties to aid in establishment of property values.,Appraisers and Assessors of Real Estate,2.6666666666666665,3.75,Business and Financial Operations
+3394,Analyze monthly department budgeting and accounting reports to maintain expenditure controls.,Budget Analysts,4.0,3.375,Business and Financial Operations
+3401,Review operating budgets to analyze trends affecting budget needs.,Budget Analysts,3.333333333333333,3.2857142857142856,Business and Financial Operations
+3405,Compile and analyze accounting records and other data to determine the financial resources required to implement a program.,Budget Analysts,2.5,2.833333333333333,Business and Financial Operations
+3395,Direct the preparation of regular and special budget reports.,Budget Analysts,3.333333333333333,3.4285714285714284,Business and Financial Operations
+1250,Analyze credit data and financial statements to determine the degree of risk involved in extending credit or lending money.,Credit Analysts,3.5,2.555555555555556,Business and Financial Operations
+1254,"Complete loan applications, including credit analyses and summaries of loan requests, and submit to loan committees for approval.",Credit Analysts,4.5,3.0,Business and Financial Operations
+1255,"Generate financial ratios, using computer programs, to evaluate customers' financial status.",Credit Analysts,4.5,3.4,Business and Financial Operations
+1251,Prepare reports that include the degree of risk involved in extending credit or lending money.,Credit Analysts,3.5,3.2,Business and Financial Operations
+1259,"Analyze financial data, such as income growth, quality of management, and market share to determine expected profitability of loans.",Credit Analysts,2.6666666666666665,2.571428571428572,Business and Financial Operations
+1257,"Compare liquidity, profitability, and credit histories of establishments being evaluated with those of similar establishments in the same industries and geographic locations.",Credit Analysts,3.6666666666666665,3.0,Business and Financial Operations
+12904,Analyze financial information obtained from clients to determine strategies for meeting clients' financial objectives.,Personal Financial Advisors,3.0,2.9,Business and Financial Operations
+20184,"Manage client portfolios, keeping client plans up-to-date.",Personal Financial Advisors,4.5,2.8,Business and Financial Operations
+20189,"Recommend financial products, such as stocks, bonds, mutual funds, or insurance.",Personal Financial Advisors,2.333333333333333,2.5,Business and Financial Operations
+12913,"Prepare or interpret for clients information, such as investment performance reports, financial document summaries, or income projections.",Personal Financial Advisors,2.5,3.3,Business and Financial Operations
+20188,Monitor financial market trends to ensure that client plans are responsive.,Personal Financial Advisors,3.333333333333333,3.7,Business and Financial Operations
+7319,"Prepare reports, exhibits, and other supporting schedules that detail an institution's safety and soundness, compliance with laws and regulations, and recommended solutions to questionable financial conditions.",Financial Examiners,2.5,3.0,Business and Financial Operations
+7320,"Review balance sheets, operating income and expense accounts, and loan documentation to confirm institution assets and liabilities.",Financial Examiners,4.5,3.125,Business and Financial Operations
+7318,"Examine the minutes of meetings of directors, stockholders, and committees to investigate the specific authority extended at various levels of management.",Financial Examiners,2.333333333333333,2.833333333333333,Business and Financial Operations
+18935,Calculate clients' available monthly income to meet debt obligations.,Credit Counselors,3.0,2.8,Business and Financial Operations
+18938,"Explain services or policies to clients, such as debt management program rules, advantages and disadvantages of using services, or creditor concession policies.",Credit Counselors,2.5,3.0,Business and Financial Operations
+18936,"Create debt management plans, spending plans, or budgets to assist clients to meet financial goals.",Credit Counselors,2.5,2.25,Business and Financial Operations
+18943,"Prioritize client debt repayment to avoid dire consequences, such as bankruptcy or foreclosure or to reduce overall costs, such as by paying high-interest or short-term loans first.",Credit Counselors,2.5,2.6666666666666665,Business and Financial Operations
+18934,"Assess clients' overall financial situations by reviewing income, assets, debts, expenses, credit reports, or other financial information.",Credit Counselors,3.6666666666666665,3.6,Business and Financial Operations
+18937,"Estimate time for debt repayment, given amount of debt, interest rates, and available funds.",Credit Counselors,3.333333333333333,2.75,Business and Financial Operations
+18942,Prepare written documents to establish contracts with or communicate financial recommendations to clients.,Credit Counselors,2.5,3.2,Business and Financial Operations
+18940,"Maintain or update records of client account activity, including financial transactions, counseling session notes, correspondence, document images, or client inquiries.",Credit Counselors,5.0,2.6666666666666665,Business and Financial Operations
+18933,"Advise clients or respond to inquiries about financial matters in person or via phone, email, Web site, or Internet chat.",Credit Counselors,3.5,2.5,Business and Financial Operations
+3409,"Analyze applicants' financial status, credit, and property evaluations to determine feasibility of granting loans.",Loan Officers,3.5,3.0,Business and Financial Operations
+3407,"Approve loans within specified limits, and refer loan applications outside those limits to management for approval.",Loan Officers,4.5,2.888888888888889,Business and Financial Operations
+3416,Submit applications to credit analysts for verification and recommendation.,Loan Officers,4.5,3.5,Business and Financial Operations
+3413,Review loan agreements to ensure that they are complete and accurate according to policy.,Loan Officers,3.6666666666666665,2.8,Business and Financial Operations
+3412,Review and update credit and loan files.,Loan Officers,3.6666666666666665,3.142857142857143,Business and Financial Operations
+3411,"Obtain and compile copies of loan applicants' credit histories, corporate financial statements, and other financial information.",Loan Officers,4.5,3.7142857142857135,Business and Financial Operations
+3415,Stay abreast of new types of loans and other financial services and products to better meet customers' needs.,Loan Officers,4.0,2.5,Business and Financial Operations
+3414,Compute payment schedules.,Loan Officers,3.0,3.4,Business and Financial Operations
+7360,"Use all appropriate adjustments, deductions, and credits to keep clients' taxes to a minimum.",Tax Preparers,4.5,3.375,Business and Financial Operations
+7358,"Compute taxes owed or overpaid, using adding machines or personal computers, and complete entries on forms, following tax form instructions and tax tables.",Tax Preparers,4.0,3.6666666666666665,Business and Financial Operations
+7362,"Review financial records, such as income statements and documentation of expenditures to determine forms needed to prepare tax returns.",Tax Preparers,4.5,3.625,Business and Financial Operations
+7359,Prepare or assist in preparing simple to complex tax returns for individuals or small businesses.,Tax Preparers,4.5,3.8,Business and Financial Operations
+7363,Furnish taxpayers with sufficient information and advice to ensure correct tax form completion.,Tax Preparers,3.333333333333333,2.75,Business and Financial Operations
+7364,Consult tax law handbooks or bulletins to determine procedures for preparation of atypical returns.,Tax Preparers,4.5,3.8,Business and Financial Operations
+20363,Answer questions and provide future tax planning to clients.,Tax Preparers,3.5,3.7142857142857135,Business and Financial Operations
+7365,Calculate form preparation fees according to return complexity and processing time required.,Tax Preparers,4.5,3.333333333333333,Business and Financial Operations
+21165,Schedule appointments with clients.,Tax Preparers,4.666666666666667,5.0,Business and Financial Operations
+15997,"Apply mathematical or statistical techniques to address practical issues in finance, such as derivative valuation, securities trading, risk management, or financial market regulation.",Financial Quantitative Analysts,3.0,3.3,Business and Financial Operations
+15988,Produce written summary reports of financial research results.,Financial Quantitative Analysts,4.0,3.4,Business and Financial Operations
+15983,Provide application or analytical support to researchers or traders on issues such as valuations or data.,Financial Quantitative Analysts,3.5,3.2,Business and Financial Operations
+20950,Troubleshoot program and system malfunctions to restore normal functioning.,Computer Systems Analysts,3.6666666666666665,2.5454545454545454,Computer and Mathematical
+3465,"Test, maintain, and monitor computer programs and systems, including coordinating the installation of computer programs and systems.",Computer Systems Analysts,3.0,2.3,Computer and Mathematical
+3482,"Use the computer in the analysis and solution of business problems, such as development of integrated production and inventory control and cost analysis systems.",Computer Systems Analysts,2.6666666666666665,2.4,Computer and Mathematical
+3466,"Use object-oriented programming languages, as well as client and server applications development processes and multimedia and Internet technology.",Computer Systems Analysts,4.0,2.8,Computer and Mathematical
+3474,"Analyze information processing or computation needs and plan and design computer systems, using techniques such as structured analysis, data modeling, and information engineering.",Computer Systems Analysts,3.0,2.7,Computer and Mathematical
+3484,Specify inputs accessed by the system and plan the distribution and use of the results.,Computer Systems Analysts,3.333333333333333,2.2222222222222223,Computer and Mathematical
+3470,Expand or modify system to serve new purposes or improve work flow.,Computer Systems Analysts,2.0,2.5454545454545454,Computer and Mathematical
+3480,"Read manuals, periodicals, and technical reports to learn how to develop programs that meet staff and user requirements.",Computer Systems Analysts,4.5,2.7,Computer and Mathematical
+3478,"Review and analyze computer printouts and performance indicators to locate code problems, and correct errors by correcting codes.",Computer Systems Analysts,4.5,3.2222222222222223,Computer and Mathematical
+18090,"Translate nursing practice information between nurses and systems engineers, analysts, or designers, using object-oriented models or other techniques.",Health Informatics Specialists,3.0,3.25,Computer and Mathematical
+18092,Use informatics science to design or implement health information technology applications for resolution of clinical or health care administrative problems.,Health Informatics Specialists,2.6666666666666665,2.6666666666666665,Computer and Mathematical
+18094,"Analyze and interpret patient, nursing, or information systems data to improve nursing services.",Health Informatics Specialists,3.0,2.833333333333333,Computer and Mathematical
+18101,"Identify, collect, record, or analyze data relevant to the nursing care of patients.",Health Informatics Specialists,2.5,3.1666666666666665,Computer and Mathematical
+18093,"Develop, implement, or evaluate health information technology applications, tools, processes, or structures to assist nurses with data management.",Health Informatics Specialists,3.0,2.5,Computer and Mathematical
+18088,"Design, develop, select, test, implement, and evaluate new or modified informatics solutions, data structures, and decision-support mechanisms to support patients, health care professionals, and their information management and human-computer and human-technology interactions within health care contexts.",Health Informatics Specialists,2.6666666666666665,2.6666666666666665,Computer and Mathematical
+18095,"Analyze computer and information technologies to determine applicability to nursing practice, education, administration, and research.",Health Informatics Specialists,2.6666666666666665,2.0,Computer and Mathematical
+18100,"Develop strategies, policies or procedures for introducing, evaluating, or modifying information technology applied to nursing practice, administration, education, or research.",Health Informatics Specialists,2.0,2.5,Computer and Mathematical
+18103,Provide consultation to nurses regarding hardware or software configuration.,Health Informatics Specialists,4.0,2.0,Computer and Mathematical
+5314,"Develop plans to safeguard computer files against accidental or unauthorized modification, destruction, or disclosure and to meet emergency data processing needs.",Information Security Analysts,2.333333333333333,2.6666666666666665,Computer and Mathematical
+5316,Monitor current reports of computer viruses to determine when to update virus protection systems.,Information Security Analysts,3.0,3.375,Computer and Mathematical
+5317,"Modify computer security files to incorporate new software, correct errors, or change individual access status.",Information Security Analysts,3.5,2.625,Computer and Mathematical
+5322,"Document computer security and emergency measures policies, procedures, and tests.",Information Security Analysts,3.5,3.4,Computer and Mathematical
+5319,Monitor use of data files and regulate access to safeguard information in computer files.,Information Security Analysts,3.0,3.7,Computer and Mathematical
+14623,Analyze problems to develop solutions involving computer hardware and software.,Computer and Information Research Scientists,2.333333333333333,3.7777777777777777,Computer and Mathematical
+14626,"Apply theoretical expertise and innovation to create or apply new technology, such as adapting principles for applying computers to new uses.",Computer and Information Research Scientists,1.6666666666666667,3.333333333333333,Computer and Mathematical
+14624,Assign or schedule tasks to meet work priorities and goals.,Computer and Information Research Scientists,3.0,3.7,Computer and Mathematical
+14633,Design computers and the software that runs them.,Computer and Information Research Scientists,2.6666666666666665,3.6666666666666665,Computer and Mathematical
+14625,Evaluate project plans and proposals to assess feasibility issues.,Computer and Information Research Scientists,4.0,4.1,Computer and Mathematical
+14636,"Approve, prepare, monitor, and adjust operational budgets.",Computer and Information Research Scientists,2.5,4.166666666666667,Computer and Mathematical
+19004,Back up network data.,Computer Network Support Specialists,4.5,2.833333333333333,Computer and Mathematical
+18991,Configure security settings or access permissions for groups or individuals.,Computer Network Support Specialists,4.666666666666667,2.333333333333333,Computer and Mathematical
+19003,Analyze and report computer network security breaches or attempted breaches.,Computer Network Support Specialists,3.333333333333333,2.5,Computer and Mathematical
+18993,Document network support activities.,Computer Network Support Specialists,4.5,3.5,Computer and Mathematical
+18992,Configure wide area network (WAN) or local area network (LAN) routers or related equipment.,Computer Network Support Specialists,2.0,2.0,Computer and Mathematical
+19002,Troubleshoot network or connectivity problems for users or user groups.,Computer Network Support Specialists,2.5,2.4285714285714284,Computer and Mathematical
+19010,Provide telephone support related to networking or connectivity issues.,Computer Network Support Specialists,3.6666666666666665,3.8,Computer and Mathematical
+18989,"Analyze network data to determine network usage, disk space availability, or server function.",Computer Network Support Specialists,4.666666666666667,3.333333333333333,Computer and Mathematical
+19011,Research hardware or software products to meet technical networking or security needs.,Computer Network Support Specialists,3.333333333333333,2.0,Computer and Mathematical
+1285,Oversee the daily performance of computer systems.,Computer User Support Specialists,5.0,2.75,Computer and Mathematical
+1288,"Read technical manuals, confer with users, or conduct computer diagnostics to investigate and resolve problems or to provide technical assistance and support.",Computer User Support Specialists,3.6666666666666665,3.0,Computer and Mathematical
+1282,Answer user inquiries regarding computer software or hardware operation to resolve problems.,Computer User Support Specialists,4.5,2.8,Computer and Mathematical
+1283,Enter commands and observe system functioning to verify correct operations and detect errors.,Computer User Support Specialists,4.666666666666667,2.2857142857142856,Computer and Mathematical
+1287,"Maintain records of daily data communication transactions, problems and remedial actions taken, or installation activities.",Computer User Support Specialists,4.666666666666667,4.5,Computer and Mathematical
+1292,"Prepare evaluations of software or hardware, and recommend improvements or upgrades.",Computer User Support Specialists,3.0,2.625,Computer and Mathematical
+1290,"Develop training materials and procedures, or train users in the proper use of hardware or software.",Computer User Support Specialists,2.333333333333333,3.0,Computer and Mathematical
+1299,Modify existing databases and database management systems or direct programmers and analysts to make changes.,Database Administrators,4.5,2.1666666666666665,Computer and Mathematical
+1301,"Plan, coordinate, and implement security measures to safeguard information in computer files against accidental or unauthorized damage, modification or disclosure.",Database Administrators,2.333333333333333,2.333333333333333,Computer and Mathematical
+1305,Specify users and user access levels for each segment of database.,Database Administrators,4.0,2.5,Computer and Mathematical
+1300,"Test programs or databases, correct errors, and make necessary modifications.",Database Administrators,4.0,3.25,Computer and Mathematical
+1313,"Write and code logical and physical database descriptions and specify identifiers of database to management system, or direct others in coding descriptions.",Database Administrators,4.5,1.6666666666666667,Computer and Mathematical
+1314,"Review workflow charts developed by programmer analyst to understand tasks computer will perform, such as updating records.",Database Administrators,4.0,2.571428571428572,Computer and Mathematical
+1318,"Maintain and administer computer networks and related computing environments, including computer hardware, systems software, applications software, and all configurations.",Network and Computer Systems Administrators,2.5,3.5,Computer and Mathematical
+1317,Perform data backups and disaster recovery operations.,Network and Computer Systems Administrators,1.5,3.75,Computer and Mathematical
+15206,"Configure, monitor, and maintain email applications or virus protection software.",Network and Computer Systems Administrators,5.0,3.875,Computer and Mathematical
+1320,Operate master consoles to monitor the performance of computer systems and networks and to coordinate computer network access and use.,Network and Computer Systems Administrators,4.5,3.5,Computer and Mathematical
+1325,Monitor network performance to determine whether adjustments are needed and where changes will be needed in the future.,Network and Computer Systems Administrators,3.333333333333333,3.6666666666666665,Computer and Mathematical
+1319,"Plan, coordinate, and implement network security measures to protect data, software, and hardware.",Network and Computer Systems Administrators,2.0,3.7142857142857135,Computer and Mathematical
+1329,Analyze equipment performance records to determine the need for repair or replacement.,Network and Computer Systems Administrators,4.0,3.6666666666666665,Computer and Mathematical
+1323,"Recommend changes to improve systems and network configurations, and determine hardware or software requirements related to such changes.",Network and Computer Systems Administrators,2.6666666666666665,3.333333333333333,Computer and Mathematical
+1322,"Design, configure, and test computer hardware, networking software and operating system software.",Network and Computer Systems Administrators,3.5,3.4,Computer and Mathematical
+1321,"Perform routine network startup and shutdown procedures, and maintain control records.",Network and Computer Systems Administrators,4.666666666666667,4.166666666666667,Computer and Mathematical
+1273,"Write, analyze, review, and rewrite programs, using workflow chart and diagram, and applying knowledge of computer capabilities, subject matter, and symbolic logic.",Computer Programmers,3.5,3.1,Computer and Mathematical
+1267,Correct errors by making appropriate changes and rechecking the program to ensure that the desired results are produced.,Computer Programmers,3.0,3.0,Computer and Mathematical
+1272,"Perform or direct revision, repair, or expansion of existing programs to increase operating efficiency or adapt to new requirements.",Computer Programmers,3.0,2.5,Computer and Mathematical
+1270,"Write, update, and maintain computer programs or software packages to handle specific jobs such as tracking inventory, storing or retrieving data, or controlling other equipment.",Computer Programmers,4.5,3.111111111111111,Computer and Mathematical
+1276,"Prepare detailed workflow charts and diagrams that describe input, output, and logical operation, and convert them into a series of instructions coded in a computer language.",Computer Programmers,5.0,3.0,Computer and Mathematical
+1269,"Compile and write documentation of program development and subsequent revisions, inserting comments in the coded instructions so others can understand the program.",Computer Programmers,4.666666666666667,3.625,Computer and Mathematical
+1277,Perform systems analysis and programming tasks to maintain and control the use of computer systems software as a systems programmer.,Computer Programmers,3.5,2.625,Computer and Mathematical
+1274,Write or contribute to instructions or manuals to guide end users.,Computer Programmers,4.0,2.8,Computer and Mathematical
+1275,"Investigate whether networks, workstations, the central processing unit of the system, or peripheral equipment are responding to a program's instructions.",Computer Programmers,5.0,3.4,Computer and Mathematical
+1279,"Assign, coordinate, and review work and activities of programming personnel.",Computer Programmers,2.333333333333333,2.333333333333333,Computer and Mathematical
+21049,Develop Web sites.,Computer Programmers,4.0,2.6666666666666665,Computer and Mathematical
+14642,"Identify, analyze, and document problems with program function, output, online screen, or content.",Software Quality Assurance Analysts and Testers,3.0,3.0,Computer and Mathematical
+14641,"Document software defects, using a bug tracking system, and report defects to software developers.",Software Quality Assurance Analysts and Testers,4.0,2.6666666666666665,Computer and Mathematical
+14640,"Develop testing programs that address areas such as database impacts, software scenarios, regression testing, negative testing, error or bug retests, or usability.",Software Quality Assurance Analysts and Testers,3.0,3.0,Computer and Mathematical
+14638,"Design test plans, scenarios, scripts, or procedures.",Software Quality Assurance Analysts and Testers,3.333333333333333,3.8333333333333335,Computer and Mathematical
+14648,Document test procedures to ensure replicability and compliance with standards.,Software Quality Assurance Analysts and Testers,5.0,3.4,Computer and Mathematical
+14653,Provide feedback and recommendations to developers on software usability and functionality.,Software Quality Assurance Analysts and Testers,3.0,3.0,Computer and Mathematical
+14652,"Install, maintain, or use software testing programs.",Software Quality Assurance Analysts and Testers,3.0,3.5,Computer and Mathematical
+14639,Test system modifications to prepare for implementation.,Software Quality Assurance Analysts and Testers,3.6666666666666665,3.25,Computer and Mathematical
+14644,Create or maintain databases of known test defects.,Software Quality Assurance Analysts and Testers,5.0,3.25,Computer and Mathematical
+14649,"Develop or specify standards, methods, or procedures to determine product quality or release readiness.",Software Quality Assurance Analysts and Testers,3.0,3.1666666666666665,Computer and Mathematical
+14643,Monitor bug resolution efforts and track successes.,Software Quality Assurance Analysts and Testers,4.0,4.0,Computer and Mathematical
+14650,Update automated test scripts to ensure currency.,Software Quality Assurance Analysts and Testers,4.5,3.6666666666666665,Computer and Mathematical
+14645,Plan test schedules or strategies in accordance with project scope or delivery dates.,Software Quality Assurance Analysts and Testers,4.0,3.0,Computer and Mathematical
+14654,Monitor program performance to ensure efficient and problem-free operations.,Software Quality Assurance Analysts and Testers,3.5,3.75,Computer and Mathematical
+14655,"Conduct software compatibility tests with programs, hardware, operating systems, or network environments.",Software Quality Assurance Analysts and Testers,5.0,3.25,Computer and Mathematical
+14647,"Review software documentation to ensure technical accuracy, compliance, or completeness, or to mitigate risks.",Software Quality Assurance Analysts and Testers,4.5,2.333333333333333,Computer and Mathematical
+14658,"Identify program deviance from standards, and suggest modifications to ensure compliance.",Software Quality Assurance Analysts and Testers,3.5,3.0,Computer and Mathematical
+14707,Write supporting code for Web applications or Web sites.,Web Developers,4.666666666666667,2.9,Computer and Mathematical
+14694,"Design, build, or maintain Web sites, using authoring or scripting languages, content creation tools, management tools, and digital media.",Web Developers,3.5,2.9,Computer and Mathematical
+14698,Back up files from Web sites to local directories for instant recovery in case of problems.,Web Developers,4.666666666666667,4.2,Computer and Mathematical
+14700,"Evaluate code to ensure that it is valid, is properly structured, meets industry standards, and is compatible with browsers, devices, or operating systems.",Web Developers,4.0,3.0,Computer and Mathematical
+14710,"Perform Web site tests according to planned schedules, or after any Web site or product revision.",Web Developers,4.666666666666667,3.3,Computer and Mathematical
+14695,Perform or direct Web site updates.,Web Developers,3.6666666666666665,2.4,Computer and Mathematical
+14713,"Respond to user email inquiries, or set up automated systems to send responses.",Web Developers,5.0,3.3,Computer and Mathematical
+14708,Communicate with network personnel or Web site hosting agencies to address hardware or software issues affecting Web sites.,Web Developers,2.0,3.2,Computer and Mathematical
+14717,Establish appropriate server directory trees.,Web Developers,4.333333333333333,3.3,Computer and Mathematical
+14719,Recommend and implement performance improvements.,Web Developers,4.0,3.1,Computer and Mathematical
+14714,Develop or implement procedures for ongoing Web site revision.,Web Developers,4.0,2.6,Computer and Mathematical
+14722,"Provide clear, detailed descriptions of Web site specifications, such as product features, activities, software, communication protocols, programming languages, and operating systems software and hardware.",Web Developers,5.0,2.8,Computer and Mathematical
+14723,Monitor security system performance logs to identify problems and notify security specialists when problems occur.,Web Developers,3.333333333333333,2.9,Computer and Mathematical
+16199,Balance and adjust gameplay experiences to ensure the critical and commercial success of the product.,Video Game Designers,2.6666666666666665,3.1666666666666665,Computer and Mathematical
+16208,"Devise missions, challenges, or puzzles to be encountered in game play.",Video Game Designers,3.0,2.571428571428572,Computer and Mathematical
+16217,"Create core game features, including storylines, role-play mechanics, and character biographies for a new video game or game franchise.",Video Game Designers,2.0,2.857142857142857,Computer and Mathematical
+16201,"Solicit, obtain, and integrate feedback from design and technical staff into original game design.",Video Game Designers,3.0,3.75,Computer and Mathematical
+16214,Conduct regular design reviews throughout the game development process.,Video Game Designers,2.6666666666666665,3.4,Computer and Mathematical
+16209,"Develop and maintain design level documentation, including mechanics, guidelines, and mission outlines.",Video Game Designers,1.6666666666666667,2.2,Computer and Mathematical
+16198,Provide feedback to designers and other colleagues regarding game design features.,Video Game Designers,3.333333333333333,1.6666666666666667,Computer and Mathematical
+16212,"Create and manage documentation, production schedules, prototyping goals, and communication plans in collaboration with production staff.",Video Game Designers,1.3333333333333333,3.6666666666666665,Computer and Mathematical
+16202,Provide feedback to production staff regarding technical game qualities or adherence to original design.,Video Game Designers,2.0,2.25,Computer and Mathematical
+16211,Create gameplay prototypes for presentation to creative and technical staff and management.,Video Game Designers,2.0,3.1666666666666665,Computer and Mathematical
+16203,Prepare two-dimensional concept layouts or three-dimensional mock-ups.,Video Game Designers,4.0,3.75,Computer and Mathematical
+16194,"Review or evaluate competitive products, film, music, television, and other art forms to generate new game design ideas.",Video Game Designers,3.0,2.333333333333333,Computer and Mathematical
+16200,Write or supervise the writing of game text and dialogue.,Video Game Designers,3.0,2.0,Computer and Mathematical
+14734,"Monitor systems for intrusions or denial of service attacks, and report security breaches to appropriate personnel.",Web Administrators,3.6666666666666665,3.8,Computer and Mathematical
+14731,Back up or modify applications and related data to provide for disaster recovery.,Web Administrators,4.5,4.2,Computer and Mathematical
+14758,"Correct testing-identified problems, or recommend actions for their resolution.",Web Administrators,4.0,3.2857142857142856,Computer and Mathematical
+14732,"Determine sources of Web page or server problems, and take action to correct such problems.",Web Administrators,4.0,3.1666666666666665,Computer and Mathematical
+14740,"Implement updates, upgrades, and patches in a timely manner to limit loss of service.",Web Administrators,4.666666666666667,3.6,Computer and Mathematical
+14750,"Test issues such as system integration, performance, and system security on a regular schedule or after any major program modifications.",Web Administrators,4.5,3.75,Computer and Mathematical
+14749,"Track, compile, and analyze Web site usage data.",Web Administrators,4.5,3.5,Computer and Mathematical
+14733,"Review or update Web page content or links in a timely manner, using appropriate tools.",Web Administrators,4.5,3.2857142857142856,Computer and Mathematical
+14743,"Install or configure Web server software or hardware to ensure that directory structure is well-defined, logical, and secure, and that files are named properly.",Web Administrators,4.5,4.0,Computer and Mathematical
+14744,"Gather, analyze, or document user feedback to locate or resolve sources of problems.",Web Administrators,2.6666666666666665,2.6,Computer and Mathematical
+14762,Set up or maintain monitoring tools on Web servers or Web sites.,Web Administrators,4.5,4.0,Computer and Mathematical
+14675,Monitor system operation to detect potential problems.,Computer Systems Engineers/Architects,3.0,4.0,Computer and Mathematical
+14673,"Identify system data, hardware, or software components required to meet user needs.",Computer Systems Engineers/Architects,3.0,2.5,Computer and Mathematical
+14686,"Research, test, or verify proper functioning of software patches and fixes.",Computer Systems Engineers/Architects,4.0,3.571428571428572,Computer and Mathematical
+14670,Collaborate with engineers or software developers to select appropriate design solutions or ensure the compatibility of system components.,Computer Systems Engineers/Architects,3.333333333333333,3.0,Computer and Mathematical
+14683,Design and conduct hardware or software tests.,Computer Systems Engineers/Architects,2.5,3.6,Computer and Mathematical
+14672,Provide technical guidance or support for the development or troubleshooting of systems.,Computer Systems Engineers/Architects,3.333333333333333,3.333333333333333,Computer and Mathematical
+14681,"Define and analyze objectives, scope, issues, or organizational impact of information systems.",Computer Systems Engineers/Architects,2.6666666666666665,2.0,Computer and Mathematical
+14667,"Provide advice on project costs, design concepts, or design changes.",Computer Systems Engineers/Architects,2.333333333333333,3.571428571428572,Computer and Mathematical
+14671,"Evaluate current or emerging technologies to consider factors such as cost, portability, compatibility, or usability.",Computer Systems Engineers/Architects,3.0,2.6,Computer and Mathematical
+14687,"Communicate project information through presentations, technical reports, or white papers.",Computer Systems Engineers/Architects,3.333333333333333,3.5,Computer and Mathematical
+16157,Monitor or track project milestones and deliverables.,Information Technology Project Managers,2.333333333333333,3.3,Computer and Mathematical
+16152,"Submit project deliverables, ensuring adherence to quality standards.",Information Technology Project Managers,2.333333333333333,2.7,Computer and Mathematical
+16159,"Initiate, review, or approve modifications to project plans.",Information Technology Project Managers,3.333333333333333,2.8,Computer and Mathematical
+16170,"Develop or update project plans for information technology projects including information such as project objectives, technologies, systems, information specifications, schedules, funding, and staffing.",Information Technology Project Managers,2.333333333333333,2.8,Computer and Mathematical
+16151,Perform risk assessments to develop response strategies.,Information Technology Project Managers,2.0,3.0,Computer and Mathematical
+16168,"Prepare project status reports by collecting, analyzing, and summarizing information and trends.",Information Technology Project Managers,4.5,3.0,Computer and Mathematical
+16171,Develop and manage work breakdown structure (WBS) of information technology projects.,Information Technology Project Managers,2.0,2.7,Computer and Mathematical
+16167,"Assign duties, responsibilities, and spans of authority to project personnel.",Information Technology Project Managers,2.0,2.6,Computer and Mathematical
+7373,"Address the relationships of quantities, magnitudes, and forms through the use of numbers and symbols.",Mathematicians,3.6666666666666665,3.111111111111111,Computer and Mathematical
+7371,Develop mathematical or statistical models of phenomena to be used for analysis or for computational simulation.,Mathematicians,2.5,2.888888888888889,Computer and Mathematical
+7370,Perform computations and apply methods of numerical analysis to data.,Mathematicians,4.5,4.0,Computer and Mathematical
+7372,"Assemble sets of assumptions, and explore the consequences of each set.",Mathematicians,2.0,2.7142857142857144,Computer and Mathematical
+7368,Develop computational methods for solving problems that occur in areas of science and engineering or that come from applications in business or industry.,Mathematicians,2.0,3.4285714285714284,Computer and Mathematical
+8956,Analyze and interpret statistical data to identify significant differences in relationships among sources of information.,Statisticians,4.0,3.25,Computer and Mathematical
+8953,"Report results of statistical analyses, including information in the form of graphs, charts, and tables.",Statisticians,4.0,4.5,Computer and Mathematical
+8957,"Prepare data for processing by organizing information, checking for inaccuracies, and adjusting and weighting the raw data.",Statisticians,3.333333333333333,3.25,Computer and Mathematical
+8955,"Identify relationships and trends in data, as well as any factors that could affect the results of research.",Statisticians,4.0,3.7142857142857135,Computer and Mathematical
+8961,"Design research projects that apply valid scientific techniques, and use information obtained from baselines or historical data to structure uncompromised and efficient analyses.",Statisticians,2.0,2.75,Computer and Mathematical
+8954,"Process large amounts of data for statistical modeling and graphic analysis, using computers.",Statisticians,4.0,3.8,Computer and Mathematical
+16265,"Analyze clinical or survey data, using statistical approaches such as longitudinal analysis, mixed-effect modeling, logistic regression analyses, and model-building techniques.",Biostatisticians,4.0,2.625,Computer and Mathematical
+16246,Calculate sample size requirements for clinical studies.,Biostatisticians,3.5,4.0,Computer and Mathematical
+16252,Prepare tables and graphs to present clinical data or results.,Biostatisticians,3.0,4.0,Computer and Mathematical
+16249,Write program code to analyze data with statistical analysis software.,Biostatisticians,4.0,2.6666666666666665,Computer and Mathematical
+16262,Review clinical or other medical research protocols and recommend appropriate statistical analyses.,Biostatisticians,4.0,2.6666666666666665,Computer and Mathematical
+16150,"Generate standard or custom reports summarizing business, financial, or economic data for review by executives, managers, clients, and other stakeholders.",Business Intelligence Analysts,3.0,3.2,Computer and Mathematical
+16140,Manage timely flow of business intelligence information to users.,Business Intelligence Analysts,2.5,3.4,Computer and Mathematical
+16146,"Collect business intelligence data from available industry reports, public information, field reports, or purchased sources.",Business Intelligence Analysts,3.0,3.142857142857143,Computer and Mathematical
+16143,"Disseminate information regarding tools, reports, or metadata enhancements.",Business Intelligence Analysts,2.5,3.75,Computer and Mathematical
+16136,"Identify or monitor current and potential customers, using business intelligence tools.",Business Intelligence Analysts,3.5,3.2222222222222223,Computer and Mathematical
+16135,"Maintain library of model documents, templates, or other reusable knowledge assets.",Business Intelligence Analysts,4.5,3.6666666666666665,Computer and Mathematical
+16284,"Process clinical data, including receipt, entry, verification, or filing of information.",Clinical Data Managers,3.0,3.571428571428572,Computer and Mathematical
+16280,"Generate data queries, based on validation checks or errors and omissions identified during data entry, to resolve identified problems.",Clinical Data Managers,3.0,4.0,Computer and Mathematical
+16279,Monitor work productivity or quality to ensure compliance with standard operating procedures.,Clinical Data Managers,3.0,3.4,Computer and Mathematical
+16277,"Prepare data analysis listings and activity, performance, or progress reports.",Clinical Data Managers,3.5,3.375,Computer and Mathematical
+16283,Analyze clinical data using appropriate statistical tools.,Clinical Data Managers,3.0,3.6666666666666665,Computer and Mathematical
+16270,Develop technical specifications for data management programming and communicate needs to information technology staff.,Clinical Data Managers,2.5,3.5,Computer and Mathematical
+16274,"Track the flow of work forms, including in-house data flow or electronic forms transfer.",Clinical Data Managers,2.5,3.6666666666666665,Computer and Mathematical
+288,Present final layouts to clients for approval.,Art Directors,1.5,2.4285714285714284,"Arts, Designs, and Media"
+286,"Manage own accounts and projects, working within budget and scheduling requirements.",Art Directors,2.0,2.857142857142857,"Arts, Designs, and Media"
+284,"Formulate basic layout design or presentation approach and specify material details, such as style and size of type, photographs, graphics, animation, video, and sound.",Art Directors,2.0,2.5,"Arts, Designs, and Media"
+285,"Review and approve art materials, copy materials, and proofs of printed copy developed by staff members.",Art Directors,2.6666666666666665,3.1666666666666665,"Arts, Designs, and Media"
+294,Create custom illustrations or other graphic elements.,Art Directors,3.0,2.625,"Arts, Designs, and Media"
+292,Review illustrative material to determine if it conforms to standards and specifications.,Art Directors,2.333333333333333,2.4,"Arts, Designs, and Media"
+20242,"Research current trends and new technology, such as printing production techniques, computer software, and design trends.",Art Directors,2.0,3.0,"Arts, Designs, and Media"
+295,"Mark up, paste, and complete layouts and write typography instructions to prepare materials for typesetting or printing.",Art Directors,2.0,3.6666666666666665,"Arts, Designs, and Media"
+307,Key information into computer equipment to create layouts for client or supervisor.,Graphic Designers,4.0,1.6666666666666667,"Arts, Designs, and Media"
+304,"Review final layouts and suggest improvements, as needed.",Graphic Designers,3.6666666666666665,1.7142857142857142,"Arts, Designs, and Media"
+300,"Determine size and arrangement of illustrative material and copy, and select style and size of type.",Graphic Designers,3.333333333333333,2.333333333333333,"Arts, Designs, and Media"
+306,"Develop graphics and layouts for product illustrations, company logos, and Web sites.",Graphic Designers,3.0,1.8888888888888888,"Arts, Designs, and Media"
+299,"Create designs, concepts, and sample layouts, based on knowledge of layout principles and esthetic design concepts.",Graphic Designers,3.0,1.7777777777777777,"Arts, Designs, and Media"
+301,Use computer software to generate new images.,Graphic Designers,3.333333333333333,2.142857142857143,"Arts, Designs, and Media"
+303,"Draw and print charts, graphs, illustrations, and other artwork, using computer.",Graphic Designers,2.5,2.888888888888889,"Arts, Designs, and Media"
+309,"Study illustrations and photographs to plan presentation of materials, products, or services.",Graphic Designers,3.6666666666666665,2.4,"Arts, Designs, and Media"
+15228,"Maintain archive of images, photos, or previous work products.",Graphic Designers,4.0,2.4,"Arts, Designs, and Media"
+308,"Prepare illustrations or rough sketches of material, discussing them with clients or supervisors and making necessary changes.",Graphic Designers,2.6666666666666665,1.7142857142857142,"Arts, Designs, and Media"
+15229,Research new software or design concepts.,Graphic Designers,3.333333333333333,2.833333333333333,"Arts, Designs, and Media"
+22522,"Research production topics using the internet, video archives, and other informational sources.",Producers and Directors,3.6666666666666665,2.888888888888889,"Arts, Designs, and Media"
+22523,"Review film, recordings, or rehearsals to ensure conformance to production and broadcast standards.",Producers and Directors,2.333333333333333,3.0,"Arts, Designs, and Media"
+22519,Study and research scripts to determine how they should be directed.,Producers and Directors,2.5,2.571428571428572,"Arts, Designs, and Media"
+22532,"Perform management activities, such as budgeting, scheduling, planning, and marketing.",Producers and Directors,2.333333333333333,3.375,"Arts, Designs, and Media"
+22527,Conduct meetings with staff to discuss production progress and to ensure production objectives are attained.,Producers and Directors,3.0,2.0,"Arts, Designs, and Media"
+22528,"Compile scripts, program notes, and other material related to productions.",Producers and Directors,2.333333333333333,3.4,"Arts, Designs, and Media"
+22539,Write and submit proposals to bid on contracts for projects.,Producers and Directors,2.333333333333333,2.333333333333333,"Arts, Designs, and Media"
+22533,Compose and edit scripts or provide screenwriters with story outlines from which scripts can be written.,Producers and Directors,2.0,2.5,"Arts, Designs, and Media"
+22535,Cut and edit film or tape to integrate component parts into desired sequences.,Producers and Directors,2.6666666666666665,1.75,"Arts, Designs, and Media"
+22537,Review film daily to check on work in progress and to plan for future filming.,Producers and Directors,2.333333333333333,2.2,"Arts, Designs, and Media"
+22529,"Perform administrative duties, such as preparing operational reports, distributing rehearsal call sheets and script copies, and arranging for rehearsal quarters.",Producers and Directors,2.0,3.8,"Arts, Designs, and Media"
+3897,Observe pictures through monitors and direct camera and video staff concerning shading and composition.,Media Technical Directors/Managers,1.6666666666666667,2.0,"Arts, Designs, and Media"
+3896,Monitor broadcasts to ensure that programs conform to station or network policies and regulations.,Media Technical Directors/Managers,2.333333333333333,2.8,"Arts, Designs, and Media"
+3906,Collaborate with promotions directors to produce on-air station promotions.,Media Technical Directors/Managers,2.0,2.125,"Arts, Designs, and Media"
+3900,Schedule use of studio and editing facilities for producers and engineering and maintenance staff.,Media Technical Directors/Managers,3.0,2.75,"Arts, Designs, and Media"
+3894,"Direct technical aspects of newscasts and other productions, checking and switching between video sources and taking responsibility for the on-air product, including camera shots and graphics.",Media Technical Directors/Managers,2.0,2.25,"Arts, Designs, and Media"
+3905,"Set up and execute video transitions and special effects, such as fades, dissolves, cuts, keys, and supers, using computers to manipulate pictures as necessary.",Media Technical Directors/Managers,3.0,2.0,"Arts, Designs, and Media"
+22623,"Write commentaries, columns, or scripts, using computers.","News Analysts, Reporters, and Journalists",3.5,2.375,"Arts, Designs, and Media"
+22625,"Examine news items of local, national, and international significance to determine topics to address, or obtain assignments from editorial staff members.","News Analysts, Reporters, and Journalists",3.0,2.0,"Arts, Designs, and Media"
+22626,Analyze and interpret news and information received from various sources to broadcast the information.,"News Analysts, Reporters, and Journalists",3.333333333333333,2.2,"Arts, Designs, and Media"
+22628,Research a story's background information to provide complete and accurate information.,"News Analysts, Reporters, and Journalists",3.0,2.0,"Arts, Designs, and Media"
+22631,"Select material most pertinent to presentation, and organize this material into appropriate formats.","News Analysts, Reporters, and Journalists",3.5,2.8,"Arts, Designs, and Media"
+22635,Revise work to meet editorial approval or to fit time or space requirements.,"News Analysts, Reporters, and Journalists",3.0,2.4285714285714284,"Arts, Designs, and Media"
+22636,Review and evaluate notes taken about news events to isolate pertinent facts and details.,"News Analysts, Reporters, and Journalists",3.0,2.0,"Arts, Designs, and Media"
+22638,"Review written, audio, or video copy, and correct errors in content, grammar, or punctuation, following prescribed editorial style and formatting guidelines.","News Analysts, Reporters, and Journalists",4.333333333333333,2.8,"Arts, Designs, and Media"
+22642,"Check reference materials, such as books, news files, or public records, to obtain relevant facts.","News Analysts, Reporters, and Journalists",3.333333333333333,4.0,"Arts, Designs, and Media"
+22648,"Develop ideas or material for columns or commentaries by analyzing and interpreting news, current issues, or personal experiences.","News Analysts, Reporters, and Journalists",3.333333333333333,2.6666666666666665,"Arts, Designs, and Media"
+1764,Respond to requests for information from the media or designate an appropriate spokesperson or information source.,Public Relations Specialists,2.6666666666666665,2.6,"Arts, Designs, and Media"
+23951,Post and update content on the company's Web site and social media outlets.,Public Relations Specialists,3.0,3.125,"Arts, Designs, and Media"
+20554,Write press releases or other media communications to promote clients.,Public Relations Specialists,3.333333333333333,2.75,"Arts, Designs, and Media"
+1769,"Study the objectives, promotional policies, or needs of organizations to develop public relations strategies that will influence public opinion or promote ideas, products, or services.",Public Relations Specialists,2.0,2.0,"Arts, Designs, and Media"
+20557,"Prepare or edit organizational publications, such as employee newsletters or stockholders' reports, for internal or external audiences.",Public Relations Specialists,2.0,3.25,"Arts, Designs, and Media"
+1777,"Read copy or proof to detect and correct errors in spelling, punctuation, and syntax.",Editors,3.0,2.3,"Arts, Designs, and Media"
+1780,"Verify facts, dates, and statistics, using standard reference sources.",Editors,4.333333333333333,2.4,"Arts, Designs, and Media"
+1786,"Read, evaluate and edit manuscripts or other materials submitted for publication, and confer with authors regarding changes in content, style or organization, or publication.",Editors,2.333333333333333,1.8888888888888888,"Arts, Designs, and Media"
+1782,"Develop story or content ideas, considering reader or audience appeal.",Editors,2.333333333333333,2.0,"Arts, Designs, and Media"
+1776,"Prepare, rewrite and edit copy to improve readability, or supervise others who do this work.",Editors,2.333333333333333,2.5,"Arts, Designs, and Media"
+1783,"Oversee publication production, including artwork, layout, computer typesetting, and printing, ensuring adherence to deadlines and budget requirements.",Editors,2.0,2.333333333333333,"Arts, Designs, and Media"
+21000,"Write text, such as stories, articles, editorials, or newsletters.",Editors,3.0,1.6,"Arts, Designs, and Media"
+1779,"Plan the contents of publications according to the publication's style, editorial policy, and publishing requirements.",Editors,3.5,1.6666666666666667,"Arts, Designs, and Media"
+1781,Review and approve proofs submitted by composing room prior to publication production.,Editors,2.333333333333333,2.375,"Arts, Designs, and Media"
+1785,"Assign topics, events and stories to individual writers or reporters for coverage.",Editors,2.333333333333333,1.8,"Arts, Designs, and Media"
+1778,"Allocate print space for story text, photos, and illustrations according to space parameters and copy significance, using knowledge of layout principles.",Editors,2.6666666666666665,1.75,"Arts, Designs, and Media"
+3966,"Organize material and complete writing assignment according to set standards regarding order, clarity, conciseness, style, and terminology.",Technical Writers,3.0,3.625,"Arts, Designs, and Media"
+3967,Maintain records and files of work and revisions.,Technical Writers,3.0,2.75,"Arts, Designs, and Media"
+3968,"Edit, standardize, or make changes to material prepared by other writers or establishment personnel.",Technical Writers,2.6666666666666665,2.0,"Arts, Designs, and Media"
+3971,"Select photographs, drawings, sketches, diagrams, and charts to illustrate material.",Technical Writers,2.6666666666666665,2.5,"Arts, Designs, and Media"
+20243,Develop or maintain online help documentation.,Technical Writers,3.0,2.2857142857142856,"Arts, Designs, and Media"
+3975,"Arrange for typing, duplication, and distribution of material.",Technical Writers,2.0,4.0,"Arts, Designs, and Media"
+3977,Analyze developments in specific field to determine need for revisions in previously published materials and development of new material.,Technical Writers,4.333333333333333,2.25,"Arts, Designs, and Media"
+3970,"Review published materials and recommend revisions or changes in scope, format, content, and methods of reproduction and binding.",Technical Writers,4.5,2.333333333333333,"Arts, Designs, and Media"
+22655,Vary language and tone of messages based on product and medium.,Writers and Authors,4.5,2.6,"Arts, Designs, and Media"
+22654,Present drafts and ideas to clients.,Writers and Authors,3.0,2.375,"Arts, Designs, and Media"
+22660,"Review advertising trends, consumer surveys, and other data regarding marketing of goods and services to determine the best way to promote products.",Writers and Authors,4.0,3.0,"Arts, Designs, and Media"
+22657,"Write articles, bulletins, sales letters, speeches, and other related informative, marketing and promotional material.",Writers and Authors,4.5,2.125,"Arts, Designs, and Media"
+22658,Conduct research and interviews to determine which of a product's selling features should be promoted.,Writers and Authors,3.5,3.6666666666666665,"Arts, Designs, and Media"
+20558,"Transfer photographs to computers for editing, archiving, and electronic transmission.",Photographers,4.0,3.7,"Arts, Designs, and Media"
+9352,"Manipulate and enhance scanned or digital images to create desired effects, using computers and specialized software.",Photographers,5.0,2.333333333333333,"Arts, Designs, and Media"
+9357,"Enhance, retouch, and resize photographs and negatives, using airbrushing and other techniques.",Photographers,5.0,2.7,"Arts, Designs, and Media"
+9351,"Estimate or measure light levels, distances, and numbers of exposures needed, using measuring devices and formulas.",Photographers,4.5,2.555555555555556,"Arts, Designs, and Media"
+9354,"Perform general office duties, such as scheduling appointments, keeping books, and ordering supplies.",Photographers,4.0,3.3,"Arts, Designs, and Media"
+9350,Review sets of photographs to select the best work.,Photographers,3.0,2.1,"Arts, Designs, and Media"
+20560,Write photograph captions.,Photographers,5.0,3.125,"Arts, Designs, and Media"
