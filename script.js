@@ -183,7 +183,7 @@ const scenes = {
 
   26: { image: 'assets/chapter1/room2/2-1.png', action: () => goToSceneInstant(27) },
   27: { image: 'assets/chapter1/room2/2-2.png', action: () => goToSceneInstant(28) },
-  28: { image: 'assets/chapter1/room2/2-3.png', action: () => goToSceneInstant(30) },
+  28: { image: 'assets/chapter1/room2/2-3.png', action: () => goToSceneInstant(29) },
   29: { image: 'assets/chapter1/room2/2-4.png', action: () => goToSceneInstant(30) },
   30: {
     image: 'assets/chapter1/room2/2-5.png',
@@ -330,6 +330,8 @@ const hotspotContainer = document.getElementById('hotspot-container');
 let isMusicPlaying = false;
 const musicControl = document.getElementById('music-control');
 const musicIcon = document.getElementById('music-icon');
+const musicControlDatavis = document.getElementById('music-control-datavis');
+const musicIconDatavis = document.getElementById('music-icon-datavis');
 const backgroundMusic = document.getElementById('background-music');
 
 function goToScene(index) {
@@ -351,9 +353,11 @@ function goToScene(index) {
     if (isPrologueOrCover || isSpecialScene) {
       // 在prologue、cover和特定页面隐藏音乐按钮
       musicControl.style.display = 'none';
+      musicControlDatavis.style.display = 'none';
     } else {
       // 显示音乐控制按钮
       musicControl.style.display = 'block';
+      musicControlDatavis.style.display = 'none'; // scene部分显示，datavis部分隐藏
       
       // 如果音乐还没开始播放，自动开始播放
       if (!isMusicPlaying) {
@@ -474,6 +478,7 @@ function startMusic() {
     console.log('音乐播放成功');
     isMusicPlaying = true;
     musicIcon.src = 'assets/icons/music.png';
+    musicIconDatavis.src = 'assets/icons/music.png';
   }).catch(error => {
     console.log('音乐播放失败:', error);
     // 尝试用户交互后播放
@@ -482,6 +487,7 @@ function startMusic() {
         console.log('用户交互后音乐播放成功');
         isMusicPlaying = true;
         musicIcon.src = 'assets/icons/music.png';
+        musicIconDatavis.src = 'assets/icons/music.png';
       }).catch(err => {
         console.log('用户交互后音乐播放仍然失败:', err);
       });
@@ -495,6 +501,7 @@ function stopMusic() {
   backgroundMusic.currentTime = 0;
   isMusicPlaying = false;
   musicIcon.src = 'assets/icons/music_off.png';
+  musicIconDatavis.src = 'assets/icons/music_off.png';
 }
 
 function toggleMusic() {
@@ -506,13 +513,23 @@ function toggleMusic() {
 }
 
 // 音乐按钮点击事件
-musicControl.addEventListener('click', toggleMusic);
+musicControl.addEventListener('click', (e) => {
+  e.stopPropagation(); // 阻止事件冒泡，避免触发屏幕点击事件
+  toggleMusic();
+});
+
+// datavis部分的音乐按钮点击事件
+musicControlDatavis.addEventListener('click', (e) => {
+  e.stopPropagation(); // 阻止事件冒泡，避免触发屏幕点击事件
+  toggleMusic();
+});
 
 // 处理最后一页音乐停止
 function handleLastScene() {
   if (currentScene === 62) {
     stopMusic();
     musicControl.style.display = 'none';
+    musicControlDatavis.style.display = 'none';
   }
 }
 
@@ -535,6 +552,12 @@ window.startChapter3 = function() {
     sceneImage.src = scenes[53].image;
     updateHotspots();
     renderMarks();
+    
+    // 显示音乐按钮（Chapter 3的场景）
+    const musicControl = document.getElementById('music-control');
+    const musicControlDatavis = document.getElementById('music-control-datavis');
+    musicControl.style.display = 'block';
+    musicControlDatavis.style.display = 'none';
     
     // 渐变显示新场景
     setTimeout(() => {

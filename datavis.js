@@ -245,6 +245,10 @@ function initDataVis(titleText, dataPath, renderer) {
       void container.offsetWidth;
       container.style.opacity = "1";
 
+      // 显示音乐按钮
+      const musicControlDatavis = document.getElementById('music-control-datavis');
+      musicControlDatavis.style.display = 'block';
+
       setTimeout(() => {
         overlay.style.opacity = 0;
       }, 100);

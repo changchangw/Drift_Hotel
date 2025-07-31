@@ -67,8 +67,8 @@ const chartRenderers = {
             .enter().append("text")
             .style("font-size", d => d.size + "px")
             .style("fill", d => {
-              if (d.isPositive) return "#8B0000"; // 暗红色
-              if (d.isNegative) return "#000000"; // 黑色
+              if (d.isPositive) return "#000000"; // 暗红色
+              if (d.isNegative) return "#8B0000"; // 黑色
               return "#150D04"; // 默认颜色
             })
             .style("font-family", "Arial")
