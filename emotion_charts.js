@@ -19,11 +19,18 @@ const chartRenderers = {
       d3.csv(csvPath).then(data => {
         data.forEach(d => d.Count = +d.Count);
 
+        // 根据实际CSV数据定义正面和消极词汇列表
+        const positiveWords = ["good", "optimistic", "excited", "hopeful", "helpful", "useful", "innovative", "interested", "smart", "positive", "great", "interesting", "intrigued", "curious"];
+        const negativeWords = ["scary", "worried", "unsure", "concerned", "cautious", "dangerous", "nervous", "wary", "apprehensive", "sceptical", "indifferent", "confused", "uncertain", "uneasy", "suspicious", "bad", "anxious", "fake", "untrustworthy", "negative"];
+
         d3.layout.cloud()
           .size([width, height])
           .words(data.map(d => ({
             text: d.Item,
-            size: d.Count / 4 + 10
+            size: d.Count / 4 + 10,
+            count: d.Count,
+            isPositive: positiveWords.includes(d.Item.toLowerCase()),
+            isNegative: negativeWords.includes(d.Item.toLowerCase())
           })))
           .padding(6)
           .rotate(() => ~~(Math.random() * 2) * 90)
@@ -40,15 +47,59 @@ const chartRenderers = {
           const g = svg.append("g")
             .attr("transform", `translate(${width / 2}, ${height / 2})`);
 
+          // 创建tooltip
+          const tooltip = d3.select("body")
+            .append("div")
+            .attr("class", "wordcloud-tooltip")
+            .style("position", "absolute")
+            .style("z-index", "10000")
+            .style("background", "rgba(0,0,0,0.75)")
+            .style("color", "#fff")
+            .style("padding", "6px 10px")
+            .style("border-radius", "6px")
+            .style("font-size", "13px")
+            .style("font-family", "'Courier New', monospace")
+            .style("pointer-events", "none")
+            .style("display", "none");
+
           g.selectAll("text")
             .data(words)
             .enter().append("text")
             .style("font-size", d => d.size + "px")
-            .style("fill", "#150D04")
+            .style("fill", d => {
+              if (d.isPositive) return "#8B0000"; // 暗红色
+              if (d.isNegative) return "#000000"; // 黑色
+              return "#150D04"; // 默认颜色
+            })
             .style("font-family", "Arial")
             .attr("text-anchor", "middle")
             .attr("transform", d => `translate(${d.x},${d.y}) rotate(${d.rotate})`)
-            .text(d => d.text);
+            .text(d => d.text)
+            .style("cursor", "pointer") // 添加鼠标手型
+            .on("mouseover", function(event, d) {
+              // 悬浮位移效果
+              d3.select(this)
+                .transition()
+                .duration(200)
+                .attr("transform", `translate(${d.x + 2},${d.y - 2}) rotate(${d.rotate})`);
+              
+              // 显示tooltip
+              tooltip
+                .style("left", event.pageX + 10 + "px")
+                .style("top", event.pageY - 10 + "px")
+                .style("display", "block")
+                .html(`<strong>${d.text}</strong><br>Frequency: ${d.count}`);
+            })
+            .on("mouseout", function(event, d) {
+              // 恢复原位置
+              d3.select(this)
+                .transition()
+                .duration(200)
+                .attr("transform", `translate(${d.x},${d.y}) rotate(${d.rotate})`);
+              
+              // 隐藏tooltip
+              tooltip.style("display", "none");
+            });
 
           resolve(); // 词云渲染完成
         }

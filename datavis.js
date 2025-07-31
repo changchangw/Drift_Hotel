@@ -2,7 +2,7 @@
 
 const chartConfigs = [
   {
-    title: "Word cloud of public sentiment towards AI by UK Adults",
+    title: "How UK Adults Feel About AI",
     chartType: 1,
     dataPath: "assets/chapter2/RTA_PADAI_Tracker_-_Q22_Wave_4_-_Word_frequency.csv",
     source: "Source: Public attitudes to data and AI: Tracker survey (Wave 4) report, 2024"

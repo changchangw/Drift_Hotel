@@ -906,6 +906,14 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
           const isTopQuadrant = bg.y < y(yThreshold);
           const labelY = isTopQuadrant ? bg.y + 20 : bg.y + bg.height - 20;
           
+          // 定义象限解释
+          const quadrantExplanations = {
+            "Automation 'Green Light' Zone": "Tasks with both high automation desire and high capability. These are prime candidates for AI agent deployment with the potential for broad productivity and societal gains.",
+            "Automation 'Red Light' Zone": "Tasks with high capability but low desire. Deployment here warrants caution, as it may face worker resistance or pose broader negative societal implications.",
+            "R&D Opportunity Zone": "Tasks with high desire but currently low capability. These represent promising directions for AI research and development.",
+            "Low Priority Zone": "Tasks with both low desire and low capability. These are less urgent for AI agent development."
+          };
+          
           g.append("text")
             .attr("x", bg.x + bg.width / 2)
             .attr("y", labelY)
@@ -915,7 +923,39 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
             .style("font-size", "12px")
             .style("font-weight", "bold")
             .style("fill", "#000000")
-            .text(bg.label);
+            .style("cursor", "pointer")
+            .text(bg.label)
+            .on("mouseover", function(event) {
+              // 创建或更新tooltip
+              const quadrantTooltip = d3.select("body")
+                .append("div")
+                .attr("class", "quadrant-tooltip")
+                .style("position", "absolute")
+                .style("z-index", "10000")
+                .style("background", "rgba(0,0,0,0.85)")
+                .style("color", "#fff")
+                .style("padding", "10px 12px")
+                .style("border-radius", "6px")
+                .style("font-size", "12px")
+                .style("font-family", "'Courier New', monospace")
+                .style("max-width", "300px")
+                .style("line-height", "1.4")
+                .style("pointer-events", "none")
+                .style("display", "block")
+                .html(`<strong>${bg.label}</strong><br><br>${quadrantExplanations[bg.label]}`);
+              
+              quadrantTooltip
+                .style("left", event.pageX + 15 + "px")
+                .style("top", event.pageY - 10 + "px");
+            })
+            .on("mousemove", function(event) {
+              d3.select(".quadrant-tooltip")
+                .style("left", event.pageX + 15 + "px")
+                .style("top", event.pageY - 10 + "px");
+            })
+            .on("mouseout", function() {
+              d3.select(".quadrant-tooltip").remove();
+            });
         });
 
       // 垂直分割线

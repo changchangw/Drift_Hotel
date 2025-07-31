@@ -319,7 +319,7 @@ const scenes = {
   59: { image: 'assets/chapter3/5.png', action: () => goToScene(60) },
   60: { image: 'assets/chapter3/6.png', action: () => goToScene(61) },
   61: { image: 'assets/chapter3/7.png', action: () => goToScene(62) },
-  62: { image: 'assets/chapter3/cover.png', action: () => goToScene(53) } // 循环回到开始
+  62: { image: 'assets/chapter3/cover.png', action: () => {} } // 最后一页，点击无动作
 };
 
 let currentScene = 1;
@@ -445,12 +445,24 @@ goToScene(52); //测试用，正式应为1
 // Chapter 3 启动函数
 window.startChapter3 = function() {
   const overlay = document.getElementById("fade-overlay");
+  
+  // 先渐变变黑
   overlay.style.opacity = 1;
-
+  
+  // 等待变黑完成后，再切换场景
   setTimeout(() => {
     document.getElementById('datavis-container').style.display = 'none';
     document.getElementById('scene-container').style.display = 'block';
     currentScene = 53;
-    goToScene(53);
-  }, 600);
+    
+    // 设置新场景图片
+    sceneImage.src = scenes[53].image;
+    updateHotspots();
+    renderMarks();
+    
+    // 渐变显示新场景
+    setTimeout(() => {
+      overlay.style.opacity = 0;
+    }, 50);
+  }, 1000); // 从600ms增加到1000ms
 };

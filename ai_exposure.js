@@ -641,38 +641,37 @@ chartRenderers[8] = function(titleText, dataPath, chartArea) {
   const width = 1280;
   const height = 720;
 
-  const skillBg = {
-    x: 30,
-    y: 160,
-    width: 643,
-    height: 397
-  };
+  // 单张图片的定位
+  const imageX = 0;
+  const imageY = 120;
+  const imageWidth = 760;
+  const imageHeight = 480;
 
-  const cardWidth = 500;
-  const cardHeight = 120;
-  const cardGap = 16;
-
-  const cards = [
+  // 热区定义
+  const hotspots = [
     {
-      label: "Medium skill",
-      y: skillBg.y,
-      image: "assets/chapter2/medium_skill.png",
-      color: "#943533",
-      tooltip: "25.8% medium exposure + 12.3% high exposure"
+      x: imageX + 160,
+      y: imageY + 50,
+      width: 500,
+      height: 120,
+      label: "Medium Skill",
+      tooltip: "Exposure: High 12.3% + Medium 25.8% = 38.1%<br>Typical jobs: Clerical support, Sales workers, Craft workers, Machine operators"
     },
     {
-      label: "High skill",
-      y: skillBg.y + cardHeight + cardGap,
-      image: "assets/chapter2/high_skill.png",
-      color: "#A07B3B",
-      tooltip: "22.2% medium exposure + 13.1% high exposure"
+      x: imageX + 160,
+      y: imageY + 190,
+      width: 500,
+      height: 120,
+      label: "High Skill", 
+      tooltip: "Exposure: High 13.1% + Medium 22.2% = 35.3%<br>Typical jobs: Managers, Professionals, Technicians"
     },
     {
-      label: "Low skill",
-      y: skillBg.y + (cardHeight + cardGap) * 2,
-      image: "assets/chapter2/low_skill.png",
-      color: "#3B260E",
-      tooltip: "Only 0.8% high or medium exposure"
+      x: imageX + 160,
+      y: imageY + 330,
+      width: 500,
+      height: 120,
+      label: "Low Skill",
+      tooltip: "Exposure: High 0.8% + Medium 0% = 0.8%<br>Typical jobs: Agricultural workers, Fishery workers, Elementary occupations"
     }
   ];
 
@@ -690,13 +689,13 @@ chartRenderers[8] = function(titleText, dataPath, chartArea) {
       document.addEventListener("click", () => hideDialogueBoxById("dialogue-box3"), { once: true });
     }
 
-    // ✅ 左侧箭头图片
+    // ✅ 主图片
     svg.append("image")
-      .attr("href", "assets/chapter2/arrow.png")
-      .attr("x", 30)
-      .attr("y", skillBg.y)
-      .attr("width", 104)  // 根据你的图片尺寸调整
-      .attr("height", skillBg.height);
+      .attr("href", "assets/chapter2/AIexposure_skill.png")
+      .attr("x", imageX)
+      .attr("y", imageY)
+      .attr("width", imageWidth)
+      .attr("height", imageHeight);
 
     // tooltip
     const tooltip = d3.select("body")
@@ -713,45 +712,30 @@ chartRenderers[8] = function(titleText, dataPath, chartArea) {
       .style("display", "none")
       .style("pointer-events", "none");
 
-    // ✅ 卡片层
-    const cardX = 172;
-
-    cards.forEach(card => {
+    // ✅ 热区层
+    hotspots.forEach(hotspot => {
       const group = svg.append("g")
-        .attr("transform", `translate(${cardX}, ${card.y})`)
-        .style("cursor", "default");
+        .attr("transform", `translate(${hotspot.x}, ${hotspot.y})`)
+        //.style("cursor", "pointer");
 
-      const rect = group.append("rect")
-        .attr("x", 0)
-        .attr("y", 0)
-        .attr("width", cardWidth)
-        .attr("height", cardHeight)
-        .attr("rx", 8)
-        .attr("fill", card.color)
-        .attr("opacity", 0.95);
-
-      const image = group.append("image")
-        .attr("href", card.image)
-        .attr("width", 420)
-        .attr("height", 85)
-        .attr("x", 40)
-        .attr("y", 15);
+      // 透明的热区矩形（用于检测鼠标）
+      group.append("rect")
+        .attr("width", hotspot.width)
+        .attr("height", hotspot.height)
+        .attr("fill", "transparent")
+        .attr("stroke", "none");
 
       group.on("mouseover", function (event) {
-        group.transition().duration(150).attr("transform", `translate(${cardX - 4}, ${card.y - 4})`);
-        rect.transition().duration(150).attr("fill", d3.color(card.color).brighter(0.5));
         tooltip
           .style("left", event.pageX + 12 + "px")
           .style("top", event.pageY - 10 + "px")
           .style("display", "block")
-          .html(`<strong>${card.label}</strong><br>${card.tooltip}`);
+          .html(`<strong>${hotspot.label}</strong><br>${hotspot.tooltip}`);
 
         showChart8DialogueImage();
       });
 
       group.on("mouseout", function () {
-        group.transition().duration(150).attr("transform", `translate(${cardX}, ${card.y})`);
-        rect.transition().duration(150).attr("fill", card.color);
         tooltip.style("display", "none");
       });
     });
