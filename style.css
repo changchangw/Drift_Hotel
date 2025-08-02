@@ -15,6 +15,41 @@
   object-fit: cover;
 }
 
+/* 酒店图片容器 */
+#hotel-container {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  transition: all 0.3s ease;
+}
+
+#hotel-image {
+  width: 360px;
+  height: auto;
+  transition: all 0.3s ease;
+}
+
+/* 闪烁文字 */
+#blinking-text {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-family: 'Amatica SC', cursive;
+  font-size: 24px;
+  text-align: center;
+  z-index: 6;
+  animation: blink 2s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
 /* 热点容器，覆盖在图像上 */
 #hotspot-container {
   position: absolute;
@@ -284,3 +319,5 @@
   
   margin: 0 auto; /* 居中显示 */
 }
+
+

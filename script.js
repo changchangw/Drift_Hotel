@@ -33,7 +33,11 @@ const markData = {
 const hintImage = document.getElementById('hint-image');
 
 const scenes = {
-  1: { image: 'assets/chapter1/start.png', action: () => goToScene(2) },
+  1: { 
+    image: 'assets/chapter1/start.png', 
+    action: () => goToScene(2),
+    customSetup: () => setupHotelScene()
+  },
   2: { image: 'assets/chapter1/cover.png', action: () => goToScene(3) },
   3: { image: 'assets/chapter1/prologue.png', action: () => goToScene(4) },
   4: {
@@ -344,6 +348,20 @@ function goToScene(index) {
     updateHotspots();
     renderMarks(); 
     
+    // 处理自定义设置
+    if (scenes[index].customSetup) {
+      scenes[index].customSetup();
+    } else {
+      // 如果不是场景1，隐藏酒店图片和闪烁文字
+      const hotelContainer = document.getElementById('hotel-container');
+      const blinkingText = document.getElementById('blinking-text');
+      const sceneContainer = document.getElementById('scene-container');
+      
+      if (hotelContainer) hotelContainer.style.display = 'none';
+      if (blinkingText) blinkingText.style.display = 'none';
+      if (sceneContainer) sceneContainer.style.backgroundColor = '';
+    }
+    
     // 音乐控制逻辑
     // 在所有prologue、cover和特定页面不显示音乐按钮
     const isPrologueOrCover = index === 2 || index === 3 || index === 51 || index === 53 || index === 54;
@@ -397,6 +415,47 @@ function goToScene(index) {
     // 处理最后一页音乐停止
     handleLastScene();
   }, 600);
+}
+
+// 酒店场景设置函数
+function setupHotelScene() {
+  // 设置黑色背景
+  const sceneContainer = document.getElementById('scene-container');
+  sceneContainer.style.backgroundColor = 'black';
+  
+  // 显示酒店图片和闪烁文字
+  const hotelContainer = document.getElementById('hotel-container');
+  const blinkingText = document.getElementById('blinking-text');
+  
+  hotelContainer.style.display = 'block';
+  blinkingText.style.display = 'block';
+  
+  // 设置酒店图片的鼠标悬停效果
+  const hotelImage = document.getElementById('hotel-image');
+  
+  // 移除之前的事件监听器（如果存在）
+  hotelImage.removeEventListener('mouseenter', hotelImage._mouseenterHandler);
+  hotelImage.removeEventListener('mouseleave', hotelImage._mouseleaveHandler);
+  hotelContainer.removeEventListener('click', hotelContainer._clickHandler);
+  
+  // 创建事件处理函数
+  hotelImage._mouseenterHandler = function() {
+    this.src = 'assets/chapter1/hotel-light.png';
+  };
+  
+  hotelImage._mouseleaveHandler = function() {
+    this.src = 'assets/chapter1/hotel.png';
+  };
+  
+  hotelContainer._clickHandler = function(e) {
+    e.stopPropagation(); // 阻止事件冒泡
+    goToScene(2);
+  };
+  
+  // 添加新的事件监听器
+  hotelImage.addEventListener('mouseenter', hotelImage._mouseenterHandler);
+  hotelImage.addEventListener('mouseleave', hotelImage._mouseleaveHandler);
+  hotelContainer.addEventListener('click', hotelContainer._clickHandler);
 }
 
 
@@ -564,3 +623,13 @@ window.startChapter3 = function() {
     }, 50);
   }, 1000); // 从600ms增加到1000ms
 };
+
+// 页面加载完成后的初始化
+document.addEventListener('DOMContentLoaded', function() {
+  // 初始化场景1
+  if (currentScene === 1) {
+    setupHotelScene();
+  }
+});
+
+
