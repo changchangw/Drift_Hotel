@@ -263,6 +263,11 @@ function initDataVis(titleText, dataPath, renderer) {
       // 显示音乐按钮
       const musicControlDatavis = document.getElementById('music-control-datavis');
       musicControlDatavis.style.display = 'block';
+      
+      // 确保切换到第二章音乐
+      if (window.switchToChapter2Music && !window.isChapter2Music()) {
+        window.switchToChapter2Music();
+      }
 
       setTimeout(() => {
         overlay.style.opacity = 0;

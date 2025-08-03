@@ -6,11 +6,61 @@ const memoryCollected = {
   room3: false
 };
 
+// 修改为跟踪每个房间收集的具体记忆
+const roomMemories = {
+  room1: new Set(), // 使用Set来存储收集的记忆ID，避免重复
+  room2: new Set(),
+  room3: new Set()
+};
+
+// 保留memoryCount用于兼容性，但不再使用
 const memoryCount = {
   room1: 0,
   room2: 0,
   room3: 0
 };
+
+// 通用的记忆收集函数
+function collectMemory(roomName, memoryId) {
+  roomMemories[roomName].add(memoryId);
+  
+  // 如果收集了3个不同的记忆，标记房间为完成
+  if (roomMemories[roomName].size >= 3) {
+    memoryCollected[roomName] = true;
+  }
+  
+  // 调试信息：显示当前收集状态
+  console.log(`${roomName} 收集的记忆:`, Array.from(roomMemories[roomName]));
+  console.log(`${roomName} 完成状态:`, memoryCollected[roomName]);
+}
+
+// 获取记忆收集状态的函数（用于调试）
+function getMemoryStatus() {
+  return {
+    room1: {
+      memories: Array.from(roomMemories.room1),
+      completed: memoryCollected.room1,
+      count: roomMemories.room1.size
+    },
+    room2: {
+      memories: Array.from(roomMemories.room2),
+      completed: memoryCollected.room2,
+      count: roomMemories.room2.size
+    },
+    room3: {
+      memories: Array.from(roomMemories.room3),
+      completed: memoryCollected.room3,
+      count: roomMemories.room3.size
+    }
+  };
+}
+
+// 将状态函数暴露到全局，方便调试
+window.getMemoryStatus = getMemoryStatus;
+
+// 将音乐控制函数暴露到全局
+window.switchToChapter2Music = switchToChapter2Music;
+window.isChapter2Music = () => isChapter2Music;
 
 const markData = {
   room1: {
@@ -99,10 +149,7 @@ const scenes = {
   10: {
     image: 'assets/chapter1/room1/1-4.png',
     action: () => {
-      memoryCount.room1 += 1;
-      if (memoryCount.room1 >= 3) {
-        memoryCollected.room1 = true;
-      }
+      collectMemory('room1', 'memory1'); // 第一个记忆：Graduation Photo
       goToScene(5);
     }
   },
@@ -113,10 +160,7 @@ const scenes = {
   14: {
     image: 'assets/chapter1/room1/2-4.png',
     action: () => {
-      memoryCount.room1 += 1;
-      if (memoryCount.room1 >= 3) {
-        memoryCollected.room1 = true;
-      }
+      collectMemory('room1', 'memory2'); // 第二个记忆：Shakespeare's Sonnets
       goToScene(6);
     }
   },
@@ -127,10 +171,7 @@ const scenes = {
   18: {
     image: 'assets/chapter1/room1/3-4.png',
     action: () => {
-      memoryCount.room1 += 1;
-      if (memoryCount.room1 >= 3) {
-        memoryCollected.room1 = true;
-      }
+      collectMemory('room1', 'memory3'); // 第三个记忆：Flawless
       goToScene(6);
     }
   },
@@ -177,10 +218,7 @@ const scenes = {
   25: {
     image: 'assets/chapter1/room2/1-5.png',
     action: () => {
-      memoryCount.room2 += 1;
-      if (memoryCount.room2 >= 3) {
-        memoryCollected.room2 = true;
-      }
+      collectMemory('room2', 'memory1'); // 第一个记忆：The Starry Night
       goToScene(19);
     }
   },
@@ -192,10 +230,7 @@ const scenes = {
   30: {
     image: 'assets/chapter1/room2/2-5.png',
     action: () => {
-      memoryCount.room2 += 1;
-      if (memoryCount.room2 >= 3) {
-        memoryCollected.room2 = true;
-      }
+      collectMemory('room2', 'memory2'); // 第二个记忆：Termination
       goToScene(20);
     }
   },
@@ -206,10 +241,7 @@ const scenes = {
   34: {
     image: 'assets/chapter1/room2/3-4.png',
     action: () => {
-      memoryCount.room2 += 1;
-      if (memoryCount.room2 >= 3) {
-        memoryCollected.room2 = true;
-      }
+      collectMemory('room2', 'memory3'); // 第三个记忆：The Mirror
       goToScene(20);
     }
   },
@@ -256,10 +288,7 @@ const scenes = {
   41: {
     image: 'assets/chapter1/room3/1-5.png',
     action: () => {
-      memoryCount.room3 += 1;
-      if (memoryCount.room3 >= 3) {
-        memoryCollected.room3 = true;
-      }
+      collectMemory('room3', 'memory1'); // 第一个记忆：An Outstanding Programmer
       goToScene(35);
     }
   },
@@ -270,10 +299,7 @@ const scenes = {
   45: {
     image: 'assets/chapter1/room3/2-4.png',
     action: () => {
-      memoryCount.room3 += 1;
-      if (memoryCount.room3 >= 3) {
-        memoryCollected.room3 = true;
-      }
+      collectMemory('room3', 'memory2'); // 第二个记忆：Game Enthusiast
       goToScene(36);
     }
   },
@@ -285,10 +311,7 @@ const scenes = {
   50: {
     image: 'assets/chapter1/room3/3-5.png',
     action: () => {
-      memoryCount.room3 += 1;
-      if (memoryCount.room3 >= 3) {
-        memoryCollected.room3 = true;
-      }
+      collectMemory('room3', 'memory3'); // 第三个记忆：Sleep No More
       goToScene(36);
     }
   },
@@ -331,11 +354,57 @@ const hotspotContainer = document.getElementById('hotspot-container');
 
 // 音乐控制变量
 let isMusicPlaying = false;
+let userManuallyStoppedMusic = false; // 添加用户手动关闭音乐的标志
+let isChapter2Music = false; // 跟踪是否已经切换到第二章音乐
 const musicControl = document.getElementById('music-control');
 const musicIcon = document.getElementById('music-icon');
 const musicControlDatavis = document.getElementById('music-control-datavis');
 const musicIconDatavis = document.getElementById('music-icon-datavis');
 const backgroundMusic = document.getElementById('background-music');
+
+// 音乐淡出函数
+function fadeOutMusic(duration = 2000) {
+  if (!isMusicPlaying) return;
+  
+  const startVolume = backgroundMusic.volume;
+  const steps = 20;
+  const stepDuration = duration / steps;
+  const volumeStep = startVolume / steps;
+  
+  const fadeInterval = setInterval(() => {
+    if (backgroundMusic.volume > volumeStep) {
+      backgroundMusic.volume -= volumeStep;
+    } else {
+      backgroundMusic.pause();
+      backgroundMusic.volume = startVolume; // 恢复原始音量
+      isMusicPlaying = false;
+      musicIcon.src = 'assets/icons/music_off.png';
+      musicIconDatavis.src = 'assets/icons/music_off.png';
+      musicIcon.classList.remove('floating');
+      musicIconDatavis.classList.remove('floating');
+      clearInterval(fadeInterval);
+    }
+  }, stepDuration);
+}
+
+// 切换到第二章音乐
+function switchToChapter2Music() {
+  if (isChapter2Music) return; // 如果已经是第二章音乐，不重复切换
+  
+  // 切换到肖邦音乐
+  backgroundMusic.src = 'assets/chopin-nocturne-op-9-no-2-relaxing-piano-music-345085.mp3';
+  isChapter2Music = true;
+  
+  // 如果音乐正在播放，重新开始播放新音乐
+  if (isMusicPlaying) {
+    backgroundMusic.play().then(() => {
+      console.log('第二章音乐播放成功');
+      backgroundMusic.volume = 1.0; // 肖邦音乐正常音量
+    }).catch(error => {
+      console.log('第二章音乐播放失败:', error);
+    });
+  }
+}
 
 function goToScene(index) {
   const overlay = document.getElementById('fade-overlay');
@@ -364,10 +433,24 @@ function goToScene(index) {
     
     // 音乐控制逻辑
     // 在所有prologue、cover和特定页面不显示音乐按钮
-    const isPrologueOrCover = index === 2 || index === 3 || index === 51 || index === 53 || index === 54;
-    const isSpecialScene = index === 52 || index === 61 || index === 62;
+    const isPrologueOrCover = index === 2 || index === 3 || index === 51 || index === 52 || index === 53 || index === 54;
+    const isSpecialScene = index === 60 || index === 61;
     
-    if (isPrologueOrCover || isSpecialScene) {
+    // 特殊音乐处理
+    if (index === 51) {
+      // 场景51：音乐淡出
+      fadeOutMusic(4000); // 4秒淡出
+      musicControl.style.display = 'none';
+      musicControlDatavis.style.display = 'none';
+    } else if (index === 52) {
+      // 场景52：切换到第二章音乐并开始播放
+      switchToChapter2Music();
+      if (!userManuallyStoppedMusic) {
+        startMusic();
+      }
+      musicControl.style.display = 'none';
+      musicControlDatavis.style.display = 'none';
+    } else if (isPrologueOrCover || isSpecialScene) {
       // 在prologue、cover和特定页面隐藏音乐按钮
       musicControl.style.display = 'none';
       musicControlDatavis.style.display = 'none';
@@ -376,8 +459,8 @@ function goToScene(index) {
       musicControl.style.display = 'block';
       musicControlDatavis.style.display = 'none'; // scene部分显示，datavis部分隐藏
       
-      // 如果音乐还没开始播放，自动开始播放
-      if (!isMusicPlaying) {
+      // 如果音乐还没开始播放且用户没有手动关闭，自动开始播放
+      if (!isMusicPlaying && !userManuallyStoppedMusic) {
         startMusic();
       }
     }
@@ -532,11 +615,30 @@ window.addEventListener('click', () => {
 // 音乐控制函数
 function startMusic() {
   console.log('尝试播放音乐...');
+  
+  // 如果是第二章音乐且还没有切换，先切换
+  if (currentScene >= 52 && !isChapter2Music) {
+    switchToChapter2Music();
+  }
+  
   backgroundMusic.play().then(() => {
     console.log('音乐播放成功');
     isMusicPlaying = true;
+    userManuallyStoppedMusic = false; // 清除用户手动关闭标志
+    
+    // 设置音量：第一阶段音量较小，第二阶段音量正常
+    if (isChapter2Music) {
+      backgroundMusic.volume = 1.0; // 肖邦音乐正常音量
+    } else {
+      backgroundMusic.volume = 0.6; // Halloween音乐较小音量
+    }
+    
     musicIcon.src = 'assets/icons/music.png';
     musicIconDatavis.src = 'assets/icons/music.png';
+    
+    // 添加漂浮动画类
+    musicIcon.classList.add('floating');
+    musicIconDatavis.classList.add('floating');
   }).catch(error => {
     console.log('音乐播放失败:', error);
     // 尝试用户交互后播放
@@ -544,8 +646,21 @@ function startMusic() {
       backgroundMusic.play().then(() => {
         console.log('用户交互后音乐播放成功');
         isMusicPlaying = true;
+        userManuallyStoppedMusic = false; // 清除用户手动关闭标志
+        
+        // 设置音量：第一阶段音量较小，第二阶段音量正常
+        if (isChapter2Music) {
+          backgroundMusic.volume = 1.0; // 肖邦音乐正常音量
+        } else {
+          backgroundMusic.volume = 0.6; // Halloween音乐较小音量
+        }
+        
         musicIcon.src = 'assets/icons/music.png';
         musicIconDatavis.src = 'assets/icons/music.png';
+        
+        // 添加漂浮动画类
+        musicIcon.classList.add('floating');
+        musicIconDatavis.classList.add('floating');
       }).catch(err => {
         console.log('用户交互后音乐播放仍然失败:', err);
       });
@@ -558,8 +673,13 @@ function stopMusic() {
   backgroundMusic.pause();
   backgroundMusic.currentTime = 0;
   isMusicPlaying = false;
+  userManuallyStoppedMusic = true; // 设置用户手动关闭标志
   musicIcon.src = 'assets/icons/music_off.png';
   musicIconDatavis.src = 'assets/icons/music_off.png';
+  
+  // 移除漂浮动画类
+  musicIcon.classList.remove('floating');
+  musicIconDatavis.classList.remove('floating');
 }
 
 function toggleMusic() {
@@ -585,7 +705,17 @@ musicControlDatavis.addEventListener('click', (e) => {
 // 处理最后一页音乐停止
 function handleLastScene() {
   if (currentScene === 62) {
-    stopMusic();
+    backgroundMusic.pause();
+    backgroundMusic.currentTime = 0;
+    isMusicPlaying = false;
+    // 不设置userManuallyStoppedMusic，因为这是自动停止，不是用户手动关闭
+    musicIcon.src = 'assets/icons/music_off.png';
+    musicIconDatavis.src = 'assets/icons/music_off.png';
+    
+    // 移除漂浮动画类
+    musicIcon.classList.remove('floating');
+    musicIconDatavis.classList.remove('floating');
+    
     musicControl.style.display = 'none';
     musicControlDatavis.style.display = 'none';
   }
@@ -611,12 +741,6 @@ window.startChapter3 = function() {
     updateHotspots();
     renderMarks();
     
-    // 显示音乐按钮（Chapter 3的场景）
-    const musicControl = document.getElementById('music-control');
-    const musicControlDatavis = document.getElementById('music-control-datavis');
-    musicControl.style.display = 'block';
-    musicControlDatavis.style.display = 'none';
-    
     // 渐变显示新场景
     setTimeout(() => {
       overlay.style.opacity = 0;
@@ -630,6 +754,21 @@ document.addEventListener('DOMContentLoaded', function() {
   if (currentScene === 1) {
     setupHotelScene();
   }
+  
+  // 初始化音乐图标状态
+  if (!isMusicPlaying) {
+    musicIcon.classList.remove('floating');
+    musicIconDatavis.classList.remove('floating');
+  }
+  
+  // 初始化用户手动关闭标志
+  userManuallyStoppedMusic = false;
+  
+  // 初始化第二章音乐标志
+  isChapter2Music = false;
+  
+  // 设置初始音量
+  backgroundMusic.volume = 0.6; // 第一阶段较小音量
 });
 
 
