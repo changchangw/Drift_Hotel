@@ -191,6 +191,37 @@ const chartRenderers = {
             .text(d.text);
         });
   
+
+        
+        // 定义中国的相关地区
+        const chinaRegions = ["China", "Taiwan"];
+        
+        // 高亮中国相关地区的函数
+        function highlightChinaRegions(baseColor) {
+          d3.selectAll("path")
+            .filter(function(d) {
+              return chinaRegions.includes(d.properties.name);
+            })
+            .attr("fill", getHighlightColor(baseColor));
+        }
+        
+        // 恢复中国相关地区颜色的函数
+        function resetChinaRegions() {
+          d3.selectAll("path")
+            .filter(function(d) {
+              return chinaRegions.includes(d.properties.name);
+            })
+            .attr("fill", function(d) {
+              // 如果是Taiwan，使用China的数据
+              let countryName = d.properties.name;
+              if (countryName === "Taiwan") {
+                countryName = "China";
+              }
+              const val = emotionMap.get(countryName);
+              return val ? getEmotionColor(val.excited, val.nervous) : "#f2f0e9";
+            });
+        }
+        
         svg.append("g")
           .selectAll("path")
           .data(world.features)
@@ -198,22 +229,38 @@ const chartRenderers = {
           .append("path")
           .attr("d", path)
           .attr("fill", d => {
-            const val = emotionMap.get(d.properties.name);
+            // 如果是Taiwan，使用China的数据
+            let countryName = d.properties.name;
+            if (countryName === "Taiwan") {
+              countryName = "China";
+            }
+            const val = emotionMap.get(countryName);
             return val ? getEmotionColor(val.excited, val.nervous) : "#f2f0e9";
           })
           .attr("stroke", "#999")
           .attr("stroke-width", 0.5)
           .on("mouseover", function (event, d) {
-            const val = emotionMap.get(d.properties.name);
+            // 如果是Taiwan，使用China的数据
+            let countryName = d.properties.name;
+            if (countryName === "Taiwan") {
+              countryName = "China";
+            }
+            const val = emotionMap.get(countryName);
             if (!val) return;
           
             const baseColor = getEmotionColor(val.excited, val.nervous);
-            d3.select(this)
-              .attr("fill", getHighlightColor(baseColor));          
-  
+            
+            // 如果是中国相关地区，同时高亮
+            if (chinaRegions.includes(d.properties.name)) {
+              highlightChinaRegions(baseColor);
+            } else {
+              d3.select(this)
+                .attr("fill", getHighlightColor(baseColor));
+            }
+          
             tooltip
               .style("display", "block")
-              .html(`<strong>${d.properties.name}</strong><br>
+              .html(`<strong>China</strong><br>
   Excited: ${val.excited}%<br>
   Nervous: ${val.nervous}%`);
             positionTooltip(tooltip, event, 15, 20);
@@ -222,9 +269,19 @@ const chartRenderers = {
             positionTooltip(tooltip, event, 15, 20);
           })
           .on("mouseout", function (event, d) {
-            const val = emotionMap.get(d.properties.name);
-            d3.select(this)
-              .attr("fill", val ? getEmotionColor(val.excited, val.nervous) : "#f2f0e9");
+            // 如果是中国相关地区，同时恢复
+            if (chinaRegions.includes(d.properties.name)) {
+              resetChinaRegions();
+            } else {
+              // 如果是Taiwan，使用China的数据
+              let countryName = d.properties.name;
+              if (countryName === "Taiwan") {
+                countryName = "China";
+              }
+              const val = emotionMap.get(countryName);
+              d3.select(this)
+                .attr("fill", val ? getEmotionColor(val.excited, val.nervous) : "#f2f0e9");
+            }
           
             tooltip.style("display", "none");
           });
@@ -274,6 +331,37 @@ const chartRenderers = {
           .domain([0, 100])
           .range(["#9ebbdc", "#1d3557"]);
 
+
+        
+        // 定义中国的相关地区
+        const chinaRegions = ["China", "Taiwan"];
+        
+        // 高亮中国相关地区的函数
+        function highlightChinaRegions(baseColor) {
+          d3.selectAll("path")
+            .filter(function(d) {
+              return chinaRegions.includes(d.properties.name);
+            })
+            .attr("fill", getHighlightColor(baseColor));
+        }
+        
+        // 恢复中国相关地区颜色的函数
+        function resetChinaRegions() {
+          d3.selectAll("path")
+            .filter(function(d) {
+              return chinaRegions.includes(d.properties.name);
+            })
+            .attr("fill", function(d) {
+              // 如果是Taiwan，使用China的数据
+              let countryName = d.properties.name;
+              if (countryName === "Taiwan") {
+                countryName = "China";
+              }
+              const val = valueMap.get(countryName);
+              return val !== undefined ? colorScale(val) : "#F2F0E9";
+            });
+        }
+        
         // 添加地图路径
         svg.selectAll("path")
           .data(worldData.features)
@@ -281,31 +369,57 @@ const chartRenderers = {
           .append("path")
           .attr("d", path)
           .attr("fill", d => {
-            const val = valueMap.get(d.properties.name);
+            // 如果是Taiwan，使用China的数据
+            let countryName = d.properties.name;
+            if (countryName === "Taiwan") {
+              countryName = "China";
+            }
+            const val = valueMap.get(countryName);
             return val !== undefined ? colorScale(val) : "#F2F0E9"; // 无数据的国家颜色
           })
           .attr("stroke", "#888")
           .attr("stroke-width", 0.5)
           .on("mouseover", function (event, d) {
-            const val = valueMap.get(d.properties.name);
+            // 如果是Taiwan，使用China的数据
+            let countryName = d.properties.name;
+            if (countryName === "Taiwan") {
+              countryName = "China";
+            }
+            const val = valueMap.get(countryName);
             if (val === undefined) return;
           
             const baseColor = colorScale(val);
-            d3.select(this)
-              .attr("fill", getHighlightColor(baseColor)); // hover 变亮          
-  
+            
+            // 如果是中国相关地区，同时高亮
+            if (chinaRegions.includes(d.properties.name)) {
+              highlightChinaRegions(baseColor);
+            } else {
+              d3.select(this)
+                .attr("fill", getHighlightColor(baseColor)); // hover 变亮
+            }
+          
             tooltip
               .style("display", "block")
-              .html(`<strong>${d.properties.name}</strong><br>${val}%`);
+              .html(`<strong>China</strong><br>${val}%`);
             positionTooltip(tooltip, event, 15, 20);
           })
           .on("mousemove", function (event) {
             positionTooltip(tooltip, event, 15, 20);
           })
           .on("mouseout", function (event, d) {
-            const val = valueMap.get(d.properties.name);
-            d3.select(this)
-              .attr("fill", val !== undefined ? colorScale(val) : "#f2f2f2");
+            // 如果是中国相关地区，同时恢复
+            if (chinaRegions.includes(d.properties.name)) {
+              resetChinaRegions();
+            } else {
+              // 如果是Taiwan，使用China的数据
+              let countryName = d.properties.name;
+              if (countryName === "Taiwan") {
+                countryName = "China";
+              }
+              const val = valueMap.get(countryName);
+              d3.select(this)
+                .attr("fill", val !== undefined ? colorScale(val) : "#f2f2f2");
+            }
   
             tooltip.style("display", "none");
           });
