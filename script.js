@@ -721,7 +721,7 @@ function handleLastScene() {
   }
 }
 
-//goToScene(52); //测试用，正式应为1
+goToScene(52); //测试用，正式应为1
 
 // Chapter 3 启动函数
 window.startChapter3 = function() {

@@ -50,17 +50,7 @@ const chartRenderers = {
           // 创建tooltip
           const tooltip = d3.select("body")
             .append("div")
-            .attr("class", "wordcloud-tooltip")
-            .style("position", "absolute")
-            .style("z-index", "10000")
-            .style("background", "rgba(0,0,0,0.75)")
-            .style("color", "#fff")
-            .style("padding", "6px 10px")
-            .style("border-radius", "6px")
-            .style("font-size", "13px")
-            .style("font-family", "'Courier New', monospace")
-            .style("pointer-events", "none")
-            .style("display", "none");
+            .attr("class", "tooltip");
 
           g.selectAll("text")
             .data(words)
@@ -85,10 +75,9 @@ const chartRenderers = {
               
               // 显示tooltip
               tooltip
-                .style("left", event.pageX + 10 + "px")
-                .style("top", event.pageY - 10 + "px")
                 .style("display", "block")
                 .html(`<strong>${d.text}</strong><br>Frequency: ${d.count}`);
+              positionTooltip(tooltip, event, 10, 20);
             })
             .on("mouseout", function(event, d) {
               // 恢复原位置
@@ -116,22 +105,13 @@ const chartRenderers = {
         .scale(100)
         .translate([width / 2, height / 1.5]);
   
-      const path = d3.geoPath().projection(projection);
-  
+            const path = d3.geoPath().projection(projection);
+
       const tooltip = d3.select("body")
         .append("div")
         .attr("id", "map-tooltip")
-        .style("position", "absolute")
-        .style("z-index", "10000")
-        .style("background", "rgba(0,0,0,0.75)")
-        .style("color", "#fff")
-        .style("padding", "6px 10px")
-        .style("border-radius", "6px")
-        .style("font-size", "13px")
-        .style("font-family", "'Courier New', monospace")
-        .style("pointer-events", "none")
-        .style("display", "none");
-  
+        .attr("class", "tooltip");
+
       Promise.all([
         d3.json("assets/chapter2/world.geo.json"),
         d3.csv(dataPath)
@@ -206,9 +186,8 @@ const chartRenderers = {
             .attr("x", legendWidth + 6)
             .attr("y", legendHeight * d.offset)
             .attr("dy", "0.35em")
-            .style("font-size", "12px")
+            .call(applyAxisLabel)
             .style("fill", "#000")
-            .style("font-family", "'Courier New', monospace")
             .text(d.text);
         });
   
@@ -233,17 +212,14 @@ const chartRenderers = {
               .attr("fill", getHighlightColor(baseColor));          
   
             tooltip
-              .style("left", event.pageX + 15 + "px")
-              .style("top", event.pageY - 10 + "px")
               .style("display", "block")
               .html(`<strong>${d.properties.name}</strong><br>
   Excited: ${val.excited}%<br>
   Nervous: ${val.nervous}%`);
+            positionTooltip(tooltip, event, 15, 20);
           })
           .on("mousemove", function (event) {
-            tooltip
-              .style("left", event.pageX + 15 + "px")
-              .style("top", event.pageY - 10 + "px");
+            positionTooltip(tooltip, event, 15, 20);
           })
           .on("mouseout", function (event, d) {
             const val = emotionMap.get(d.properties.name);
@@ -274,21 +250,12 @@ const chartRenderers = {
   
       const path = d3.geoPath().projection(projection);
   
-      // Tooltip 样式同 chartRenderers[2]
+            // Tooltip 样式同 chartRenderers[2]
       const tooltip = d3.select("body")
         .append("div")
         .attr("id", "map-tooltip")
-        .style("position", "absolute")
-        .style("z-index", "10000")
-        .style("background", "rgba(0,0,0,0.75)")
-        .style("color", "#fff")
-        .style("padding", "6px 10px")
-        .style("border-radius", "6px")
-        .style("font-size", "13px")
-        .style("font-family", "'Courier New', monospace")
-        .style("pointer-events", "none")
-        .style("display", "none");
-  
+        .attr("class", "tooltip");
+
       Promise.all([
         d3.json("assets/chapter2/world.geo.json"),
         d3.csv(csvPath)
@@ -328,15 +295,12 @@ const chartRenderers = {
               .attr("fill", getHighlightColor(baseColor)); // hover 变亮          
   
             tooltip
-              .style("left", event.pageX + 15 + "px")
-              .style("top", event.pageY - 10 + "px")
               .style("display", "block")
               .html(`<strong>${d.properties.name}</strong><br>${val}%`);
+            positionTooltip(tooltip, event, 15, 20);
           })
           .on("mousemove", function (event) {
-            tooltip
-              .style("left", event.pageX + 15 + "px")
-              .style("top", event.pageY - 10 + "px");
+            positionTooltip(tooltip, event, 15, 20);
           })
           .on("mouseout", function (event, d) {
             const val = valueMap.get(d.properties.name);
@@ -385,9 +349,8 @@ const chartRenderers = {
             .attr("x", legendWidth + 6)
             .attr("y", legendHeight * d.offset)
             .attr("dy", "0.35em")
-            .style("font-size", "12px")
+            .call(applyAxisLabel)
             .style("fill", "#000")
-            .style("font-family", "'Courier New', monospace")
             .text(d.text);
         });
   
@@ -419,16 +382,7 @@ const chartRenderers = {
         const tooltip = d3.select("body")
         .append("div")
         .attr("id", "generation-tooltip")
-        .style("position", "absolute")
-        .style("z-index", "10000")
-        .style("background", "rgba(0, 0, 0, 0.75)")
-        .style("color", "#fff")
-        .style("padding", "6px 10px")
-        .style("border-radius", "6px")
-        .style("font-size", "13px")
-        .style("font-family", "'Courier New', monospace")
-        .style("pointer-events", "none")
-        .style("display", "none");
+        .attr("class", "tooltip");
 
         data.forEach(d => {
           d["2023"] = +d["2023"];
@@ -492,8 +446,7 @@ const chartRenderers = {
           .call(d3.axisLeft(y))
           .selectAll("text")
           .attr("class", "y-axis-label")
-          .style("font-family", "'Courier New', monospace")
-          .style("font-size", "14px")
+          .call(applyChartFont, 'medium')
           .style("fill", "#000")
           .on("mouseover", function(event, label) {
             const generationBirthYears = {
@@ -506,15 +459,12 @@ const chartRenderers = {
             const tooltipText = generationBirthYears[label] || "";
 
             tooltip
-              .style("left", (event.pageX + 10) + "px")
-              .style("top", (event.pageY - 20) + "px")
               .style("display", "block")
               .html(`<strong>${label}</strong><br>${tooltipText}`);
+            positionTooltip(tooltip, event, 10, 20);
           })
           .on("mousemove", function(event) {
-            tooltip
-              .style("left", (event.pageX + 10) + "px")
-              .style("top", (event.pageY - 20) + "px");
+            positionTooltip(tooltip, event, 10, 20);
           })
           .on("mouseout", function() {
             tooltip.style("display", "none");
@@ -547,15 +497,12 @@ const chartRenderers = {
             showDialogue();
           
             tooltip
-              .style("left", (event.pageX + 10) + "px")
-              .style("top", (event.pageY - 20) + "px")
               .style("display", "block")
               .html(`<strong>${d.Generation}</strong><br>2023: ${d["2023"]}%`);
+            positionTooltip(tooltip, event, 10, 20);
           })
           .on("mousemove", function(event) {
-            tooltip
-              .style("left", (event.pageX + 10) + "px")
-              .style("top", (event.pageY - 20) + "px");
+            positionTooltip(tooltip, event, 10, 20);
           })
           .on("mouseout", function() {
             resetAllStyles();
@@ -579,15 +526,12 @@ const chartRenderers = {
             showDialogue();
           
             tooltip
-              .style("left", (event.pageX + 10) + "px")
-              .style("top", (event.pageY - 20) + "px")
               .style("display", "block")
               .html(`<strong>${d.Generation}</strong><br>2024: ${d["2024"]}%`);
+            positionTooltip(tooltip, event, 10, 20);
           })
           .on("mousemove", function(event) {
-            tooltip
-              .style("left", (event.pageX + 10) + "px")
-              .style("top", (event.pageY - 20) + "px");
+            positionTooltip(tooltip, event, 10, 20);
           })
           .on("mouseout", function() {
             resetAllStyles();
@@ -603,9 +547,8 @@ const chartRenderers = {
           .attr("y", d => y(d.Generation) + y.bandwidth() * 0.3)
           .attr("class", "label label-2023")
           .text(d => `${d["2023"]}%`)
-          .style("font-size", "14px")
-          .style("fill", color("2023"))
-          .style("font-family", "'Courier New', monospace");
+          .call(applyChartFont, 'medium')
+          .style("fill", color("2023"));
   
         g.selectAll("text.label-2024")
           .data(data)
@@ -614,9 +557,8 @@ const chartRenderers = {
           .attr("y", d => y(d.Generation) + y.bandwidth() * 0.8)
           .attr("class", "label label-2024")
           .text(d => `${d["2024"]}%`)
-          .style("font-size", "14px")
-          .style("fill", color("2024"))
-          .style("font-family", "'Courier New', monospace");
+          .call(applyChartFont, 'medium')
+          .style("fill", color("2024"));
   
         // ✅ 图例 → 右上角 + 间距24px，悬浮高亮
         const legend = svg.append("g")
@@ -626,7 +568,7 @@ const chartRenderers = {
           const baseColor = color(key);
           const group = legend.append("g")
             .attr("transform", `translate(${i * 80 }, 0)`) //图例间距
-            .style("cursor", "pointer")
+            .call(applyInteractive)
             .on("mouseover", () => {
               d3.selectAll(".bar").attr("opacity", 0.2);
               d3.selectAll(`.bar-${key}`)
@@ -653,8 +595,7 @@ const chartRenderers = {
             .attr("y", 10)
             .attr("class", "legend-text")
             .text(key)
-            .style("font-size", "14px")
-            .style("font-family", "'Courier New', monospace");
+            .call(applyChartFont, 'medium');
         });
   
         resolve();

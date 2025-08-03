@@ -1,89 +1,152 @@
 // datavis.js
 
+// 统一的tooltip工具函数
+function createTooltip() {
+  return d3.select("body")
+    .append("div")
+    .attr("class", "tooltip");
+}
+
+function showTooltip(tooltip, event, content) {
+  tooltip
+    .style("display", "block")
+    .html(content);
+  positionTooltip(tooltip, event, 12, 20);
+}
+
+function hideTooltip(tooltip) {
+  tooltip.style("display", "none");
+}
+
+// 统一的tooltip位置计算函数
+function positionTooltip(tooltip, event, offsetX = 12, offsetY = 20) {
+  tooltip
+    .style("left", (event.pageX + offsetX) + "px")
+    .style("top", (event.pageY + offsetY) + "px");
+}
+
+// 通用样式设置函数
+function applyChartFont(element, size = 'medium') {
+  const sizes = {
+    'small': 'chart-font-small',
+    'medium': 'chart-font-medium',
+    'base': 'chart-font'
+  };
+  element.classed(sizes[size] || 'chart-font', true);
+}
+
+function applyAxisLabel(element, size = 'small') {
+  const sizes = {
+    'small': 'axis-label',
+    'medium': 'axis-label-medium'
+  };
+  element.classed(sizes[size] || 'axis-label', true);
+}
+
+function applyLegendText(element, size = 'small') {
+  const sizes = {
+    'small': 'legend-text',
+    'medium': 'legend-text-medium'
+  };
+  element.classed(sizes[size] || 'legend-text', true);
+}
+
+function applyInteractive(element) {
+  element.classed('chart-interactive', true);
+}
+
+function applyTextWeight(element, weight = 'normal') {
+  const weights = {
+    'bold': 'chart-text-bold',
+    'normal': 'chart-text-normal'
+  };
+  element.classed(weights[weight] || 'chart-text-normal', true);
+}
+
 const chartConfigs = [
   {
     title: "How UK Adults Feel About AI",
     chartType: 1,
     dataPath: "assets/chapter2/RTA_PADAI_Tracker_-_Q22_Wave_4_-_Word_frequency.csv",
-    source: "Source: Public attitudes to data and AI: Tracker survey (Wave 4) report, 2024"
+    source: "Public attitudes to data and AI: Tracker survey (Wave 4) report, 2024"
   },
   {
     title: "Public emotions toward AI by country",
     chartType: 2,
     dataPath: "assets/chapter2/fig_8.1.4.csv",
-    source: "Source: Artificial Intelligence Index Report 2025"
+    source: "Artificial Intelligence Index Report 2025"
   },
   {
     title: "Public perceptions of AI's potential to improve work",
     chartType: 2,
     dataPath: "assets/chapter2/fig_8.1.10_wide.csv",
-    source: "Source: Artificial Intelligence Index Report 2025"
+    source: "Artificial Intelligence Index Report 2025"
   },
   {
     title: "How each generation sees AI's impact on jobs, 2023 vs. 2024",
     chartType: 4,
     dataPath: "assets/chapter2/fig_8.1.8_cleaned.csv",
-    source: "Source: Artificial Intelligence Index Report 2025"
+    source: "Artificial Intelligence Index Report 2025"
   },
   {
     title: "How often do different occupations use GenAI tools?",
     chartType: 5,
     dataPath: "assets/chapter2/genai_usage_by_occupation.csv",
-    source: "Source: ILO Working Paper – Generative AI and Jobs, 2024"
+    source: "ILO Working Paper – Generative AI and Jobs, 2024"
   },
   {
     title: "Which jobs are most exposed to AI?",
     chartType: 6,
     dataPath: "assets/chapter2/ai_exposure_scatter.csv",
-    source: "Source: Generative AI and Jobs, 2025"
+    source: "Generative AI and Jobs, 2025"
   },
   {
     title: "AI Exposure by Income Level and Gender",
     chartType: 7,
     dataPath: "assets/chapter2/fig_20_by_income.csv",
-    source: "Source: Generative AI and Jobs, 2025"
+    source: "Generative AI and Jobs, 2025"
   },
   {
     title: "AI Exposure by Skill Level",
     chartType: 8,
     dataPath: "", // 此图无需CSV数据，可设为""
-    source: "Source: ILO Harmonized Microdata collection and Gmyrek et al. (2025) occupational AI exposure measure"
+    source: "ILO Harmonized Microdata collection and Gmyrek et al. (2025) occupational AI exposure measure"
   },
   {
     title: "How humans and AI share the work?",
     chartType: 9,
     dataPath: "",
-    source: "Source: Future of Work with AI Agents: Auditing Automation and Augmentation Potential across the U.S. Workforce, 2025"
+    source: "Future of Work with AI Agents: Auditing Automation and Augmentation Potential across the U.S. Workforce, 2025"
   },
   {
     title: "Human agency requirements for H5-level tasks",
     chartType: 10,
     dataPath: "assets/chapter2/H5_task_characteristics.csv",
-    source: "Source: Future of Work with AI Agents: Auditing Automation and Augmentation Potential across the U.S. Workforce, 2025"
+    source: "Future of Work with AI Agents: Auditing Automation and Augmentation Potential across the U.S. Workforce, 2025"
   },
   {
     title: "Core skills in 2030",
     chartType: 11,
     dataPath: "assets/chapter2/core_skills_2030.csv",
-    source: "Source: Future of Jobs Report, 2025"
+    source: "Future of Jobs Report, 2025"
   },
   {
     title: "The shifting human-machine frontier (2025–2030)",
     chartType: 12,
     dataPath: "",  // 无需加载外部数据
-    source: "Source: Future of Jobs Report, 2025"
+    source: "Future of Jobs Report, 2025"
   },
   {
     title: "Automation Appetite by Occupation Field",
     chartType: 13,
     dataPath: "", // 本图数据是内置数组，无需文件
-    source: "Source: Future of Work with AI Agents: Auditing Automation and Augmentation Potential across the U.S. Workforce, 2025"
+    source: "Future of Work with AI Agents: Auditing Automation and Augmentation Potential across the U.S. Workforce, 2025"
   },
   {
     title: "Automation Desire-Capability Landscape",
     chartType: 14,
     dataPath: "assets/chapter2/desire_capability_four_categories.csv",
-    source: "Source: Future of Work with AI Agents: Auditing Automation and Augmentation Potential across the U.S. Workforce, 2025"
+    source: "Future of Work with AI Agents: Auditing Automation and Augmentation Potential across the U.S. Workforce, 2025"
   }
   
 ];
@@ -328,7 +391,12 @@ document.querySelector('.arrow-right').addEventListener('click', () => {
 document.getElementById("source-icon").addEventListener("click", (e) => {
   e.stopPropagation();
   const popup = document.getElementById("source-popup");
-  popup.style.display = "block";
+  // 切换显示状态：如果当前显示则隐藏，如果当前隐藏则显示
+  if (popup.style.display === "block") {
+    popup.style.display = "none";
+  } else {
+    popup.style.display = "block";
+  }
 });
 
 document.addEventListener("click", (e) => {

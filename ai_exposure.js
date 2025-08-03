@@ -64,17 +64,7 @@ chartRenderers[5] = function(titleText, dataPath, chartArea) {
 
       const tooltip = d3.select("body")
         .append("div")
-        .attr("class", "bar-tooltip")
-        .style("position", "absolute")
-        .style("z-index", "9999")
-        .style("background", "#2a2a2a")
-        .style("color", "#fff")
-        .style("padding", "6px 10px")
-        .style("font-size", "13px")
-        .style("font-family", "'Courier New', monospace")
-        .style("border-radius", "6px")
-        .style("display", "none")
-        .style("pointer-events", "none");
+        .attr("class", "tooltip");
 
       function resetAllStyles() {
         d3.selectAll(".stack-bar").attr("opacity", 1);
@@ -108,10 +98,9 @@ chartRenderers[5] = function(titleText, dataPath, chartArea) {
           handleBarHover(occupation.replace(/[^a-zA-Z]/g, ""), occupation);
 
           tooltip
-            .style("left", event.pageX + 12 + "px")
-            .style("top", event.pageY - 10 + "px")
             .style("display", "block")
             .html(`<strong>${subgroup}</strong>: ${(d[1] - d[0]).toFixed(1)}%`);
+          positionTooltip(tooltip, event, 12, 20);
 
           // ✅ 触发对话切图
           showChart5DialogueImage();
@@ -126,8 +115,7 @@ chartRenderers[5] = function(titleText, dataPath, chartArea) {
       yAxis.selectAll("text")
         .attr("class", "y-axis-label")
         .attr("dy", "0.35em")
-        .style("font-family", "'Courier New', monospace")
-        .style("font-size", "13px")
+        .call(applyChartFont, 'medium')
         .style("fill", "#000")
         .style("text-anchor", "end")
         .call(wrapText, 240);
@@ -136,8 +124,7 @@ chartRenderers[5] = function(titleText, dataPath, chartArea) {
         .attr("transform", `translate(0,${innerHeight})`)
         .call(d3.axisBottom(x).ticks(5).tickFormat(d => d + "%"))
         .selectAll("text")
-        .style("font-size", "12px")
-        .style("font-family", "'Courier New', monospace");
+        .call(applyAxisLabel);
 
       const legend = svg.append("g")
         .attr("transform", `translate(${width - 490}, 10)`)
@@ -155,13 +142,12 @@ chartRenderers[5] = function(titleText, dataPath, chartArea) {
       legendEntries.forEach((entry, i) => {
         const gL = legend.append("g")
           .attr("transform", `translate(${offsetX}, 0)`)
-          .style("cursor", "default")
+          .call(applyInteractive)
           .on("mouseover", function(event) {
             tooltip
-              .style("left", event.pageX + 12 + "px")
-              .style("top", event.pageY - 10 + "px")
               .style("display", "block")
               .html(entry.full);
+            positionTooltip(tooltip, event, 12, 20);
           })
           .on("mouseout", () => tooltip.style("display", "none"));
 
@@ -286,19 +272,9 @@ chartRenderers[6] = function(titleText, dataPath, chartArea) {
 
       const symbol = d3.symbol().size(60);
 
-      // Tooltip
-      const tooltip = d3.select("body").append("div")
-        .attr("class", "scatter-tooltip")
-        .style("position", "absolute")
-        .style("z-index", "9999")
-        .style("background", "#2a2a2a")
-        .style("color", "#fff")
-        .style("padding", "6px 10px")
-        .style("font-size", "13px")
-        .style("font-family", "'Courier New', monospace")
-        .style("border-radius", "6px")
-        .style("display", "none")
-        .style("pointer-events", "none");
+          // Tooltip
+    const tooltip = d3.select("body").append("div")
+      .attr("class", "tooltip");
 
       const dots = g.selectAll("path")
         .data(data)
@@ -310,10 +286,9 @@ chartRenderers[6] = function(titleText, dataPath, chartArea) {
         .attr("opacity", 0.9)
         .on("mouseover", function(event, d) {
           tooltip
-            .style("left", event.pageX + 10 + "px")
-            .style("top", event.pageY - 10 + "px")
             .style("display", "block")
             .html(`<strong>${d.Title}</strong><br>${tooltipMap[d.Exposure]}`);
+          positionTooltip(tooltip, event, 10, 20);
         
           d3.select(this)
             .transition()
@@ -354,10 +329,9 @@ chartRenderers[6] = function(titleText, dataPath, chartArea) {
         .style("font-size", "12px")
         .on("mouseover", function(event) {
           tooltip
-            .style("left", event.pageX + 10 + "px")
-            .style("top", event.pageY - 10 + "px")
             .style("display", "block")
             .html("Jobs further to the right involve tasks AI can easily handle.");
+          positionTooltip(tooltip, event, 10, 20);
         })
         .on("mouseout", function() {
           tooltip.style("display", "none");
@@ -373,10 +347,9 @@ chartRenderers[6] = function(titleText, dataPath, chartArea) {
         .style("font-size", "12px")
         .on("mouseover", function(event) {
           tooltip
-            .style("left", event.pageX + 10 + "px")
-            .style("top", event.pageY - 10 + "px")
             .style("display", "block")
             .html("Jobs higher up are more varied and harder to generalize.");
+          positionTooltip(tooltip, event, 10, 20);
         })
         .on("mouseout", function() {
           tooltip.style("display", "none");
@@ -394,10 +367,9 @@ chartRenderers[6] = function(titleText, dataPath, chartArea) {
           .style("cursor", "pointer")
           .on("mouseover", function(event) {
             tooltip
-              .style("left", event.pageX + 12 + "px")
-              .style("top", event.pageY - 10 + "px")
               .style("display", "block")
               .html(`<strong>${labelMap[key]}</strong><br>${tooltipMap[key]}`);
+            positionTooltip(tooltip, event, 12, 20);
           
             // 图中其他点暗淡
             d3.selectAll("path").attr("opacity", 0.1);
@@ -465,16 +437,7 @@ chartRenderers[7] = function(titleText, dataPath, chartArea, gender = "Total") {
   };
 
   const tooltip = d3.select("body").append("div")
-    .attr("class", "bar-tooltip")
-    .style("position", "absolute")
-    .style("z-index", "9999")
-    .style("background", "#2a2a2a")
-    .style("color", "#fff")
-    .style("padding", "6px 10px")
-    .style("font-size", "13px")
-    .style("font-family", "'Courier New', monospace")
-    .style("border-radius", "6px")
-    .style("display", "none");
+    .attr("class", "tooltip");
 
   return new Promise(resolve => {
     d3.csv(dataPath).then(raw => {
@@ -526,9 +489,8 @@ chartRenderers[7] = function(titleText, dataPath, chartArea, gender = "Total") {
 
             tooltip
               .html(`<strong>${labelMap[key]}</strong><br>${(d[1] - d[0]).toFixed(1)}%<br><br><em>${d.data.TotalJobsMillions} million jobs</em>`)
-              .style("left", event.pageX + 10 + "px")
-              .style("top", event.pageY - 10 + "px")
               .style("display", "block");
+            positionTooltip(tooltip, event, 10, 20);
 
             // ✅ 当前柱高亮，其他淡出
             g.selectAll(".stack-bar").attr("opacity", 0.2);
@@ -700,17 +662,7 @@ chartRenderers[8] = function(titleText, dataPath, chartArea) {
     // tooltip
     const tooltip = d3.select("body")
       .append("div")
-      .attr("class", "chart8-tooltip")
-      .style("position", "absolute")
-      .style("z-index", "9999")
-      .style("background", "#2a2a2a")
-      .style("color", "#fff")
-      .style("padding", "6px 10px")
-      .style("font-size", "13px")
-      .style("font-family", "'Courier New', monospace")
-      .style("border-radius", "6px")
-      .style("display", "none")
-      .style("pointer-events", "none");
+      .attr("class", "tooltip");
 
     // ✅ 热区层
     hotspots.forEach(hotspot => {
@@ -727,10 +679,9 @@ chartRenderers[8] = function(titleText, dataPath, chartArea) {
 
       group.on("mouseover", function (event) {
         tooltip
-          .style("left", event.pageX + 12 + "px")
-          .style("top", event.pageY - 10 + "px")
           .style("display", "block")
           .html(`<strong>${hotspot.label}</strong><br>${hotspot.tooltip}`);
+        positionTooltip(tooltip, event, 12, 20);
 
         showChart8DialogueImage();
       });

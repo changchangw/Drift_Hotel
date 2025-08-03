@@ -64,18 +64,7 @@ chartRenderers[9] = function(titleText, dataPath, chartArea) {
     const tooltip = d3.select("body")
       .append("div")
       .attr("id", "has-tooltip")
-      .style("position", "absolute")
-      .style("background", "rgba(20,20,20,0.85)")
-      .style("color", "#fff")
-      .style("padding", "10px 14px")
-      .style("border-radius", "8px")
-      .style("font-family", "Courier New")
-      .style("font-size", "14px")
-      .style("line-height", "1.4")
-      .style("max-width", "260px")
-      .style("display", "none")
-      .style("pointer-events", "none")
-      .style("z-index", "9999")
+      .attr("class", "tooltip")
       .text("A five-level framework that measures how much human involvement is needed in completing a task with AI.");
 
     // 绑定悬浮事件
@@ -84,9 +73,7 @@ chartRenderers[9] = function(titleText, dataPath, chartArea) {
         tooltip.style("display", "block");
       })
       .on("mousemove", function(event) {
-        tooltip
-          .style("left", (event.pageX + 14) + "px")
-          .style("top", (event.pageY - 10) + "px");
+        positionTooltip(tooltip, event, 14, 20);
       })
       .on("mouseout", function() {
         tooltip.style("display", "none");
@@ -169,8 +156,7 @@ chartRenderers[10] = function(titleText, dataPath, chartArea) {
             .attr("y", Math.sin(angle) * (radius + 20))
             .attr("text-anchor", "middle")
             .attr("alignment-baseline", "middle")
-            .style("font-family", font)
-            .style("font-size", "14px")
+            .call(applyChartFont, 'medium')
             .text(cat);
         });
 
@@ -261,10 +247,9 @@ chartRenderers[10] = function(titleText, dataPath, chartArea) {
             .attr("x", 30).attr("y", 4)
             .text(label)
             .attr("class", `legend-text legend-text-${legendKeys[i]}`)
-            .style("font-family", font)
-            .style("font-size", "14px")
+            .call(applyChartFont, 'medium')
             .attr("fill", "black")
-            .attr("font-weight", "normal");
+            .call(applyTextWeight, 'normal');
         });
 
         // 悬浮高亮逻辑
@@ -431,17 +416,7 @@ chartRenderers[11] = function(titleText, dataPath, chartArea) {
       // Tooltip
       const tooltip = d3.select("body")
         .append("div")
-        .attr("class", "scatter-tooltip")
-        .style("position", "absolute")
-        .style("z-index", "9999")
-        .style("background", "#2a2a2a")
-        .style("color", "#fff")
-        .style("padding", "6px 10px")
-        .style("font-size", "13px")
-        .style("font-family", "'Courier New', monospace")
-        .style("border-radius", "6px")
-        .style("display", "none")
-        .style("pointer-events", "none");
+        .attr("class", "tooltip");
 
       // 散点
       g.selectAll("circle")
@@ -464,13 +439,12 @@ chartRenderers[11] = function(titleText, dataPath, chartArea) {
             .attr("opacity", 1);
 
           tooltip
-            .style("left", event.pageX + 10 + "px")
-            .style("top", event.pageY - 10 + "px")
             .style("display", "block")
             .html(`<strong>${d.Skill}</strong><br>
                    Core in 2025: ${d["Core in 2025 (%)"]}%<br>
                    Expected increase: ${d["Expected increase in 2030 (%)"]}%<br>
                    Category: ${d.Category}`);
+          positionTooltip(tooltip, event, 12, 20);
         })
         .on("mouseout", function() {
           d3.select(this)
@@ -487,14 +461,12 @@ chartRenderers[11] = function(titleText, dataPath, chartArea) {
         .attr("transform", `translate(0,${innerHeight})`)
         .call(d3.axisBottom(x).ticks(8).tickFormat(d => d + "%"))
         .selectAll("text")
-        .style("font-size", "12px")
-        .style("font-family", "'Courier New', monospace");
+        .call(applyAxisLabel);
 
       g.append("g")
         .call(d3.axisLeft(y).ticks(10).tickFormat(d => d + "%"))
         .selectAll("text")
-        .style("font-size", "12px")
-        .style("font-family", "'Courier New', monospace");
+        .call(applyAxisLabel);
 
       // 轴标签 - 精简文字
       svg.append("text")
@@ -502,8 +474,7 @@ chartRenderers[11] = function(titleText, dataPath, chartArea) {
         .attr("y", height - 90)
         .attr("text-anchor", "middle")
         .text("Core skill in 2025 (%)")
-        .style("font-family", "'Courier New', monospace")
-        .style("font-size", "12px");
+        .call(applyAxisLabel);
 
       svg.append("text")
         .attr("transform", "rotate(-90)")
@@ -511,8 +482,7 @@ chartRenderers[11] = function(titleText, dataPath, chartArea) {
         .attr("y", 20)
         .attr("text-anchor", "middle")
         .text("Expected increase by 2030 (%)")
-        .style("font-family", "'Courier New', monospace")
-        .style("font-size", "12px");
+        .call(applyAxisLabel);
 
       // 图例 - 下方，分两行
       const legend = svg.append("g")
@@ -526,17 +496,17 @@ chartRenderers[11] = function(titleText, dataPath, chartArea) {
       firstRow.forEach((category, i) => {
         const row = legend.append("g")
           .attr("transform", `translate(${i * 150}, 0)`)
-          .style("cursor", "pointer")
+          .call(applyInteractive)
           .on("mouseover", function() {
             // 高亮当前类别
             g.selectAll("circle")
               .attr("opacity", d => d.Category === category ? 1 : 0.2);
-            d3.select(this).select("text").style("font-weight", "bold");
+            d3.select(this).select("text").call(applyTextWeight, 'bold');
           })
           .on("mouseout", function() {
             // 恢复所有点
             g.selectAll("circle").attr("opacity", 0.8);
-            d3.select(this).select("text").style("font-weight", "normal");
+            d3.select(this).select("text").call(applyTextWeight, 'normal');
           });
 
         row.append("circle")
@@ -547,25 +517,24 @@ chartRenderers[11] = function(titleText, dataPath, chartArea) {
           .attr("x", 8)
           .attr("y", 4)
           .text(category)
-          .style("font-size", "12px")
-          .style("font-family", "'Courier New', monospace");
+          .call(applyLegendText);
       });
 
       // 第二行
       secondRow.forEach((category, i) => {
         const row = legend.append("g")
           .attr("transform", `translate(${i * 150}, 20)`)
-          .style("cursor", "pointer")
+          .call(applyInteractive)
           .on("mouseover", function() {
             // 高亮当前类别
             g.selectAll("circle")
               .attr("opacity", d => d.Category === category ? 1 : 0.2);
-            d3.select(this).select("text").style("font-weight", "bold");
+            d3.select(this).select("text").call(applyTextWeight, 'bold');
           })
           .on("mouseout", function() {
             // 恢复所有点
             g.selectAll("circle").attr("opacity", 0.8);
-            d3.select(this).select("text").style("font-weight", "normal");
+            d3.select(this).select("text").call(applyTextWeight, 'normal');
           });
 
         row.append("circle")
@@ -576,8 +545,7 @@ chartRenderers[11] = function(titleText, dataPath, chartArea) {
           .attr("x", 8)
           .attr("y", 4)
           .text(category)
-          .style("font-size", "12px")
-          .style("font-family", "'Courier New', monospace");
+          .call(applyLegendText);
       });
 
       resolve();
@@ -929,42 +897,30 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
             .attr("y", labelY)
             .attr("text-anchor", "middle")
             .attr("dominant-baseline", isTopQuadrant ? "hanging" : "auto")
-            .style("font-family", "Courier New")
-            .style("font-size", "12px")
-            .style("font-weight", "bold")
+            .call(applyChartFont, 'small')
+            .call(applyTextWeight, 'bold')
             .style("fill", "#000000")
-            .style("cursor", "pointer")
+            .call(applyInteractive)
             .text(bg.label)
             .on("mouseover", function(event) {
-              // 创建或更新tooltip
+              // 先移除已存在的tooltip
+              d3.selectAll(".tooltip").remove();
+              
+              // 创建新的tooltip
               const quadrantTooltip = d3.select("body")
                 .append("div")
-                .attr("class", "quadrant-tooltip")
-                .style("position", "absolute")
-                .style("z-index", "10000")
-                .style("background", "rgba(0,0,0,0.85)")
-                .style("color", "#fff")
-                .style("padding", "10px 12px")
-                .style("border-radius", "6px")
-                .style("font-size", "12px")
-                .style("font-family", "'Courier New', monospace")
+                .attr("class", "tooltip")
                 .style("max-width", "300px")
-                .style("line-height", "1.4")
-                .style("pointer-events", "none")
                 .style("display", "block")
                 .html(`<strong>${bg.label}</strong><br><br>${quadrantExplanations[bg.label]}`);
               
-              quadrantTooltip
-                .style("left", event.pageX + 15 + "px")
-                .style("top", event.pageY - 10 + "px");
+              positionTooltip(quadrantTooltip, event, 15, 20);
             })
             .on("mousemove", function(event) {
-              d3.select(".quadrant-tooltip")
-                .style("left", event.pageX + 15 + "px")
-                .style("top", event.pageY - 10 + "px");
+              positionTooltip(d3.select(".tooltip"), event, 15, 20);
             })
             .on("mouseout", function() {
-              d3.select(".quadrant-tooltip").remove();
+              d3.selectAll(".tooltip").remove();
             });
         });
 
@@ -988,21 +944,6 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
         .attr("stroke-dasharray", "5,5")
         .attr("stroke-width", 1);
 
-      // Tooltip
-      const tooltip = d3.select("body")
-        .append("div")
-        .attr("class", "scatter-tooltip")
-        .style("position", "absolute")
-        .style("z-index", "9999")
-        .style("background", "#2a2a2a")
-        .style("color", "#fff")
-        .style("padding", "6px 10px")
-        .style("font-size", "13px")
-        .style("font-family", "'Courier New', monospace")
-        .style("border-radius", "6px")
-        .style("display", "none")
-        .style("pointer-events", "none");
-
       // 散点
       g.selectAll("circle")
         .data(data)
@@ -1016,23 +957,32 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
         //.attr("stroke-width", 1)
         .attr("opacity", 0.8)
         .attr("class", d => `scatter-point scatter-${d.Category.replace(/\s+/g, "-")}`)
-        .style("cursor", "pointer")
+        .call(applyInteractive)
         .on("mouseover", function(event, d) {
+          // 先移除已存在的tooltip
+          d3.selectAll(".tooltip").remove();
+          
           d3.select(this)
             .transition()
             .duration(200)
             .attr("r", 6)
             .attr("opacity", 1);
 
-          tooltip
-            .style("left", event.pageX + 10 + "px")
-            .style("top", event.pageY - 10 + "px")
+          // 创建散点tooltip
+          const scatterTooltip = d3.select("body")
+            .append("div")
+            .attr("class", "tooltip")
             .style("display", "block")
             .html(`<strong>${d.Occupation}</strong><br>
                    Task: ${d.Task}<br>
                    AI Capability: ${d.AI_Capability}<br>
                    Automation Desire: ${d.Automation_Desire}<br>
                    Category: ${d.Category}`);
+          
+          positionTooltip(scatterTooltip, event, 12, 20);
+        })
+        .on("mousemove", function(event) {
+          positionTooltip(d3.select(".tooltip"), event, 12, 20);
         })
         .on("mouseout", function() {
           d3.select(this)
@@ -1041,7 +991,7 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
             .attr("r", 4)
             .attr("opacity", 0.8);
 
-          tooltip.style("display", "none");
+          d3.selectAll(".tooltip").remove();
         });
 
       // 坐标轴
@@ -1049,14 +999,12 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
         .attr("transform", `translate(0,${innerHeight})`)
         .call(d3.axisBottom(x).ticks(5))
         .selectAll("text")
-        .style("font-size", "12px")
-        .style("font-family", "'Courier New', monospace");
+        .call(applyAxisLabel);
 
       g.append("g")
         .call(d3.axisLeft(y).ticks(5))
         .selectAll("text")
-        .style("font-size", "12px")
-        .style("font-family", "'Courier New', monospace");
+        .call(applyAxisLabel);
 
       // 轴标签
       svg.append("text")
@@ -1064,8 +1012,7 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
         .attr("y", height - 80)
         .attr("text-anchor", "middle")
         .text("AI Expert-rated Automation Capability")
-        .style("font-family", "'Courier New', monospace")
-        .style("font-size", "12px");
+        .call(applyAxisLabel);
 
       svg.append("text")
         .attr("transform", "rotate(-90)")
@@ -1073,8 +1020,7 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
         .attr("y", 20)
         .attr("text-anchor", "middle")
         .text("Worker-rated Automation Desire")
-        .style("font-family", "'Courier New', monospace")
-        .style("font-size", "12px");
+        .call(applyAxisLabel);
 
       // 图例 - 下方，分两行
       const legend = svg.append("g")
@@ -1088,17 +1034,17 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
        firstRow.forEach((category, i) => {
          const row = legend.append("g")
            .attr("transform", `translate(${i * 300}, 0)`)
-           .style("cursor", "pointer")
+           .call(applyInteractive)
            .on("mouseover", function() {
              // 高亮当前类别
              g.selectAll("circle")
                .attr("opacity", d => d.Category === category ? 1 : 0.2);
-             d3.select(this).select("text").style("font-weight", "bold");
+             d3.select(this).select("text").call(applyTextWeight, 'bold');
            })
            .on("mouseout", function() {
              // 恢复所有点
              g.selectAll("circle").attr("opacity", 0.8);
-             d3.select(this).select("text").style("font-weight", "normal");
+             d3.select(this).select("text").call(applyTextWeight, 'normal');
            });
 
         row.append("circle")
@@ -1109,25 +1055,24 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
           .attr("x", 8)
           .attr("y", 4)
           .text(category)
-          .style("font-size", "12px")
-          .style("font-family", "'Courier New', monospace");
+          .call(applyLegendText);
       });
 
              // 第二行
        secondRow.forEach((category, i) => {
          const row = legend.append("g")
            .attr("transform", `translate(${i * 300}, 20)`)
-           .style("cursor", "pointer")
+           .call(applyInteractive)
            .on("mouseover", function() {
              // 高亮当前类别
              g.selectAll("circle")
                .attr("opacity", d => d.Category === category ? 1 : 0.2);
-             d3.select(this).select("text").style("font-weight", "bold");
+             d3.select(this).select("text").call(applyTextWeight, 'bold');
            })
            .on("mouseout", function() {
              // 恢复所有点
              g.selectAll("circle").attr("opacity", 0.8);
-             d3.select(this).select("text").style("font-weight", "normal");
+             d3.select(this).select("text").call(applyTextWeight, 'normal');
            });
 
         row.append("circle")
@@ -1138,8 +1083,7 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
           .attr("x", 8)
           .attr("y", 4)
           .text(category)
-          .style("font-size", "12px")
-          .style("font-family", "'Courier New', monospace");
+          .call(applyLegendText);
       });
 
       // 添加出口按钮到datavis-container（仅在chart14时显示）
