@@ -55,13 +55,13 @@ const chartRenderers = {
           g.selectAll("text")
             .data(words)
             .enter().append("text")
-            .style("font-size", d => d.size + "px")
+            .style("font-size", d => (d.size + 2) + "px")
             .style("fill", d => {
-              if (d.isPositive) return "#000000"; // 暗红色
-              if (d.isNegative) return "#8B0000"; // 黑色
+              if (d.isPositive) return "#000000";
+              if (d.isNegative) return "rgb(141, 26, 26)";
               return "#150D04"; // 默认颜色
             })
-            .style("font-family", "Arial")
+            .style("font-family", "Anton")
             .attr("text-anchor", "middle")
             .attr("transform", d => `translate(${d.x},${d.y}) rotate(${d.rotate})`)
             .text(d => d.text)
@@ -143,8 +143,8 @@ const chartRenderers = {
           const normalized = (diff + 100) / 200;
         
           return d3.interpolateRgb(
-            d3.rgb(60, 180, 60),
-            d3.rgb(180, 40, 40)
+            d3.rgb(0, 46, 111),
+            d3.rgb(252, 67, 15),
           )(normalized);
         }
   
@@ -234,6 +234,14 @@ const chartRenderers = {
             if (countryName === "Taiwan") {
               countryName = "China";
             }
+            // 处理Great Britain的名称映射
+            if (countryName === "United Kingdom") {
+              countryName = "Great Britain";
+            }
+            // 处理United States的名称映射
+            if (countryName === "United States of America") {
+              countryName = "United States";
+            }
             const val = emotionMap.get(countryName);
             return val ? getEmotionColor(val.excited, val.nervous) : "#f2f0e9";
           })
@@ -244,6 +252,14 @@ const chartRenderers = {
             let countryName = d.properties.name;
             if (countryName === "Taiwan") {
               countryName = "China";
+            }
+            // 处理Great Britain的名称映射
+            if (countryName === "United Kingdom") {
+              countryName = "Great Britain";
+            }
+            // 处理United States的名称映射
+            if (countryName === "United States of America") {
+              countryName = "United States";
             }
             const val = emotionMap.get(countryName);
             if (!val) return;
@@ -260,7 +276,7 @@ const chartRenderers = {
           
             tooltip
               .style("display", "block")
-              .html(`<strong>China</strong><br>
+              .html(`<strong>${d.properties.name === "Taiwan" ? "China" : (d.properties.name === "United States of America" ? "United States" : d.properties.name)}</strong><br>
   Excited: ${val.excited}%<br>
   Nervous: ${val.nervous}%`);
             positionTooltip(tooltip, event, 15, 20);
@@ -277,6 +293,14 @@ const chartRenderers = {
               let countryName = d.properties.name;
               if (countryName === "Taiwan") {
                 countryName = "China";
+              }
+              // 处理Great Britain的名称映射
+              if (countryName === "United Kingdom") {
+                countryName = "Great Britain";
+              }
+              // 处理United States的名称映射
+              if (countryName === "United States of America") {
+                countryName = "United States";
               }
               const val = emotionMap.get(countryName);
               d3.select(this)
@@ -326,10 +350,10 @@ const chartRenderers = {
           }
         });
   
-        // 颜色比例尺（咖色系）
+        // 颜色比例尺（蓝色系）
         const colorScale = d3.scaleLinear()
           .domain([0, 100])
-          .range(["#9ebbdc", "#1d3557"]);
+          .range(["#a9c5e0", "#0a203e"]);
 
 
         
@@ -357,6 +381,14 @@ const chartRenderers = {
               if (countryName === "Taiwan") {
                 countryName = "China";
               }
+              // 处理Great Britain的名称映射
+              if (countryName === "United Kingdom") {
+                countryName = "Great Britain";
+              }
+              // 处理United States的名称映射
+              if (countryName === "United States of America") {
+                countryName = "United States";
+              }
               const val = valueMap.get(countryName);
               return val !== undefined ? colorScale(val) : "#F2F0E9";
             });
@@ -374,6 +406,14 @@ const chartRenderers = {
             if (countryName === "Taiwan") {
               countryName = "China";
             }
+            // 处理Great Britain的名称映射
+            if (countryName === "United Kingdom") {
+              countryName = "Great Britain";
+            }
+            // 处理United States的名称映射
+            if (countryName === "United States of America") {
+              countryName = "United States";
+            }
             const val = valueMap.get(countryName);
             return val !== undefined ? colorScale(val) : "#F2F0E9"; // 无数据的国家颜色
           })
@@ -384,6 +424,14 @@ const chartRenderers = {
             let countryName = d.properties.name;
             if (countryName === "Taiwan") {
               countryName = "China";
+            }
+            // 处理Great Britain的名称映射
+            if (countryName === "United Kingdom") {
+              countryName = "Great Britain";
+            }
+            // 处理United States的名称映射
+            if (countryName === "United States of America") {
+              countryName = "United States";
             }
             const val = valueMap.get(countryName);
             if (val === undefined) return;
@@ -400,7 +448,7 @@ const chartRenderers = {
           
             tooltip
               .style("display", "block")
-              .html(`<strong>China</strong><br>${val}%`);
+              .html(`<strong>${d.properties.name === "Taiwan" ? "China" : (d.properties.name === "United States of America" ? "United States" : d.properties.name)}</strong><br>${val}%`);
             positionTooltip(tooltip, event, 15, 20);
           })
           .on("mousemove", function (event) {
@@ -415,6 +463,14 @@ const chartRenderers = {
               let countryName = d.properties.name;
               if (countryName === "Taiwan") {
                 countryName = "China";
+              }
+              // 处理Great Britain的名称映射
+              if (countryName === "United Kingdom") {
+                countryName = "Great Britain";
+              }
+              // 处理United States的名称映射
+              if (countryName === "United States of America") {
+                countryName = "United States";
               }
               const val = valueMap.get(countryName);
               d3.select(this)
@@ -474,22 +530,13 @@ const chartRenderers = {
   },
 
   4: function(titleText, dataPath, chartArea) {
-    let hasShownDialogue = false;
-
     return new Promise(resolve => {
-      const width = 720, height = 428;
-      const margin = { top: 20, right: 50, bottom: 30, left: 120 };
+      const width = 720, height = 400; // 减少高度从428到380
+      const margin = { top: 20, right: 50, bottom: 60, left: 120 }; // 增加底部边距从30到60
       const innerWidth = width - margin.left - margin.right;
       const innerHeight = height - margin.top - margin.bottom;
 
-      function showDialogue() {
-        if (!hasShownDialogue) {
-          showDialogueBox();
-          hasShownDialogue = true;
-          // ✅ 添加点击监听，只触发一次
-          document.addEventListener("click", hideDialogueBox, { once: true });
-        }
-      }      
+      
   
       d3.csv(dataPath).then(data => {
         // ✅ 生成 tooltip 元素（只执行一次）
@@ -523,7 +570,7 @@ const chartRenderers = {
         // ✅ 颜色定义（正确顺序：2023 橙色，2024 绿色）
         const color = d3.scaleOrdinal()
           .domain(["2023", "2024"])
-          .range(["#a26d42", "#5e8b7e"]);
+          .range(["#a26d42", "#3e6b6e"]);
   
           function resetAllStyles() {
             d3.selectAll(".bar-2023")
@@ -540,49 +587,30 @@ const chartRenderers = {
             d3.selectAll(".legend-rect")
               .attr("fill", d => color(d));
           }
-          
+
   
-        function handleBarHover(thisBar, year, generation) {
-          d3.selectAll(".bar").attr("opacity", 0.2);
-          d3.select(thisBar)
-            .attr("opacity", 1)
-  
-          d3.selectAll(".y-axis-label")
-            .filter(label => label === generation)
-            .style("font-weight", "bold");
-  
-          d3.selectAll(`.label-${year}`)
-            .filter(t => t.Generation === generation)
-            .style("font-weight", "bold");
-        }
-  
+        // Y轴（世代标签）
         g.append("g")
           .call(d3.axisLeft(y))
           .selectAll("text")
           .attr("class", "y-axis-label")
           .call(applyChartFont, 'medium')
-          .style("fill", "#000")
-          .on("mouseover", function(event, label) {
-            const generationBirthYears = {
-              "Gen Z": "Born 1997–2012",
-              "Millennial": "Born 1981–1996",
-              "Gen X": "Born 1965–1980",
-              "Baby boomer": "Born 1946–1964"
-            };
+          .style("fill", "#000");
 
-            const tooltipText = generationBirthYears[label] || "";
+        // X轴（百分比）
+        g.append("g")
+          .attr("transform", `translate(0,${innerHeight})`)
+          .call(d3.axisBottom(x).ticks(7).tickFormat(d => d + "%"))
+          .selectAll("text")
+          .call(applyAxisLabel, 'medium');
 
-            tooltip
-              .style("display", "block")
-              .html(`<strong>${label}</strong><br>${tooltipText}`);
-            positionTooltip(tooltip, event, 10, 20);
-          })
-          .on("mousemove", function(event) {
-            positionTooltip(tooltip, event, 10, 20);
-          })
-          .on("mouseout", function() {
-            tooltip.style("display", "none");
-          });
+        // X轴标签
+        svg.append("text")
+          .attr("x", margin.left + innerWidth / 2)
+          .attr("y", height - 10) // 从height-20改为height-10，让标签更靠近底部
+          .attr("text-anchor", "middle")
+          .text("% of respondents agreeing with statement")
+          .call(applyAxisLabel, 'medium');
 
   
         g.selectAll("line.bg-line")
@@ -595,24 +623,42 @@ const chartRenderers = {
           .attr("stroke", "#ddd")
           .attr("stroke-dasharray", "2,2");
   
-        // ✅ 2023 条
-        g.selectAll("rect.bar-2023")
+        // ✅ 2024 条
+        g.selectAll("rect.bar-2024")
           .data(data)
           .join("rect")
           .attr("x", 0)
           .attr("y", d => y(d.Generation))
           .attr("height", y.bandwidth() / 2)
-          .attr("width", d => x(d["2023"]))
-          .attr("fill", color("2023"))
-          .attr("class", "bar bar-2023")
+          .attr("width", d => x(d["2024"]))
+          .attr("fill", color("2024"))
+          .attr("class", "bar bar-2024")
           .on("mouseover", function(event, d) {
             resetAllStyles();
-            handleBarHover(this, "2023", d.Generation);
-            showDialogue();
-          
+            // 所有条条先变暗淡
+            d3.selectAll(".bar").attr("opacity", 0.2);
+            // 高亮当前generation的两条条
+            d3.selectAll(`.bar-2023, .bar-2024`)
+              .filter(bar => bar.Generation === d.Generation)
+              .attr("opacity", 1);
+            // 当前generation的标签加粗
+            d3.selectAll(".y-axis-label")
+              .filter(label => label === d.Generation)
+              .style("font-weight", "bold");
+            d3.selectAll(`.label-2023, .label-2024`)
+              .filter(label => label.Generation === d.Generation)
+              .style("font-weight", "bold");
+            const generationBirthYears = {
+              "Gen Z": "Born 1997–2012",
+              "Millennial": "Born 1981–1996",
+              "Gen X": "Born 1965–1980",
+              "Baby boomer": "Born 1946–1964"
+            };
+            const birthYearText = generationBirthYears[d.Generation] || "";
+
             tooltip
               .style("display", "block")
-              .html(`<strong>${d.Generation}</strong><br>2023: ${d["2023"]}%`);
+              .html(`<strong>${d.Generation}</strong><br>${birthYearText}<br>2024: ${d["2024"]}%<br>2023: ${d["2023"]}%`);
             positionTooltip(tooltip, event, 10, 20);
           })
           .on("mousemove", function(event) {
@@ -624,24 +670,42 @@ const chartRenderers = {
           });
           
   
-        // ✅ 2024 条
-        g.selectAll("rect.bar-2024")
+        // ✅ 2023 条
+        g.selectAll("rect.bar-2023")
           .data(data)
           .join("rect")
           .attr("x", 0)
           .attr("y", d => y(d.Generation) + y.bandwidth() / 2)
           .attr("height", y.bandwidth() / 2)
-          .attr("width", d => x(d["2024"]))
-          .attr("fill", color("2024"))
-          .attr("class", "bar bar-2024")
+          .attr("width", d => x(d["2023"]))
+          .attr("fill", color("2023"))
+          .attr("class", "bar bar-2023")
           .on("mouseover", function(event, d) {
             resetAllStyles();
-            handleBarHover(this, "2024", d.Generation);
-            showDialogue();
-          
+            // 所有条条先变暗淡
+            d3.selectAll(".bar").attr("opacity", 0.2);
+            // 高亮当前generation的两条条
+            d3.selectAll(`.bar-2023, .bar-2024`)
+              .filter(bar => bar.Generation === d.Generation)
+              .attr("opacity", 1);
+            // 当前generation的标签加粗
+            d3.selectAll(".y-axis-label")
+              .filter(label => label === d.Generation)
+              .style("font-weight", "bold");
+            d3.selectAll(`.label-2023, .label-2024`)
+              .filter(label => label.Generation === d.Generation)
+              .style("font-weight", "bold");
+            const generationBirthYears = {
+              "Gen Z": "Born 1997–2012",
+              "Millennial": "Born 1981–1996",
+              "Gen X": "Born 1965–1980",
+              "Baby boomer": "Born 1946–1964"
+            };
+            const birthYearText = generationBirthYears[d.Generation] || "";
+
             tooltip
               .style("display", "block")
-              .html(`<strong>${d.Generation}</strong><br>2024: ${d["2024"]}%`);
+              .html(`<strong>${d.Generation}</strong><br>${birthYearText}<br>2024: ${d["2024"]}%<br>2023: ${d["2023"]}%`);
             positionTooltip(tooltip, event, 10, 20);
           })
           .on("mousemove", function(event) {
@@ -654,31 +718,31 @@ const chartRenderers = {
           
   
         // ✅ 数值标签（使用对应颜色）
-        g.selectAll("text.label-2023")
-          .data(data)
-          .join("text")
-          .attr("x", d => x(d["2023"]) + 6)
-          .attr("y", d => y(d.Generation) + y.bandwidth() * 0.3)
-          .attr("class", "label label-2023")
-          .text(d => `${d["2023"]}%`)
-          .call(applyChartFont, 'medium')
-          .style("fill", color("2023"));
-  
         g.selectAll("text.label-2024")
           .data(data)
           .join("text")
           .attr("x", d => x(d["2024"]) + 6)
-          .attr("y", d => y(d.Generation) + y.bandwidth() * 0.8)
+          .attr("y", d => y(d.Generation) + y.bandwidth() * 0.3)
           .attr("class", "label label-2024")
           .text(d => `${d["2024"]}%`)
           .call(applyChartFont, 'medium')
           .style("fill", color("2024"));
   
+        g.selectAll("text.label-2023")
+          .data(data)
+          .join("text")
+          .attr("x", d => x(d["2023"]) + 6)
+          .attr("y", d => y(d.Generation) + y.bandwidth() * 0.8)
+          .attr("class", "label label-2023")
+          .text(d => `${d["2023"]}%`)
+          .call(applyChartFont, 'medium')
+          .style("fill", color("2023"));
+  
         // ✅ 图例 → 右上角 + 间距24px，悬浮高亮
         const legend = svg.append("g")
-          .attr("transform", `translate(${width - 180}, 12)`); //图例位置
+          .attr("transform", `translate(${width - 180}, 0)`); //图例位置
   
-        ["2023", "2024"].forEach((key, i) => {
+        ["2024", "2023"].forEach((key, i) => {
           const baseColor = color(key);
           const group = legend.append("g")
             .attr("transform", `translate(${i * 80 }, 0)`) //图例间距
@@ -709,9 +773,12 @@ const chartRenderers = {
             .attr("y", 10)
             .attr("class", "legend-text")
             .text(key)
-            .call(applyChartFont, 'medium');
+                        .call(applyChartFont, 'large');
         });
-  
+
+        // 5秒后显示dialogue1
+        showDialogueWithDelay("dialogue-box", 5000);
+
         resolve();
       });
     });

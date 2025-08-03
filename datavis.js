@@ -30,6 +30,7 @@ function applyChartFont(element, size = 'medium') {
   const sizes = {
     'small': 'chart-font-small',
     'medium': 'chart-font-medium',
+    'large': 'chart-font-large',
     'base': 'chart-font'
   };
   element.classed(sizes[size] || 'chart-font', true);
@@ -68,25 +69,25 @@ const chartConfigs = [
     title: "How UK Adults Feel About AI",
     chartType: 1,
     dataPath: "assets/chapter2/RTA_PADAI_Tracker_-_Q22_Wave_4_-_Word_frequency.csv",
-    source: "Public attitudes to data and AI: Tracker survey (Wave 4) report, 2024"
+    source: "Department for Science, Innovation & Technology. Public Attitudes to Data and AI: Tracker Survey (Wave 4) Report. GOV.UK, 2024"
   },
   {
     title: "Public emotions toward AI by country",
     chartType: 2,
     dataPath: "assets/chapter2/fig_8.1.4.csv",
-    source: "Artificial Intelligence Index Report 2025"
+    source: "Stanford University. The 2025 AI Index Report | Stanford HAI. Stanford.edu, 2025"
   },
   {
     title: "Public perceptions of AI's potential to improve work",
     chartType: 2,
     dataPath: "assets/chapter2/fig_8.1.10_wide.csv",
-    source: "Artificial Intelligence Index Report 2025"
+    source: "Stanford University. The 2025 AI Index Report | Stanford HAI. Stanford.edu, 2025"
   },
   {
-    title: "How each generation sees AI's impact on jobs, 2023 vs. 2024",
+    title: "Agreement that AI will change how jobs are done",
     chartType: 4,
     dataPath: "assets/chapter2/fig_8.1.8_cleaned.csv",
-    source: "Artificial Intelligence Index Report 2025"
+    source: "Stanford University. The 2025 AI Index Report | Stanford HAI. Stanford.edu, 2025"
   },
   {
     title: "How often do different occupations use GenAI tools?",
@@ -181,6 +182,38 @@ function hideDialogueBoxById(id) {
   }, 400);
 }
 
+// 通用dialogue显示函数
+function showDialogueWithDelay(dialogueId, delayMs = 2000) {
+  // 先清除之前可能存在的定时器
+  if (window.currentDialogueTimer) {
+    clearTimeout(window.currentDialogueTimer);
+  }
+  
+  window.currentDialogueTimer = setTimeout(() => {
+    const box = document.getElementById(dialogueId);
+    if (!box) return;
+    
+    box.style.display = "block";
+    void box.offsetWidth; // 触发重排
+    box.style.opacity = "1";
+    
+    // 添加点击屏幕消失的事件监听
+    const hideOnClick = () => {
+      hideDialogueBoxById(dialogueId);
+      document.removeEventListener("click", hideOnClick);
+    };
+    document.addEventListener("click", hideOnClick);
+  }, delayMs);
+}
+
+// 清除当前dialogue定时器
+function clearDialogueTimer() {
+  if (window.currentDialogueTimer) {
+    clearTimeout(window.currentDialogueTimer);
+    window.currentDialogueTimer = null;
+  }
+}
+
 function renderPotentialWithKey(config, key) {
   const renderer = (titleText, dataPath, chartArea) => {
     return chartRenderers[3](dataPath, key);
@@ -197,6 +230,9 @@ function renderIncomeExposure(config, gender) {
 function initChart(index) {
   // ✅ 清除 arts-description（如果有）
   d3.select("#arts-description").remove();
+  
+  // ✅ 清除之前的dialogue定时器
+  clearDialogueTimer();
 
   const config = chartConfigs[index];
   if (!config) return console.warn("No chart config found for index", index);

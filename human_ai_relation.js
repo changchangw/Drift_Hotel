@@ -247,7 +247,7 @@ chartRenderers[10] = function(titleText, dataPath, chartArea) {
             .attr("x", 30).attr("y", 4)
             .text(label)
             .attr("class", `legend-text legend-text-${legendKeys[i]}`)
-            .call(applyChartFont, 'medium')
+            .call(applyChartFont, 'large')
             .attr("fill", "black")
             .call(applyTextWeight, 'normal');
         });
@@ -606,15 +606,13 @@ chartRenderers[12] = function(titleText, dataPath, chartArea) {
     g.append("g")
       .call(d3.axisLeft(yScale).ticks(5).tickFormat(d => d + "%"))
       .selectAll("text")
-      .style("font-size", "14px")
-      .style("font-family", "Courier New");
+      .call(applyAxisLabel, 'medium');
 
     g.append("g")
       .attr("transform", `translate(0,${innerHeight})`)
       .call(d3.axisBottom(xScale))
       .selectAll("text")
-      .style("font-size", "14px")
-      .style("font-family", "Courier New");
+      .call(applyAxisLabel, 'medium');
 
     // Draw bars
     g.selectAll(".layer")
@@ -648,8 +646,7 @@ chartRenderers[12] = function(titleText, dataPath, chartArea) {
       .attr("y", d => d.y)
       .attr("text-anchor", "middle")
       .attr("fill", "#fff")
-      .attr("font-size", "14px")
-      .attr("font-family", "Courier New")
+      .call(applyChartFont, 'medium')
       .text(d => `${d.value}%`);
 
     // Draw legend - 统一间距
@@ -682,9 +679,8 @@ chartRenderers[12] = function(titleText, dataPath, chartArea) {
           .attr("x", 20)
           .attr("y", 12)
           .text(d)
-          .attr("font-size", "14px")
-          .attr("fill", "#333")
-          .attr("font-family", "Courier New");
+          .call(applyChartFont, 'large')
+          .attr("fill", "#333");
       });
 
     // 添加y轴标签 - 靠近数值轴
@@ -694,9 +690,8 @@ chartRenderers[12] = function(titleText, dataPath, chartArea) {
       .attr("y", 40) // 调整位置
       .attr("text-anchor", "middle")
       .text("Share of tasks (%)")
-      .style("font-size", "14px")
-      .style("font-family", "Courier New")
-      .style("fill", "#333");
+      .call(applyAxisLabel, 'medium')
+      .attr("fill", "#333");
 
     resolve();
   });
@@ -749,24 +744,21 @@ chartRenderers[13] = function(titleText, dataPath, chartArea) {
     g.append("g")
       .call(d3.axisLeft(y))
       .selectAll("text")
-      .style("font-family", "'Courier New', monospace")
-      .style("font-size", "12px");
+      .call(applyAxisLabel);
 
     // 底部轴（数值刻度）
     g.append("g")
       .attr("transform", `translate(0, ${innerHeight})`)
       .call(d3.axisBottom(x).ticks(5).tickFormat(d => d + "%"))
       .selectAll("text")
-      .style("font-family", "'Courier New', monospace")
-      .style("font-size", "12px");
+      .call(applyAxisLabel);
 
     // 添加 x轴标题
     svg.append("text")
       .attr("x", margin.left + innerWidth / 2)
       .attr("y", margin.top + innerHeight + 50)
       .attr("text-anchor", "middle")
-      .style("font-family", "'Courier New', monospace")
-      .style("font-size", "12px")
+      .call(applyAxisLabel)
       .text("Automation desire (%)");
 
     // 数值标签
@@ -778,8 +770,7 @@ chartRenderers[13] = function(titleText, dataPath, chartArea) {
       .attr("x", d => x(d.value) + 6)
       .attr("y", d => y(d.field) + y.bandwidth() / 2 + 4)
       .text(d => `${d.value}%`)
-      .style("font-family", "'Courier New', monospace")
-      .style("font-size", "12px");
+      .call(applyChartFont, 'small');
 
     d3.select("#arts-description").remove(); // ✅ 先移除旧的
 

@@ -209,7 +209,7 @@
 
 #datavis-title {
   position: absolute;
-  top: 89px;
+  top: 92px;
   left: 42%;
   transform: translateX(-50%);
   font-weight: bold;
@@ -338,6 +338,11 @@
 .chart-font-medium {
   font-family: 'Courier New', monospace;
   font-size: 14px;
+}
+
+.chart-font-large {
+  font-family: 'Courier New', monospace;
+  font-size: 16px;
 }
 
 /* 通用交互样式 */
