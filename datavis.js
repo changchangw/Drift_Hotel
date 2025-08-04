@@ -93,25 +93,25 @@ const chartConfigs = [
     title: "How often do different occupations use GenAI tools?",
     chartType: 5,
     dataPath: "assets/chapter2/genai_usage_by_occupation.csv",
-    source: "ILO Working Paper – Generative AI and Jobs, 2024"
+    source: "Gmyrek, Pawel, et al. Generative AI and Jobs. Geneva, ILO, 2025."
   },
   {
     title: "Which jobs are most exposed to AI?",
     chartType: 6,
     dataPath: "assets/chapter2/ai_exposure_scatter.csv",
-    source: "Generative AI and Jobs, 2025"
+    source: "Gmyrek, Pawel, et al. Generative AI and Jobs. Geneva, ILO, 2025.5"
   },
   {
     title: "AI Exposure by Income Level and Gender",
     chartType: 7,
     dataPath: "assets/chapter2/fig_20_by_income.csv",
-    source: "Generative AI and Jobs, 2025"
+    source: "Gmyrek, Pawel, et al. Generative AI and Jobs. Geneva, ILO, 2025."
   },
   {
-    title: "AI Exposure by Skill Level",
+    title: "Layers of Risk, Shades of Work",
     chartType: 8,
     dataPath: "", // 此图无需CSV数据，可设为""
-    source: "ILO Harmonized Microdata collection and Gmyrek et al. (2025) occupational AI exposure measure"
+    source: "International Labour Organization. World Employment and Social Outlook: May 2025 Update. Geneva, ILO, 2025."
   },
   {
     title: "How humans and AI share the work?",

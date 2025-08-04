@@ -26,14 +26,7 @@ chartRenderers[5] = function(titleText, dataPath, chartArea) {
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
 
-  let hasShownChart5Dialogue = false;
 
-  function showChart5DialogueImage() {
-    if (hasShownChart5Dialogue) return;
-    hasShownChart5Dialogue = true;
-    showDialogueBoxById("dialogue-box2");
-    document.addEventListener("click", () => hideDialogueBoxById("dialogue-box2"), { once: true });
-  }
 
   return new Promise(resolve => {
     d3.csv(dataPath).then(data => {
@@ -54,7 +47,7 @@ chartRenderers[5] = function(titleText, dataPath, chartArea) {
       const y = d3.scaleBand()
         .domain(groups)
         .range([0, innerHeight])
-        .padding(0.55);
+        .padding(0.5);
 
       const x = d3.scaleLinear()
         .domain([0, 100])
@@ -64,16 +57,22 @@ chartRenderers[5] = function(titleText, dataPath, chartArea) {
 
       const tooltip = d3.select("body")
         .append("div")
-        .attr("class", "tooltip");
+        .attr("class", "tooltip")
+        .style("display", "none"); // 确保初始状态是隐藏的
 
       function resetAllStyles() {
         d3.selectAll(".stack-bar").attr("opacity", 1);
+        d3.selectAll(".stack-label").style("opacity", 0); // 重置为隐藏
         d3.selectAll(".y-axis-label").style("font-weight", "normal");
       }
 
       function handleBarHover(labelClass, labelOriginal) {
         d3.selectAll(".stack-bar").attr("opacity", 0.2);
         d3.selectAll(`.bar-${labelClass}`).attr("opacity", 1);
+        // 显示当前职业的所有数值标签
+        d3.selectAll(`.stack-label`)
+          .filter(d => d.data.Occupation === labelOriginal)
+          .style("opacity", 1);
         d3.selectAll(".y-axis-label")
           .filter(d => d === labelOriginal)
           .style("font-weight", "bold");
@@ -97,25 +96,60 @@ chartRenderers[5] = function(titleText, dataPath, chartArea) {
           const occupation = d.data.Occupation;
           handleBarHover(occupation.replace(/[^a-zA-Z]/g, ""), occupation);
 
+          // 构建显示所有5个类别数值的tooltip
+          const occupationData = d.data;
+          let tooltipContent = `<strong>${occupation}</strong><br>`;
+          
+          // 添加所有5个类别的数值
+          subgroups.forEach(subgroup => {
+            const value = occupationData[subgroup];
+            if (value !== undefined && value !== null) {
+              const numValue = parseFloat(value);
+              if (!isNaN(numValue)) {
+                tooltipContent += `${subgroup}: ${numValue.toFixed(1)}%<br>`;
+              }
+            }
+          });
+
           tooltip
             .style("display", "block")
-            .html(`<strong>${subgroup}</strong>: ${(d[1] - d[0]).toFixed(1)}%`);
+            .html(tooltipContent);
           positionTooltip(tooltip, event, 12, 20);
-
-          // ✅ 触发对话切图
-          showChart5DialogueImage();
         })
         .on("mouseout", () => {
           tooltip.style("display", "none");
           resetAllStyles();
         });
 
+      // 添加数值标签到条上（默认隐藏）
+      g.append("g")
+        .selectAll("g")
+        .data(stackedData)
+        .join("g")
+        .selectAll("text")
+        .data(d => d)
+        .join("text")
+        .attr("class", "stack-label")
+        .attr("x", d => x(d[0]) + (x(d[1]) - x(d[0])) / 2)
+        .attr("y", d => y(d.data.Occupation) + y.bandwidth() / 2)
+        .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "middle")
+        .text(d => {
+          const value = d[1] - d[0];
+          return value > 5 ? value.toFixed(1) + "%" : ""; // 只显示大于5%的数值
+        })
+        .call(applyChartFont, 'small')
+        .style("fill", "#fff")
+        .style("font-weight", "normal") // 改为normal，去掉加粗
+        .style("opacity", 0) // 默认隐藏
+        .style("pointer-events", "none"); // 禁用数值标签的鼠标事件，避免干扰hover
+
       const yAxis = g.append("g").call(d3.axisLeft(y));
 
       yAxis.selectAll("text")
         .attr("class", "y-axis-label")
         .attr("dy", "0.35em")
-        .call(applyChartFont, 'medium')
+        .call(applyChartFont, 'small')
         .style("fill", "#000")
         .style("text-anchor", "end")
         .call(wrapText, 240);
@@ -127,8 +161,7 @@ chartRenderers[5] = function(titleText, dataPath, chartArea) {
         .call(applyAxisLabel);
 
       const legend = svg.append("g")
-        .attr("transform", `translate(${width - 490}, 10)`)
-        .style("font-family", "'Courier New', monospace");
+        .attr("transform", `translate(${width - 470}, 10)`);
 
       const legendEntries = [
         { label: "Never", full: "Never (not at all)" },
@@ -141,15 +174,7 @@ chartRenderers[5] = function(titleText, dataPath, chartArea) {
       let offsetX = 0;
       legendEntries.forEach((entry, i) => {
         const gL = legend.append("g")
-          .attr("transform", `translate(${offsetX}, 0)`)
-          .call(applyInteractive)
-          .on("mouseover", function(event) {
-            tooltip
-              .style("display", "block")
-              .html(entry.full);
-            positionTooltip(tooltip, event, 12, 20);
-          })
-          .on("mouseout", () => tooltip.style("display", "none"));
+          .attr("transform", `translate(${offsetX}, 0)`);
 
         gL.append("rect")
           .attr("width", 12)
@@ -160,10 +185,13 @@ chartRenderers[5] = function(titleText, dataPath, chartArea) {
           .attr("x", 18)
           .attr("y", 10)
           .text(entry.label)
-          .style("font-size", "13px");
+          .call(applyChartFont, 'small');
 
         offsetX += text.node().getBBox().width + 42;
       });
+
+      // 5秒后显示dialogue2
+      showDialogueWithDelay("dialogue-box2", 5000);
 
       resolve();
     });
@@ -215,7 +243,7 @@ chartRenderers[6] = function(titleText, dataPath, chartArea) {
   const colorMap = {
     "Not Exposed": "#d5d4c5",
     "Minimal Exposure": "#7da273",
-    "Gradient 1": "#4b89c1",
+    "Gradient 1": "#5B83A9", // Low Exposure - 改为新的蓝色
     "Gradient 2": "#1f4e79",
     "Gradient 3": "#a07b3b",
     "Gradient 4": "#943434"
@@ -304,29 +332,26 @@ chartRenderers[6] = function(titleText, dataPath, chartArea) {
             .attr("d", d3.symbol().type(shapeMap[d.Exposure]).size(60)()); // 恢复默认大小
         });
 
-      // X Axis
-      g.append("g")
-        .attr("transform", `translate(0,${innerHeight})`)
-        .call(d3.axisBottom(x).ticks(6))
-        .selectAll("text")
-        .style("font-size", "12px")
-        .style("font-family", "'Courier New', monospace");
+              // X Axis
+        g.append("g")
+          .attr("transform", `translate(0,${innerHeight})`)
+          .call(d3.axisBottom(x).ticks(6))
+          .selectAll("text")
+          .call(applyAxisLabel);
 
-      // Y Axis
-      g.append("g")
-        .call(d3.axisLeft(y).ticks(6))
-        .selectAll("text")
-        .style("font-size", "12px")
-        .style("font-family", "'Courier New', monospace");
+              // Y Axis
+        g.append("g")
+          .call(d3.axisLeft(y).ticks(6))
+          .selectAll("text")
+          .call(applyAxisLabel);
 
-      // Axis labels with hover explanations
-      svg.append("text")
-        .attr("x", margin.left + innerWidth / 2)
-        .attr("y", height - 5)
-        .attr("text-anchor", "middle")
-        .text("AI Compatibility (mean task score)")
-        .style("font-family", "'Courier New', monospace")
-        .style("font-size", "12px")
+              // Axis labels with hover explanations
+        svg.append("text")
+          .attr("x", margin.left + innerWidth / 2)
+          .attr("y", height - 5)
+          .attr("text-anchor", "middle")
+          .text("AI Compatibility (mean task score)")
+          .call(applyAxisLabel)
         .on("mouseover", function(event) {
           tooltip
             .style("display", "block")
@@ -337,14 +362,13 @@ chartRenderers[6] = function(titleText, dataPath, chartArea) {
           tooltip.style("display", "none");
         });        
 
-      svg.append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("x", -height / 2)
-        .attr("y", 15)
-        .attr("text-anchor", "middle")
-        .text("Task Diversity (standard deviation)")
-        .style("font-family", "'Courier New', monospace")
-        .style("font-size", "12px")
+              svg.append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("x", -height / 2)
+          .attr("y", 15)
+          .attr("text-anchor", "middle")
+          .text("Task Diversity (standard deviation)")
+          .call(applyAxisLabel)
         .on("mouseover", function(event) {
           tooltip
             .style("display", "block")
@@ -355,10 +379,9 @@ chartRenderers[6] = function(titleText, dataPath, chartArea) {
           tooltip.style("display", "none");
         });        
 
-      // Legend with highlight interaction
-      const legend = svg.append("g")
-        .attr("transform", `translate(${width - 160}, 10)`)
-        .style("font-family", "'Courier New', monospace");
+              // Legend with highlight interaction
+        const legend = svg.append("g")
+          .attr("transform", `translate(${width - 160}, 10)`);
 
       const exposureTypes = Object.keys(colorMap);
       exposureTypes.forEach((key, i) => {
@@ -371,8 +394,8 @@ chartRenderers[6] = function(titleText, dataPath, chartArea) {
               .html(`<strong>${labelMap[key]}</strong><br>${tooltipMap[key]}`);
             positionTooltip(tooltip, event, 12, 20);
           
-            // 图中其他点暗淡
-            d3.selectAll("path").attr("opacity", 0.1);
+            // 只影响散点，不影响坐标轴
+            d3.selectAll("path[class*='dot-']").attr("opacity", 0.1);
             d3.selectAll(`.dot-${key.replace(/\s/g, "-")}`).attr("opacity", 1);
           
             // 图例高亮
@@ -382,8 +405,8 @@ chartRenderers[6] = function(titleText, dataPath, chartArea) {
           .on("mouseout", function() {
             tooltip.style("display", "none");
           
-            // 恢复所有点
-            d3.selectAll("path").attr("opacity", 0.9);
+            // 只恢复散点，不影响坐标轴
+            d3.selectAll("path[class*='dot-']").attr("opacity", 0.9);
           
             // 图例恢复
             d3.select(this).select("text").style("font-weight", "normal");
@@ -400,7 +423,7 @@ chartRenderers[6] = function(titleText, dataPath, chartArea) {
           .attr("x", 15)
           .attr("y", 10)
           .text(labelMap[key])
-          .style("font-size", "12px");
+          .call(applyChartFont, 'small');
       });
 
       resolve();
@@ -410,13 +433,13 @@ chartRenderers[6] = function(titleText, dataPath, chartArea) {
 
 chartRenderers[7] = function(titleText, dataPath, chartArea, gender = "Total") {
   const width = 680;
-  const height = 380;
-  const margin = { top: 40, right: 20, bottom: 60, left: 80 }; // 上下margin略微收紧
+  const height = 390;
+  const margin = { top: 30, right: 20, bottom: 70, left: 80 }; // 上下margin略微收紧
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
 
   const colorMap = {
-    "Gradient1": "#4b89c1",
+    "Gradient1": "#5B83A9", // Low Exposure - 改为新的蓝色
     "Gradient2": "#1f4e79",
     "Gradient3": "#a07b3b",
     "Gradient4": "#943434"
@@ -427,13 +450,6 @@ chartRenderers[7] = function(titleText, dataPath, chartArea, gender = "Total") {
     "Gradient2": "Moderate Exposure",
     "Gradient3": "High Exposure",
     "Gradient4": "Very High Exposure"
-  };
-
-  const incomeLabelShort = {
-    "High income": "High",
-    "Upper-middle income": "Upper-middle",
-    "Lower-middle income": "Lower-middle",
-    "Low income": "Low"
   };
 
   const tooltip = d3.select("body").append("div")
@@ -483,37 +499,80 @@ chartRenderers[7] = function(titleText, dataPath, chartArea, gender = "Total") {
           .attr("height", d => y(d[0]) - y(d[1]))
           .attr("width", x.bandwidth())
           .on("mouseover", function(event, d) {
-            const key = d3.select(this.parentNode).datum().key;
             const level = d.data.IncomeLevel;
             const levelClass = `.bar-${level.replace(/\s/g, "-")}`;
 
+            // 构建显示所有4个类别数值的tooltip
+            const levelData = d.data;
+            let tooltipContent = `<strong>${level}</strong><br>`;
+            
+            // 添加所有4个类别的数值
+            subgroups.forEach(subgroup => {
+              const value = levelData[subgroup];
+              if (value !== undefined && value !== null) {
+                const numValue = parseFloat(value);
+                if (!isNaN(numValue)) {
+                  tooltipContent += `${labelMap[subgroup]}: ${numValue.toFixed(1)}%<br>`;
+                }
+              }
+            });
+
             tooltip
-              .html(`<strong>${labelMap[key]}</strong><br>${(d[1] - d[0]).toFixed(1)}%<br><br><em>${d.data.TotalJobsMillions} million jobs</em>`)
-              .style("display", "block");
+              .style("display", "block")
+              .html(tooltipContent);
             positionTooltip(tooltip, event, 10, 20);
 
-            // ✅ 当前柱高亮，其他淡出
+            // 当前柱高亮，其他淡出
             g.selectAll(".stack-bar").attr("opacity", 0.2);
             g.selectAll(levelClass).attr("opacity", 1);
 
-            // ✅ 顶部总值加粗
+            // 显示当前收入等级的所有数值标签
+            g.selectAll(".stack-label")
+              .filter(d => d.data.IncomeLevel === level)
+              .style("opacity", 1);
+
+            // 顶部累计值标签加粗
             g.selectAll(".bar-label").style("font-weight", "normal");
             g.selectAll(`.label-${level.replace(/\s/g, "-")}`).style("font-weight", "bold");
 
-            // ✅ x轴加粗
+            // x轴加粗
             g.selectAll(".x-axis-label").style("font-weight", "normal");
             g.selectAll(".x-axis-label")
               .filter(function() {
-                return d3.select(this).text() === (incomeLabelShort[level] || level);
+                return d3.select(this).text() === level;
               })
               .style("font-weight", "bold");
           })
           .on("mouseout", () => {
             tooltip.style("display", "none");
             g.selectAll(".stack-bar").attr("opacity", 1);
-            g.selectAll(".bar-label").style("font-weight", "normal");
+            g.selectAll(".stack-label").style("opacity", 0); // 隐藏数值标签
+            g.selectAll(".bar-label").style("font-weight", "normal"); // 重置顶部累计值标签
             g.selectAll(".x-axis-label").style("font-weight", "normal");
           });
+
+        // 添加数值标签到条上（默认隐藏）
+        g.append("g")
+          .selectAll("g")
+          .data(stackedData)
+          .join("g")
+          .selectAll("text")
+          .data(d => d)
+          .join("text")
+          .attr("class", "stack-label")
+          .attr("x", d => x(d.data.IncomeLevel) + x.bandwidth() / 2)
+          .attr("y", d => y(d[0]) + (y(d[1]) - y(d[0])) / 2)
+          .attr("text-anchor", "middle")
+          .attr("dominant-baseline", "middle")
+          .text(d => {
+            const value = d[1] - d[0];
+            return value > 3 ? value.toFixed(1) + "%" : ""; // 只显示大于3%的数值
+          })
+          .call(applyChartFont, 'small')
+          .style("fill", "#fff")
+          .style("font-weight", "normal")
+          .style("opacity", 0) // 默认隐藏
+          .style("pointer-events", "none"); // 禁用数值标签的鼠标事件，避免干扰hover
 
         // 顶部累计值标签
         data.forEach(d => {
@@ -528,35 +587,39 @@ chartRenderers[7] = function(titleText, dataPath, chartArea, gender = "Total") {
             .attr("y", yPos)
             .attr("text-anchor", "middle")
             .text(`${total.toFixed(1)}%`)
-            .style("font-size", "14px")
             .style("fill", "#000")
-            .style("font-family", "'Courier New', monospace");
+            .call(applyChartFont, 'medium');
         });
 
         // x 轴
         g.append("g")
           .attr("transform", `translate(0,${innerHeight})`)
-          .call(d3.axisBottom(x).tickFormat(d => incomeLabelShort[d] || d))
+          .call(d3.axisBottom(x))
           .selectAll("text")
           .attr("class", "x-axis-label")
-          .style("font-size", "12px")
-          .style("font-family", "'Courier New', monospace");
-
-        // x轴标签
-        svg.append("text")
-          .attr("x", margin.left + innerWidth / 2)
-          .attr("y", height - 20)
-          .attr("text-anchor", "middle")
-          .text("Income Level")
-          .style("font-size", "13px")
-          .style("font-family", "'Courier New', monospace");
+          .call(applyAxisLabel)
+          .each(function(d) {
+            const text = d3.select(this);
+            const words = text.text().split(" ");
+            if (words.length > 1) {
+              text.text("");
+              words.forEach((word, i) => {
+                text.append("tspan")
+                  .attr("x", 0)
+                  .attr("dy", i === 0 ? "0.8em" : "1.2em") // 第一行下移0.8em
+                  .text(word);
+              });
+            } else {
+              // 单行文本也下移
+              text.attr("dy", "0.8em");
+            }
+          });
 
         // y 轴
         g.append("g")
           .call(d3.axisLeft(y).ticks(5).tickFormat(d => d + "%"))
           .selectAll("text")
-          .style("font-size", "12px")
-          .style("font-family", "'Courier New', monospace");
+          .call(applyAxisLabel);
 
         // y轴标签
         svg.append("text")
@@ -565,18 +628,18 @@ chartRenderers[7] = function(titleText, dataPath, chartArea, gender = "Total") {
           .attr("y", 18)
           .attr("text-anchor", "middle")
           .text("Share of employment (%)")
-          .style("font-size", "13px")
-          .style("font-family", "'Courier New', monospace");
+          .call(applyAxisLabel, 'medium');
 
-        // 图例向右靠
+        // 图例放在右上角，按照指定顺序
         const legend = svg.append("g")
-          .attr("transform", `translate(${width - margin.right - 630}, -2)`)
-          .style("font-family", "'Courier New', monospace");
+          .attr("transform", `translate(${width - margin.right - 160}, 0)`);
 
-        let offsetX = 0;
-        Object.entries(labelMap).forEach(([key, label]) => {
+        // 按照要求的顺序：Very High -> High -> Moderate -> Low
+        const legendOrder = ["Gradient4", "Gradient3", "Gradient2", "Gradient1"];
+        
+        legendOrder.forEach((key, i) => {
           const gL = legend.append("g")
-            .attr("transform", `translate(${offsetX}, 0)`);
+            .attr("transform", `translate(0, ${i * 25})`);
 
           gL.append("rect")
             .attr("width", 12)
@@ -586,10 +649,8 @@ chartRenderers[7] = function(titleText, dataPath, chartArea, gender = "Total") {
           gL.append("text")
             .attr("x", 18)
             .attr("y", 10)
-            .text(label)
-            .style("font-size", "13px");
-
-          offsetX += gL.node().getBBox().width + 30;
+            .text(labelMap[key])
+            .call(applyChartFont, 'small');
         });
       }
 
@@ -642,14 +703,8 @@ chartRenderers[8] = function(titleText, dataPath, chartArea) {
       .attr("width", width)
       .attr("height", height);
     
-    // ✅ 独白控制逻辑
-    let hasShownDialogue3 = false;
-    function showChart8DialogueImage() {
-      if (hasShownDialogue3) return;
-      hasShownDialogue3 = true;
-      showDialogueBoxById("dialogue-box3");
-      document.addEventListener("click", () => hideDialogueBoxById("dialogue-box3"), { once: true });
-    }
+    // 5秒后显示dialogue3
+    showDialogueWithDelay("dialogue-box3", 5000);
 
     // ✅ 主图片
     svg.append("image")

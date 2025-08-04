@@ -353,9 +353,7 @@ const chartRenderers = {
         // 颜色比例尺（蓝色系）
         const colorScale = d3.scaleLinear()
           .domain([0, 100])
-          .range(["#a9c5e0", "#0a203e"]);
-
-
+          .range(["#aac9e6", "#0a203e"]);
         
         // 定义中国的相关地区
         const chinaRegions = ["China", "Taiwan"];
@@ -448,7 +446,7 @@ const chartRenderers = {
           
             tooltip
               .style("display", "block")
-              .html(`<strong>${d.properties.name === "Taiwan" ? "China" : (d.properties.name === "United States of America" ? "United States" : d.properties.name)}</strong><br>${val}%`);
+              .html(`<strong>${d.properties.name === "Taiwan" ? "China" : (d.properties.name === "United States of America" ? "United States" : d.properties.name)}</strong><br>${key}: ${val}%`);
             positionTooltip(tooltip, event, 15, 20);
           })
           .on("mousemove", function (event) {
