@@ -701,7 +701,8 @@ chartRenderers[8] = function(titleText, dataPath, chartArea) {
   return new Promise(resolve => {
     const svg = chartArea.append("svg")
       .attr("width", width)
-      .attr("height", height);
+      .attr("height", height)
+      .style("pointer-events", "none"); // 让容器不阻挡点击事件
     
     // 5秒后显示dialogue3
     showDialogueWithDelay("dialogue-box3", 5000);
@@ -723,7 +724,7 @@ chartRenderers[8] = function(titleText, dataPath, chartArea) {
     hotspots.forEach(hotspot => {
       const group = svg.append("g")
         .attr("transform", `translate(${hotspot.x}, ${hotspot.y})`)
-        //.style("cursor", "pointer");
+        .style("pointer-events", "all"); // 让热区可以接收鼠标事件
 
       // 透明的热区矩形（用于检测鼠标）
       group.append("rect")

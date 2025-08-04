@@ -28,7 +28,8 @@ chartRenderers[9] = function(titleText, dataPath, chartArea) {
   return new Promise(resolve => {
     const svg = chartArea.append("svg")
       .attr("width", width)
-      .attr("height", height);
+      .attr("height", height)
+      .style("pointer-events", "none"); // 让容器不阻挡点击事件
 
     // 主图展示（中间HAS图）
     svg.append("image")
@@ -40,37 +41,27 @@ chartRenderers[9] = function(titleText, dataPath, chartArea) {
 
     // 附图展示（HAS_image.png）
     svg.append("image")
-    .attr("href", "assets/chapter2/HAS_image.png")
-    .attr("x", 46)
-    .attr("y", 240)
-    .attr("width", 636)
-    .attr("height", 81);
-
-    // 添加问号图标
-    const iconX = 530;
-    const iconY = 152;
-    const iconSize = 24;
-
-    svg.append("image")
-      .attr("href", "assets/icons/wenhao.png")
-      .attr("x", iconX)
-      .attr("y", iconY)
-      .attr("width", iconSize)
-      .attr("height", iconSize)
-      .attr("id", "has-tooltip-icon")
-      .style("cursor", "pointer");
+      .attr("href", "assets/chapter2/HAS_image.png")
+      .attr("x", 46)
+      .attr("y", 240)
+      .attr("width", 636)
+      .attr("height", 81)
+      .attr("id", "has-image")
+      .style("pointer-events", "all"); // 让图片可以接收鼠标事件
 
     // tooltip div 设置
     const tooltip = d3.select("body")
       .append("div")
       .attr("id", "has-tooltip")
-      .attr("class", "tooltip")
-      .text("A five-level framework that measures how much human involvement is needed in completing a task with AI.");
+      .attr("class", "tooltip");
 
-    // 绑定悬浮事件
-    d3.select("#has-tooltip-icon")
+    // 绑定悬浮事件到HAS_image
+    d3.select("#has-image")
       .on("mouseover", function(event) {
-        tooltip.style("display", "block");
+        tooltip
+          .style("display", "block")
+          .html("<strong>Human Agency Scale (HAS)</strong><br>A five-level framework that measures how much human involvement is needed in completing a task with AI.");
+        positionTooltip(tooltip, event, 14, 20);
       })
       .on("mousemove", function(event) {
         positionTooltip(tooltip, event, 14, 20);
@@ -99,8 +90,15 @@ chartRenderers[10] = function(titleText, dataPath, chartArea) {
       const font = "Courier New";
       const taskTypes = ["All Tasks", "H5 Tasks"];
       const legendKeys = ["All", "H5"];
-      const sourceTabs = ["Worker", "Expert"];
-      let currentSource = "Worker";
+      const sourceTabs = ["Rated by workers", "Rated by AI experts"];
+      let currentSource = "Rated by workers";
+      
+      // 映射tabs文字到CSV数据中的实际值
+      const sourceMapping = {
+        "Rated by workers": "Worker",
+        "Rated by AI experts": "Expert"
+      };
+      
       const highlightOpacity = 1;
       const dimOpacity = 0.18;
 
@@ -140,6 +138,16 @@ chartRenderers[10] = function(titleText, dataPath, chartArea) {
             .attr("fill", "rgba(150, 120, 90, 0.1)")
             .attr("stroke", "rgba(150, 120, 90, 1)")
             .attr("stroke-dasharray", "2,2");
+          
+          // 添加数字标签（在Physical Action轴上）
+          g.append("text")
+            .attr("x", 0)
+            .attr("y", -r - 10)
+            .attr("text-anchor", "middle")
+            .attr("alignment-baseline", "middle")
+            .call(applyChartFont, 'small')
+            .attr("fill", "rgba(150, 120, 90, 1)")
+            .text(level);
         }
 
         // 轴线与标签
@@ -153,7 +161,7 @@ chartRenderers[10] = function(titleText, dataPath, chartArea) {
             .attr("stroke", "#999");
           g.append("text")
             .attr("x", Math.cos(angle) * (radius + 80))
-            .attr("y", Math.sin(angle) * (radius + 20))
+            .attr("y", Math.sin(angle) * (radius + 30))
             .attr("text-anchor", "middle")
             .attr("alignment-baseline", "middle")
             .call(applyChartFont, 'medium')
@@ -161,7 +169,7 @@ chartRenderers[10] = function(titleText, dataPath, chartArea) {
         });
 
         // 先绘制面积大的，再绘制面积小的（All Tasks先，H5 Tasks后）
-        const filtered = data.filter(d => d.Source === currentSource);
+        const filtered = data.filter(d => d.Source === sourceMapping[currentSource]);
         const order = [0, 1]; // 先All，再H5
         order.forEach(idx => {
           const taskType = taskTypes[idx];
@@ -247,7 +255,7 @@ chartRenderers[10] = function(titleText, dataPath, chartArea) {
             .attr("x", 30).attr("y", 4)
             .text(label)
             .attr("class", `legend-text legend-text-${legendKeys[i]}`)
-            .call(applyChartFont, 'large')
+            .call(applyChartFont, 'medium')
             .attr("fill", "black")
             .call(applyTextWeight, 'normal');
         });
@@ -260,15 +268,15 @@ chartRenderers[10] = function(titleText, dataPath, chartArea) {
             .attr("fill-opacity", (d, i) => i === idx ? 0.35 : 0.18);
           // 线条高亮
           g.selectAll(".radar-line")
-            .attr("stroke-width", (d, i) => i === idx ? 4 : 2)
+            .attr("stroke-width", (d, i) => i === idx ? 3 : 2)
             .attr("opacity", (d, i) => i === idx ? highlightOpacity : dimOpacity);
           // 图例高亮
           svg.selectAll(".legend-line")
-            .attr("opacity", (d, i) => i === idx ? highlightOpacity : dimOpacity)
-            .attr("stroke-width", (d, i) => i === idx ? 4 : 2);
+            .attr("opacity", 1)
+            .attr("stroke-width", (d, i) => i === idx ? 3 : 2);
           svg.selectAll(".legend-text")
-            .attr("font-weight", (d, i) => i === idx ? "bold" : "normal")
-            .attr("opacity", (d, i) => i === idx ? highlightOpacity : dimOpacity);
+            .style("font-weight", (d, i) => i === idx ? "bold" : "normal")
+            .attr("opacity", 1);
           // 四角数值显示
           g.selectAll(`.radar-corner`).attr("opacity", 0);
           g.selectAll(`.radar-corner-${legendKeys[idx]}`).attr("opacity", 1);
@@ -284,7 +292,7 @@ chartRenderers[10] = function(titleText, dataPath, chartArea) {
             .attr("opacity", 1)
             .attr("stroke-width", 2);
           svg.selectAll(".legend-text")
-            .attr("font-weight", "normal")
+            .style("font-weight", "normal")
             .attr("opacity", 1);
           g.selectAll(`.radar-corner`).attr("opacity", 0);
         }

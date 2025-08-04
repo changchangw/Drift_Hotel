@@ -69,85 +69,85 @@ const chartConfigs = [
     title: "How UK Adults Feel About AI",
     chartType: 1,
     dataPath: "assets/chapter2/RTA_PADAI_Tracker_-_Q22_Wave_4_-_Word_frequency.csv",
-    source: "Department for Science, Innovation & Technology. Public Attitudes to Data and AI: Tracker Survey (Wave 4) Report. GOV.UK, 2024"
+    source: "Department for Science, Innovation & Technology (2024). Public attitudes to data and AI: Tracker survey (Wave 4) report. [online] GOV.UK."
   },
   {
     title: "Public emotions toward AI by country",
     chartType: 2,
     dataPath: "assets/chapter2/fig_8.1.4.csv",
-    source: "Stanford University. The 2025 AI Index Report | Stanford HAI. Stanford.edu, 2025"
+    source: "Stanford University (2025). The 2025 AI Index Report | Stanford HAI. [online] Stanford.edu."
   },
   {
     title: "Public perceptions of AI's potential to improve work",
     chartType: 2,
     dataPath: "assets/chapter2/fig_8.1.10_wide.csv",
-    source: "Stanford University. The 2025 AI Index Report | Stanford HAI. Stanford.edu, 2025"
+    source: "Stanford University (2025). The 2025 AI Index Report | Stanford HAI. [online] Stanford.edu."
   },
   {
     title: "Agreement that AI will change how jobs are done",
     chartType: 4,
     dataPath: "assets/chapter2/fig_8.1.8_cleaned.csv",
-    source: "Stanford University. The 2025 AI Index Report | Stanford HAI. Stanford.edu, 2025"
+    source: "Stanford University (2025). The 2025 AI Index Report | Stanford HAI. [online] Stanford.edu."
   },
   {
     title: "How often do different occupations use GenAI tools?",
     chartType: 5,
     dataPath: "assets/chapter2/genai_usage_by_occupation.csv",
-    source: "Gmyrek, Pawel, et al. Generative AI and Jobs. Geneva, ILO, 2025."
+    source: "Gmyrek, et al. (2025). Generative AI and jobs. Geneva: ILO."
   },
   {
     title: "Which jobs are most exposed to AI?",
     chartType: 6,
     dataPath: "assets/chapter2/ai_exposure_scatter.csv",
-    source: "Gmyrek, Pawel, et al. Generative AI and Jobs. Geneva, ILO, 2025.5"
+    source: "Gmyrek, et al. (2025). Generative AI and jobs. Geneva: ILO."
   },
   {
     title: "AI Exposure by Income Level and Gender",
     chartType: 7,
     dataPath: "assets/chapter2/fig_20_by_income.csv",
-    source: "Gmyrek, Pawel, et al. Generative AI and Jobs. Geneva, ILO, 2025."
+    source: "Gmyrek, et al. (2025). Generative AI and jobs. Geneva: ILO."
   },
   {
     title: "Layers of Risk, Shades of Work",
     chartType: 8,
     dataPath: "", // 此图无需CSV数据，可设为""
-    source: "International Labour Organization. World Employment and Social Outlook: May 2025 Update. Geneva, ILO, 2025."
+    source: "International Labour Organization. (2025). World Employment and Social Outlook: May 2025 Update."
   },
   {
-    title: "How humans and AI share the work?",
+    title: "Balancing the Task: Human Agency in the Age of AI",
     chartType: 9,
     dataPath: "",
-    source: "Future of Work with AI Agents: Auditing Automation and Augmentation Potential across the U.S. Workforce, 2025"
+    source: "Shao, et al. (2025). Future of Work with AI Agents: Auditing Automation and Augmentation Potential across the U.S. Workforce."
   },
   {
-    title: "Human agency requirements for H5-level tasks",
+    title: "H5 Tasks: What They Ask of Humans",
     chartType: 10,
     dataPath: "assets/chapter2/H5_task_characteristics.csv",
-    source: "Future of Work with AI Agents: Auditing Automation and Augmentation Potential across the U.S. Workforce, 2025"
+    source: "Shao, et al (2025). Future of Work with AI Agents: Auditing Automation and Augmentation Potential across the U.S. Workforce."
   },
   {
     title: "Core skills in 2030",
     chartType: 11,
     dataPath: "assets/chapter2/core_skills_2030.csv",
-    source: "Future of Jobs Report, 2025"
+    source: "World Economic Forum (2025). The future of jobs report 2025. [online] World Economic Forum."
   },
   {
     title: "The shifting human-machine frontier (2025–2030)",
     chartType: 12,
     dataPath: "",  // 无需加载外部数据
-    source: "Future of Jobs Report, 2025"
+    source: "World Economic Forum (2025). The future of jobs report 2025. [online] World Economic Forum."
   },
   {
     title: "Automation Appetite by Occupation Field",
     chartType: 13,
     dataPath: "", // 本图数据是内置数组，无需文件
-    source: "Future of Work with AI Agents: Auditing Automation and Augmentation Potential across the U.S. Workforce, 2025"
+    source: "Shao, et al (2025). Future of Work with AI Agents: Auditing Automation and Augmentation Potential across the U.S. Workforce."
   },
   {
     title: "Automation Desire-Capability Landscape",
     chartType: 14,
     dataPath: "assets/chapter2/desire_capability_four_categories.csv",
-    source: "Future of Work with AI Agents: Auditing Automation and Augmentation Potential across the U.S. Workforce, 2025"
+    source: "Shao, et al (2025). Future of Work with AI Agents: Auditing Automation and Augmentation Potential across the U.S. Workforce."
   }
   
 ];
