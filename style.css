@@ -216,7 +216,7 @@
   font-family: 'Amatica SC', cursive;
   font-size: 32px;
   color: black;
-  z-index: 2;
+  z-index: 10;
   text-align: center;
   line-height: 1.2;
   /*width: 80%;

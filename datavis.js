@@ -138,13 +138,13 @@ const chartConfigs = [
     source: "World Economic Forum (2025). The future of jobs report 2025. [online] World Economic Forum."
   },
   {
-    title: "Automation Appetite by Occupation Field",
+    title: "Is Automation Always the Best Answer—for Every Field?",
     chartType: 13,
     dataPath: "", // 本图数据是内置数组，无需文件
     source: "Shao, et al (2025). Future of Work with AI Agents: Auditing Automation and Augmentation Potential across the U.S. Workforce."
   },
   {
-    title: "Automation Desire-Capability Landscape",
+    title: "Should We Automate What Workers Don’t Want to Lose?",
     chartType: 14,
     dataPath: "assets/chapter2/desire_capability_four_categories.csv",
     source: "Shao, et al (2025). Future of Work with AI Agents: Auditing Automation and Augmentation Potential across the U.S. Workforce."
@@ -441,12 +441,16 @@ document.addEventListener("click", (e) => {
     popup.style.display = "none";
   }
   
-  // 如果dialogue5正在显示，点击屏幕任意地方使其消失
+  // 如果dialogue5正在显示，点击屏幕任意地方使其消失并进入下一章节
   const dialogueBox5 = document.getElementById('dialogue-box5');
   if (dialogueBox5 && dialogueBox5.style.display === 'block') {
     // 检查点击的不是dialogue5本身
     if (!dialogueBox5.contains(e.target)) {
       hideDialogueBoxById("dialogue-box5");
+      // 等待dialogue消失动画完成后进入下一章节
+      setTimeout(() => {
+        window.startChapter3();
+      }, 400);
     }
   }
 });

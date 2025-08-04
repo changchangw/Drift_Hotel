@@ -562,144 +562,24 @@ chartRenderers[11] = function(titleText, dataPath, chartArea) {
 };
 
 chartRenderers[12] = function(titleText, dataPath, chartArea) {
-  let hasShownDialogue4 = false;
-
-  function showChart10DialogueImage() {
-    if (!hasShownDialogue4) {
-      showDialogueBoxById("dialogue-box4");
-      hasShownDialogue4 = true;
-      document.addEventListener("click", () => hideDialogueBoxById("dialogue-box4"), { once: true });
-    }
-  }
-
   return new Promise(resolve => {
-    const data = [
-      { time: "Now", People: 47, Combination: 30, Technology: 22 },
-      { time: "By 2030", People: 33, Combination: 33, Technology: 34 }
-    ];
-
     const width = 720;
-    const height = 428;
-    const margin = { top: 80, right: 40, bottom: 60, left: 100 };
-    const innerWidth = width - margin.left - margin.right;
-    const innerHeight = height - margin.top - margin.bottom;
-
-    const categories = ["People", "Combination", "Technology"];
-    const colors = {
-      People: "#374160",      // 深蓝色
-      Combination: "#2C789F",  // 蓝色
-      Technology: "#5EB6D1"    // 浅蓝色
-    };
-
-    const stack = d3.stack().keys(categories);
-    const stackedData = stack(data);
-
-    const xScale = d3.scaleBand()
-      .domain(data.map(d => d.time))
-      .range([0, innerWidth])
-      .padding(0.4); // 柱子更细
-
-    const yScale = d3.scaleLinear()
-      .domain([0, 100])
-      .range([innerHeight, 0]);
+    const height = 600;
 
     const svg = chartArea.append("svg")
       .attr("width", width)
       .attr("height", height);
 
-    const g = svg.append("g")
-      .attr("transform", `translate(${margin.left},${margin.top})`);
+    // 添加human-machine切图
+    svg.append("image")
+      .attr("href", "assets/chapter2/human-machine.png")
+      .attr("x", 60)
+      .attr("y", 90)
+      .attr("width", 580)
+      .attr("height", 420);
 
-    // Draw axes
-    g.append("g")
-      .call(d3.axisLeft(yScale).ticks(5).tickFormat(d => d + "%"))
-      .selectAll("text")
-      .call(applyAxisLabel, 'medium');
-
-    g.append("g")
-      .attr("transform", `translate(0,${innerHeight})`)
-      .call(d3.axisBottom(xScale))
-      .selectAll("text")
-      .call(applyAxisLabel, 'medium');
-
-    // Draw bars
-    g.selectAll(".layer")
-      .data(stackedData)
-      .enter().append("g")
-      .attr("fill", d => colors[d.key])
-      .selectAll("rect")
-      .data(d => d)
-      .enter().append("rect")
-      .attr("class", "stacked-bar")
-      .attr("x", d => xScale(d.data.time))
-      .attr("y", d => yScale(d[1]))
-      .attr("height", d => yScale(d[0]) - yScale(d[1]))
-      .attr("width", xScale.bandwidth())
-      .on("mouseover", function(event, d) {
-        showChart10DialogueImage();
-      })
-
-    // Draw labels
-    g.selectAll(".label")
-      .data(stackedData.flatMap(layer => layer.map(d => ({
-        key: layer.key,
-        x: xScale(d.data.time),
-        y: (yScale(d[0]) + yScale(d[1])) / 2,
-        value: d.data[layer.key]
-      }))))
-      .enter()
-      .append("text")
-      .attr("class", "stacked-label")
-      .attr("x", d => d.x + xScale.bandwidth() / 2)
-      .attr("y", d => d.y)
-      .attr("text-anchor", "middle")
-      .attr("fill", "#fff")
-      .call(applyChartFont, 'medium')
-      .text(d => `${d.value}%`);
-
-    // Draw legend - 统一间距
-    const legend = svg.append("g")
-      .attr("transform", `translate(${width - 400}, 20)`);
-
-    const legendItems = categories;
-
-    // 创建图例组，统一间距
-    legend.selectAll("legend-group")
-      .data(legendItems)
-      .enter()
-      .append("g")
-      .attr("transform", (d, i) => `translate(${i * 130}, 0)`) // 统一间距100px
-      .each(function(d) {
-        const group = d3.select(this);
-        
-        // 色块
-        group.append("rect")
-          .attr("class", "legend-rect")
-          .attr("x", 0)
-          .attr("y", 0)
-          .attr("width", 14)
-          .attr("height", 14)
-          .attr("fill", colors[d]);
-        
-        // 标签
-        group.append("text")
-          .attr("class", "legend-text")
-          .attr("x", 20)
-          .attr("y", 12)
-          .text(d)
-          .call(applyChartFont, 'large')
-          .attr("fill", "#333");
-      });
-
-    // 添加y轴标签 - 靠近数值轴
-    svg.append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("x", -height / 2 + 10) // 调整位置，更靠近数值轴
-      .attr("y", 40) // 调整位置
-      .attr("text-anchor", "middle")
-      .text("Share of tasks (%)")
-      .call(applyAxisLabel, 'medium')
-      .attr("fill", "#333");
+    // 5秒后显示dialogue4
+    showDialogueWithDelay("dialogue-box4", 5000);
 
     resolve();
   });
@@ -767,7 +647,7 @@ chartRenderers[13] = function(titleText, dataPath, chartArea) {
       .attr("y", margin.top + innerHeight + 50)
       .attr("text-anchor", "middle")
       .call(applyAxisLabel)
-      .text("Automation desire (%)");
+      .text("Share of tasks workers want AI to take over (%)");
 
     // 数值标签
     g.selectAll("text.value-label")
@@ -794,22 +674,12 @@ chartRenderers[13] = function(titleText, dataPath, chartArea) {
       .style("line-height", "1.5")
       .style("text-align", "left")
       .style("color", "#1e1e1e")
-      .style("cursor", "pointer") // 添加鼠标手型
       .html(`
-        <b>Arts, Design & Media don't want automation.</b><br><br>
+        <b style="font-size: 20px;">Arts, Design & Media don't want automation.</b><br><br>
         🎨 "I want it to make things less tedious… but no content creation."<br>
         🖌️ "I would never use AI to replace artists."<br>
         🧠 "AI can support my research, but I create my design by myself."<br><br>
-      `)
-      .on("mouseover", function() {
-        // 悬浮时显示dialogue5
-        showDialogueBoxById("dialogue-box5");
-      })
-      .on("click", function(event) {
-        event.stopPropagation(); // 阻止事件冒泡
-        // 点击时隐藏dialogue5
-        hideDialogueBoxById("dialogue-box5");
-      });
+      `);
 
     resolve();
   });
@@ -872,17 +742,6 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
 
               // 添加象限背景
         quadrantBackgrounds.forEach(bg => {
-          g.append("rect")
-            .attr("x", bg.x)
-            .attr("y", bg.y)
-            .attr("width", bg.width)
-            .attr("height", bg.height)
-            .attr("fill", bg.fill);
-
-          // 添加象限标签 - 上两个象限在顶部，下两个象限在底部
-          const isTopQuadrant = bg.y < y(yThreshold);
-          const labelY = isTopQuadrant ? bg.y + 20 : bg.y + bg.height - 20;
-          
           // 定义象限解释
           const quadrantExplanations = {
             "Automation 'Green Light' Zone": "Tasks with both high automation desire and high capability. These are prime candidates for AI agent deployment with the potential for broad productivity and societal gains.",
@@ -891,17 +750,18 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
             "Low Priority Zone": "Tasks with both low desire and low capability. These are less urgent for AI agent development."
           };
           
-          g.append("text")
-            .attr("x", bg.x + bg.width / 2)
-            .attr("y", labelY)
-            .attr("text-anchor", "middle")
-            .attr("dominant-baseline", isTopQuadrant ? "hanging" : "auto")
-            .call(applyChartFont, 'small')
-            .call(applyTextWeight, 'bold')
-            .style("fill", "#000000")
+          // 添加象限背景矩形（可交互）
+          g.append("rect")
+            .attr("x", bg.x)
+            .attr("y", bg.y)
+            .attr("width", bg.width)
+            .attr("height", bg.height)
+            .attr("fill", bg.fill)
             .call(applyInteractive)
-            .text(bg.label)
             .on("mouseover", function(event) {
+              // 高亮当前象限背景
+              d3.select(this).attr("fill", bg.fill.replace("0.1", "0.2"));
+              
               // 先移除已存在的tooltip
               d3.selectAll(".tooltip").remove();
               
@@ -919,6 +779,50 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
               positionTooltip(d3.select(".tooltip"), event, 15, 20);
             })
             .on("mouseout", function() {
+              // 恢复象限背景颜色
+              d3.select(this).attr("fill", bg.fill);
+              d3.selectAll(".tooltip").remove();
+            });
+
+          // 添加象限标签 - 上两个象限在顶部，下两个象限在底部
+          const isTopQuadrant = bg.y < y(yThreshold);
+          const labelY = isTopQuadrant ? bg.y + 20 : bg.y + bg.height - 20;
+          
+          g.append("text")
+            .attr("x", bg.x + bg.width / 2)
+            .attr("y", labelY)
+            .attr("text-anchor", "middle")
+            .attr("dominant-baseline", isTopQuadrant ? "hanging" : "auto")
+            .call(applyChartFont, 'small')
+            .call(applyTextWeight, 'bold')
+            .style("fill", "#000000")
+            .call(applyInteractive)
+            .text(bg.label)
+            .on("mouseover", function(event) {
+              // 高亮对应的象限背景
+              g.selectAll("rect").filter((d, i) => i === quadrantBackgrounds.indexOf(bg))
+                .attr("fill", bg.fill.replace("0.1", "0.3"));
+              
+              // 先移除已存在的tooltip
+              d3.selectAll(".tooltip").remove();
+              
+              // 创建新的tooltip
+              const quadrantTooltip = d3.select("body")
+                .append("div")
+                .attr("class", "tooltip")
+                .style("max-width", "300px")
+                .style("display", "block")
+                .html(`<strong>${bg.label}</strong><br><br>${quadrantExplanations[bg.label]}`);
+              
+              positionTooltip(quadrantTooltip, event, 15, 20);
+            })
+            .on("mousemove", function(event) {
+              positionTooltip(d3.select(".tooltip"), event, 15, 20);
+            })
+            .on("mouseout", function() {
+              // 恢复象限背景颜色
+              g.selectAll("rect").filter((d, i) => i === quadrantBackgrounds.indexOf(bg))
+                .attr("fill", bg.fill);
               d3.selectAll(".tooltip").remove();
             });
         });
@@ -1037,13 +941,13 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
            .on("mouseover", function() {
              // 高亮当前类别
              g.selectAll("circle")
-               .attr("opacity", d => d.Category === category ? 1 : 0.2);
-             d3.select(this).select("text").call(applyTextWeight, 'bold');
+               .attr("opacity", d => d.Category === category ? 1 : 0.1);
+             d3.select(this).select("text").style("font-weight", "bold");
            })
            .on("mouseout", function() {
              // 恢复所有点
              g.selectAll("circle").attr("opacity", 0.8);
-             d3.select(this).select("text").call(applyTextWeight, 'normal');
+             d3.select(this).select("text").style("font-weight", "normal");
            });
 
         row.append("circle")
@@ -1065,13 +969,13 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
            .on("mouseover", function() {
              // 高亮当前类别
              g.selectAll("circle")
-               .attr("opacity", d => d.Category === category ? 1 : 0.2);
-             d3.select(this).select("text").call(applyTextWeight, 'bold');
+               .attr("opacity", d => d.Category === category ? 1 : 0.1);
+             d3.select(this).select("text").style("font-weight", "bold");
            })
            .on("mouseout", function() {
              // 恢复所有点
              g.selectAll("circle").attr("opacity", 0.8);
-             d3.select(this).select("text").call(applyTextWeight, 'normal');
+             d3.select(this).select("text").style("font-weight", "normal");
            });
 
         row.append("circle")
@@ -1089,38 +993,40 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
       // 先移除已存在的出口按钮
       d3.select("#exit-button").remove();
       
-      // 只在chart14时添加出口按钮
-      if (titleText.includes("Automation Desire-Capability Landscape")) {
-        const exitButton = d3.select("#datavis-container")
-          .append("div")
-          .attr("id", "exit-button")
-          .style("position", "absolute")
-          .style("top", "450px")
-          .style("right", "124px")
-          .style("width", "184px")
-          .style("height", "184px")
-          .style("cursor", "pointer")
-          .style("z-index", "10")
-          .on("click", function(event) {
-            event.stopPropagation(); // 阻止事件冒泡
-            console.log("Exit button clicked"); // 调试信息
-            
-            // 禁用dialogue5的显示功能
-            if (window.dialogue5Disabled !== undefined) {
-              window.dialogue5Disabled = true;
-            }
-            
-            // 直接跳转到chapter3，不显示dialogue5
-            console.log("Going to chapter3"); // 调试信息
-            window.startChapter3();
-          });
+      // 添加出口按钮
+      const exitButton = d3.select("#datavis-container")
+        .append("div")
+        .attr("id", "exit-button")
+        .style("position", "absolute")
+        .style("top", "450px")
+        .style("right", "124px")
+        .style("width", "184px")
+        .style("height", "184px")
+        .style("cursor", "pointer")
+        .style("z-index", "10")
+        .on("click", function(event) {
+          event.stopPropagation(); // 阻止事件冒泡
+          console.log("Exit button clicked"); // 调试信息
+          
+          // 检查dialogue5是否已经显示
+          const dialogueBox5 = document.getElementById('dialogue-box5');
+          if (dialogueBox5 && dialogueBox5.style.display === 'block') {
+            // 如果dialogue5已经显示，则隐藏它并跳转到chapter3
+            hideDialogueBoxById("dialogue-box5");
+            setTimeout(() => {
+              window.startChapter3();
+            }, 400); // 等待dialogue消失动画完成
+          } else {
+            // 如果dialogue5没有显示，则显示它
+            showDialogueBoxById("dialogue-box5");
+          }
+        });
 
-        // 使用trigger.png切图
-        exitButton.append("img")
-          .attr("src", "assets/icons/trigger.png")
-          .attr("width", "184")
-          .attr("height", "184");
-      }
+      // 使用trigger.png切图
+      exitButton.append("img")
+        .attr("src", "assets/icons/trigger.png")
+        .attr("width", "184")
+        .attr("height", "184");
 
       resolve();
     });
