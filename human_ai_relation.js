@@ -757,7 +757,7 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
             .attr("width", bg.width)
             .attr("height", bg.height)
             .attr("fill", bg.fill)
-            .call(applyInteractive)
+            .style("cursor", "default")
             .on("mouseover", function(event) {
               // 高亮当前象限背景
               d3.select(this).attr("fill", bg.fill.replace("0.1", "0.2"));
@@ -796,35 +796,9 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
             .call(applyChartFont, 'small')
             .call(applyTextWeight, 'bold')
             .style("fill", "#000000")
-            .call(applyInteractive)
-            .text(bg.label)
-            .on("mouseover", function(event) {
-              // 高亮对应的象限背景
-              g.selectAll("rect").filter((d, i) => i === quadrantBackgrounds.indexOf(bg))
-                .attr("fill", bg.fill.replace("0.1", "0.3"));
-              
-              // 先移除已存在的tooltip
-              d3.selectAll(".tooltip").remove();
-              
-              // 创建新的tooltip
-              const quadrantTooltip = d3.select("body")
-                .append("div")
-                .attr("class", "tooltip")
-                .style("max-width", "300px")
-                .style("display", "block")
-                .html(`<strong>${bg.label}</strong><br><br>${quadrantExplanations[bg.label]}`);
-              
-              positionTooltip(quadrantTooltip, event, 15, 20);
-            })
-            .on("mousemove", function(event) {
-              positionTooltip(d3.select(".tooltip"), event, 15, 20);
-            })
-            .on("mouseout", function() {
-              // 恢复象限背景颜色
-              g.selectAll("rect").filter((d, i) => i === quadrantBackgrounds.indexOf(bg))
-                .attr("fill", bg.fill);
-              d3.selectAll(".tooltip").remove();
-            });
+            .style("cursor", "default")
+            .style("pointer-events", "none") // 让文字不阻挡鼠标事件
+            .text(bg.label);
         });
 
       // 垂直分割线
@@ -1011,11 +985,11 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
           // 检查dialogue5是否已经显示
           const dialogueBox5 = document.getElementById('dialogue-box5');
           if (dialogueBox5 && dialogueBox5.style.display === 'block') {
-            // 如果dialogue5已经显示，则隐藏它并跳转到chapter3
+            // 如果dialogue5已经显示，则隐藏它并进入下一章节
             hideDialogueBoxById("dialogue-box5");
             setTimeout(() => {
               window.startChapter3();
-            }, 400); // 等待dialogue消失动画完成
+            }, 400); // 等待dialogue5消失动画完成
           } else {
             // 如果dialogue5没有显示，则显示它
             showDialogueBoxById("dialogue-box5");

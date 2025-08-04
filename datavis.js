@@ -444,14 +444,11 @@ document.addEventListener("click", (e) => {
   // 如果dialogue5正在显示，点击屏幕任意地方使其消失并进入下一章节
   const dialogueBox5 = document.getElementById('dialogue-box5');
   if (dialogueBox5 && dialogueBox5.style.display === 'block') {
-    // 检查点击的不是dialogue5本身
-    if (!dialogueBox5.contains(e.target)) {
-      hideDialogueBoxById("dialogue-box5");
-      // 等待dialogue消失动画完成后进入下一章节
-      setTimeout(() => {
-        window.startChapter3();
-      }, 400);
-    }
+    hideDialogueBoxById("dialogue-box5");
+    // 等待dialogue5消失动画完成后进入下一章节
+    setTimeout(() => {
+      window.startChapter3();
+    }, 400);
   }
 });
 

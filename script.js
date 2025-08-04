@@ -331,21 +331,66 @@ const scenes = {
   
         setTimeout(() => {
           overlay.style.opacity = 0;
-        }, 50);
-      }, 600); // 与其他场景切换节奏一致
+        }, 100);
+      }, 800); // 统一与其他场景切换节奏
     }
   },
   
   // Chapter 3 scenes
   53: { image: 'assets/chapter3/cover.png', action: () => goToScene(54) },
   54: { image: 'assets/chapter3/prologue.png', action: () => goToScene(55) },
-  55: { image: 'assets/chapter3/1.png', action: () => goToScene(56) },
-  56: { image: 'assets/chapter3/2.png', action: () => goToScene(57) },
-  57: { image: 'assets/chapter3/3.png', action: () => goToScene(58) },
-  58: { image: 'assets/chapter3/4.png', action: () => goToScene(59) },
-  59: { image: 'assets/chapter3/5.png', action: () => goToScene(60) },
-  60: { image: 'assets/chapter3/6.png', action: () => goToScene(61) },
-  61: { image: 'assets/chapter3/7.png', action: () => {} }// 最后一页，点击无动作
+  55: { 
+    image: 'assets/chapter3/1.png', 
+    action: () => {
+      // 3.5秒后自动跳转到下一场景
+      setTimeout(() => goToScene(56), 3500);
+    },
+    autoPlay: true
+  },
+  56: { 
+    image: 'assets/chapter3/2.png', 
+    action: () => {
+      // 3.5秒后自动跳转到下一场景
+      setTimeout(() => goToScene(57), 3500);
+    },
+    autoPlay: true
+  },
+  57: { 
+    image: 'assets/chapter3/3.png', 
+    action: () => {
+      // 3.5秒后自动跳转到下一场景
+      setTimeout(() => goToScene(58), 3500);
+    },
+    autoPlay: true
+  },
+  58: { 
+    image: 'assets/chapter3/4.png', 
+    action: () => {
+      // 3.5秒后自动跳转到下一场景
+      setTimeout(() => goToScene(59), 3500);
+    },
+    autoPlay: true
+  },
+  59: { 
+    image: 'assets/chapter3/5.png', 
+    action: () => {
+      // 3.5秒后自动跳转到下一场景
+      setTimeout(() => goToScene(60), 3500);
+    },
+    autoPlay: true
+  },
+  60: { 
+    image: 'assets/chapter3/6.png', 
+    action: () => {
+      // 3.5秒后自动跳转到下一场景
+      setTimeout(() => goToScene(61), 3500);
+    },
+    autoPlay: true
+  },
+  61: { 
+    image: 'assets/chapter3/7.png', 
+    action: () => {} // 最后一页，点击无动作
+  }
 };
 
 let currentScene = 1;
@@ -493,11 +538,16 @@ function goToScene(index) {
 
     setTimeout(() => {
       overlay.style.opacity = 0;
-    }, 50);
+      
+      // 如果是自动播放场景，在淡入完成后启动自动播放
+      if (scenes[index].autoPlay && scenes[index].action) {
+        scenes[index].action();
+      }
+    }, 100);
     
     // 处理最后一页音乐停止
     handleLastScene();
-  }, 600);
+  }, 800);
 }
 
 // 酒店场景设置函数
@@ -591,6 +641,11 @@ window.addEventListener('click', () => {
   // ✅ 如果已经进入数据可视化阶段，不再处理点击跳转
   const datavisVisible = document.getElementById('datavis-container').style.display === 'block';
   if (datavisVisible) return; // ⛔ 阻止点击触发任何跳转
+  
+  // 如果在自动连播场景（55-61），点击无效
+  if (currentScene >= 55 && currentScene <= 61) {
+    return;
+  }
   
   const scene = scenes[currentScene];
   if (scene && scene.action && !scene.hotspots) {
@@ -721,7 +776,7 @@ function handleLastScene() {
   }
 }
 
-goToScene(52); //测试用，正式应为1
+//goToScene(52); //测试用，正式应为1
 
 // Chapter 3 启动函数
 window.startChapter3 = function() {
@@ -744,8 +799,8 @@ window.startChapter3 = function() {
     // 渐变显示新场景
     setTimeout(() => {
       overlay.style.opacity = 0;
-    }, 50);
-  }, 1000); // 从600ms增加到1000ms
+    }, 100);
+  }, 800); // 统一与其他场景切换节奏
 };
 
 // 页面加载完成后的初始化
