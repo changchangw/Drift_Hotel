@@ -126,7 +126,7 @@ const chartConfigs = [
     source: "Shao, et al (2025). Future of Work with AI Agents: Auditing Automation and Augmentation Potential across the U.S. Workforce."
   },
   {
-    title: "Core skills in 2030",
+    title: "What Employers See as Core Skills for 2030",
     chartType: 11,
     dataPath: "assets/chapter2/core_skills_2030.csv",
     source: "World Economic Forum (2025). The future of jobs report 2025. [online] World Economic Forum."

@@ -308,20 +308,20 @@ chartRenderers[11] = function(titleText, dataPath, chartArea) {
     d3.csv(dataPath).then(data => {
       const width = 720;
       const height = 428;
-      const margin = { top: 20, right: 30, bottom: 140, left: 60 };
+      const margin = { top: 20, right: 30, bottom: 140, left: 80 };
       const innerWidth = width - margin.left - margin.right;
       const innerHeight = height - margin.top - margin.bottom;
 
-      // 颜色映射 - 保持合适饱和度，拉开色阶
+      // 颜色映射 - 增加色相差异，降低明度
       const colorMap = {
-        "Cognitive skills": "#2E5A88",
-        "Engagement skills": "#8B4513", 
-        "Ethics": "#1B4D3E",
-        "Physical abilities": "#8B0000",
-        "Self-efficacy": "#5D4E75",
-        "Technology skills": "#2E2A5A",
-        "Management skills": "#B8860B",
-        "Working with others": "#8B5A8B"
+        "Cognitive skills": "#1E3A8A",      // 深蓝色
+        "Engagement skills": "#8B6914",     // 更深橙色
+        "Ethics": "#006400",                // 深绿色
+        "Physical abilities": "#B22222",     // 深红色
+        "Self-efficacy": "#4B0082",         // 更深紫色
+        "Technology skills": "#6B7280",     // 灰色调蓝色
+        "Management skills": "#374151",     // 深灰色调绿色
+        "Working with others": "#8B008B"    // 更深玫红色
       };
 
       // 象限标签 - 黑色文字
@@ -481,20 +481,20 @@ chartRenderers[11] = function(titleText, dataPath, chartArea) {
         .attr("x", margin.left + innerWidth / 2)
         .attr("y", height - 90)
         .attr("text-anchor", "middle")
-        .text("Core skill in 2025 (%)")
+        .text("Employers: Core skill recognition in 2025 (%)")
         .call(applyAxisLabel);
 
       svg.append("text")
         .attr("transform", "rotate(-90)")
-        .attr("x", -height / 2 + 40)
+        .attr("x", -height / 2 + 60)
         .attr("y", 20)
         .attr("text-anchor", "middle")
-        .text("Expected increase by 2030 (%)")
+        .text("Employers expecting more use by 2030 (%)")
         .call(applyAxisLabel);
 
       // 图例 - 下方，分两行
       const legend = svg.append("g")
-        .attr("transform", `translate(${margin.left + 20}, ${height - 50})`);
+        .attr("transform", `translate(${margin.left - 10}, ${height - 50})`);
 
       const categories = Object.keys(colorMap);
       const firstRow = categories.slice(0, 4);
@@ -508,13 +508,13 @@ chartRenderers[11] = function(titleText, dataPath, chartArea) {
           .on("mouseover", function() {
             // 高亮当前类别
             g.selectAll("circle")
-              .attr("opacity", d => d.Category === category ? 1 : 0.2);
-            d3.select(this).select("text").call(applyTextWeight, 'bold');
+              .attr("opacity", d => d.Category === category ? 1 : 0.1);
+            d3.select(this).select("text").style("font-weight", "bold");
           })
           .on("mouseout", function() {
             // 恢复所有点
             g.selectAll("circle").attr("opacity", 0.8);
-            d3.select(this).select("text").call(applyTextWeight, 'normal');
+            d3.select(this).select("text").style("font-weight", "normal");
           });
 
         row.append("circle")
@@ -536,13 +536,13 @@ chartRenderers[11] = function(titleText, dataPath, chartArea) {
           .on("mouseover", function() {
             // 高亮当前类别
             g.selectAll("circle")
-              .attr("opacity", d => d.Category === category ? 1 : 0.2);
-            d3.select(this).select("text").call(applyTextWeight, 'bold');
+              .attr("opacity", d => d.Category === category ? 1 : 0.1);
+            d3.select(this).select("text").style("font-weight", "bold");
           })
           .on("mouseout", function() {
             // 恢复所有点
             g.selectAll("circle").attr("opacity", 0.8);
-            d3.select(this).select("text").call(applyTextWeight, 'normal');
+            d3.select(this).select("text").style("font-weight", "normal");
           });
 
         row.append("circle")
