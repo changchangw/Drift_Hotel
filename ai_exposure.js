@@ -2,7 +2,7 @@ if (!window.chartRenderers) {
   window.chartRenderers = {};
 }
 
-// 通用对话框显示/隐藏函数
+// Common dialog box show/hide functions
 function showDialogueBoxById(id) {
   const box = document.getElementById(id);
   if (!box) return;
@@ -58,18 +58,18 @@ chartRenderers[5] = function(titleText, dataPath, chartArea) {
       const tooltip = d3.select("body")
         .append("div")
         .attr("class", "tooltip")
-        .style("display", "none"); // 确保初始状态是隐藏的
+        .style("display", "none"); // Ensure initial state is hidden
 
       function resetAllStyles() {
         d3.selectAll(".stack-bar").attr("opacity", 1);
-        d3.selectAll(".stack-label").style("opacity", 0); // 重置为隐藏
+        d3.selectAll(".stack-label").style("opacity", 0); // Reset to hidden
         d3.selectAll(".y-axis-label").style("font-weight", "normal");
       }
 
       function handleBarHover(labelClass, labelOriginal) {
         d3.selectAll(".stack-bar").attr("opacity", 0.2);
         d3.selectAll(`.bar-${labelClass}`).attr("opacity", 1);
-        // 显示当前职业的所有数值标签
+        // Show all value labels for current occupation
         d3.selectAll(`.stack-label`)
           .filter(d => d.data.Occupation === labelOriginal)
           .style("opacity", 1);
@@ -96,11 +96,11 @@ chartRenderers[5] = function(titleText, dataPath, chartArea) {
           const occupation = d.data.Occupation;
           handleBarHover(occupation.replace(/[^a-zA-Z]/g, ""), occupation);
 
-          // 构建显示所有5个类别数值的tooltip
+          // Build tooltip showing all 5 category values
           const occupationData = d.data;
           let tooltipContent = `<strong>${occupation}</strong><br>`;
           
-          // 添加所有5个类别的数值
+          // Add values for all 5 categories
           subgroups.forEach(subgroup => {
             const value = occupationData[subgroup];
             if (value !== undefined && value !== null) {
@@ -121,7 +121,7 @@ chartRenderers[5] = function(titleText, dataPath, chartArea) {
           resetAllStyles();
         });
 
-      // 添加数值标签到条上（默认隐藏）
+      // Add value labels to bars (hidden by default)
       g.append("g")
         .selectAll("g")
         .data(stackedData)
@@ -136,13 +136,13 @@ chartRenderers[5] = function(titleText, dataPath, chartArea) {
         .attr("dominant-baseline", "middle")
         .text(d => {
           const value = d[1] - d[0];
-          return value > 5 ? value.toFixed(1) + "%" : ""; // 只显示大于5%的数值
+          return value > 5 ? value.toFixed(1) + "%" : ""; // Only show values greater than 5%
         })
         .call(applyChartFont, 'small')
         .style("fill", "#fff")
-        .style("font-weight", "normal") // 改为normal，去掉加粗
-        .style("opacity", 0) // 默认隐藏
-        .style("pointer-events", "none"); // 禁用数值标签的鼠标事件，避免干扰hover
+        .style("font-weight", "normal") // Change to normal, remove bold
+        .style("opacity", 0) // Hidden by default
+        .style("pointer-events", "none"); // Disable mouse events for value labels to avoid interfering with hover
 
       const yAxis = g.append("g").call(d3.axisLeft(y));
 
@@ -190,7 +190,7 @@ chartRenderers[5] = function(titleText, dataPath, chartArea) {
         offsetX += text.node().getBBox().width + 42;
       });
 
-      // 5秒后显示dialogue2
+      // Show dialogue2 after 5 seconds
       showDialogueWithDelay("dialogue-box2", 5000);
 
       resolve();
@@ -243,7 +243,7 @@ chartRenderers[6] = function(titleText, dataPath, chartArea) {
   const colorMap = {
     "Not Exposed": "#d5d4c5",
     "Minimal Exposure": "#7da273",
-    "Gradient 1": "#5B83A9", // Low Exposure - 改为新的蓝色
+    "Gradient 1": "#5B83A9", // Low Exposure - changed to new blue
     "Gradient 2": "#1f4e79",
     "Gradient 3": "#a07b3b",
     "Gradient 4": "#943434"
@@ -321,7 +321,7 @@ chartRenderers[6] = function(titleText, dataPath, chartArea) {
           d3.select(this)
             .transition()
             .duration(100)
-            .attr("d", d3.symbol().type(shapeMap[d.Exposure]).size(150)()); // 放大
+            .attr("d", d3.symbol().type(shapeMap[d.Exposure]).size(150)()); // Enlarge
         })
         .on("mouseout", function(event, d) {
           tooltip.style("display", "none");
@@ -329,7 +329,7 @@ chartRenderers[6] = function(titleText, dataPath, chartArea) {
           d3.select(this)
             .transition()
             .duration(100)
-            .attr("d", d3.symbol().type(shapeMap[d.Exposure]).size(60)()); // 恢复默认大小
+            .attr("d", d3.symbol().type(shapeMap[d.Exposure]).size(60)()); // Restore default size
         });
 
               // X Axis
@@ -394,23 +394,23 @@ chartRenderers[6] = function(titleText, dataPath, chartArea) {
               .html(`<strong>${labelMap[key]}</strong><br>${tooltipMap[key]}`);
             positionTooltip(tooltip, event, 12, 20);
           
-            // 只影响散点，不影响坐标轴
+            // Only affect scatter points, not coordinate axes
             d3.selectAll("path[class*='dot-']").attr("opacity", 0.1);
             d3.selectAll(`.dot-${key.replace(/\s/g, "-")}`).attr("opacity", 1);
           
-            // 图例高亮
+            // Highlight legend
             d3.select(this).select("text").style("font-weight", "bold");
-            d3.select(this).select("path").attr("opacity", 1); // 保持图例色块不淡出
+            d3.select(this).select("path").attr("opacity", 1); // Keep legend color block from fading out
           })
           .on("mouseout", function() {
             tooltip.style("display", "none");
           
-            // 只恢复散点，不影响坐标轴
+            // Only restore scatter points, not coordinate axes
             d3.selectAll("path[class*='dot-']").attr("opacity", 0.9);
           
-            // 图例恢复
+            // Restore legend
             d3.select(this).select("text").style("font-weight", "normal");
-            d3.select(this).select("path").attr("opacity", 1); // 再次显式设置
+            d3.select(this).select("path").attr("opacity", 1); // Set explicitly again
           });
           
 
@@ -434,12 +434,12 @@ chartRenderers[6] = function(titleText, dataPath, chartArea) {
 chartRenderers[7] = function(titleText, dataPath, chartArea, gender = "Total") {
   const width = 680;
   const height = 390;
-  const margin = { top: 30, right: 20, bottom: 70, left: 80 }; // 上下margin略微收紧
+  const margin = { top: 30, right: 20, bottom: 70, left: 80 }; // Slightly tighten top and bottom margins
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
 
   const colorMap = {
-    "Gradient1": "#5B83A9", // Low Exposure - 改为新的蓝色
+    "Gradient1": "#5B83A9", // Low Exposure - changed to new blue
     "Gradient2": "#1f4e79",
     "Gradient3": "#a07b3b",
     "Gradient4": "#943434"
@@ -476,7 +476,7 @@ chartRenderers[7] = function(titleText, dataPath, chartArea, gender = "Total") {
         const x = d3.scaleBand()
           .domain(groups)
           .range([0, innerWidth])
-          .padding(0.55); // ✅ 柱子更细
+          .padding(0.55); // ✅ Make bars thinner
 
         const y = d3.scaleLinear()
           .domain([0, 50])
@@ -484,7 +484,7 @@ chartRenderers[7] = function(titleText, dataPath, chartArea, gender = "Total") {
 
         const stackedData = d3.stack().keys(subgroups)(data);
 
-        // 柱状图
+        // Bar chart
         g.append("g")
           .selectAll("g")
           .data(stackedData)
@@ -502,11 +502,11 @@ chartRenderers[7] = function(titleText, dataPath, chartArea, gender = "Total") {
             const level = d.data.IncomeLevel;
             const levelClass = `.bar-${level.replace(/\s/g, "-")}`;
 
-            // 构建显示所有4个类别数值的tooltip
+            // Build tooltip showing all 4 category values
             const levelData = d.data;
             let tooltipContent = `<strong>${level}</strong><br>`;
             
-            // 添加所有4个类别的数值
+            // Add values for all 4 categories
             subgroups.forEach(subgroup => {
               const value = levelData[subgroup];
               if (value !== undefined && value !== null) {
@@ -522,20 +522,20 @@ chartRenderers[7] = function(titleText, dataPath, chartArea, gender = "Total") {
               .html(tooltipContent);
             positionTooltip(tooltip, event, 10, 20);
 
-            // 当前柱高亮，其他淡出
+            // Current bar highlighted, others fade out
             g.selectAll(".stack-bar").attr("opacity", 0.2);
             g.selectAll(levelClass).attr("opacity", 1);
 
-            // 显示当前收入等级的所有数值标签
+            // Show all value labels for current income level
             g.selectAll(".stack-label")
               .filter(d => d.data.IncomeLevel === level)
               .style("opacity", 1);
 
-            // 顶部累计值标签加粗
+            // Bold the top cumulative value label
             g.selectAll(".bar-label").style("font-weight", "normal");
             g.selectAll(`.label-${level.replace(/\s/g, "-")}`).style("font-weight", "bold");
 
-            // x轴加粗
+            // Bold x-axis
             g.selectAll(".x-axis-label").style("font-weight", "normal");
             g.selectAll(".x-axis-label")
               .filter(function() {
@@ -546,12 +546,12 @@ chartRenderers[7] = function(titleText, dataPath, chartArea, gender = "Total") {
           .on("mouseout", () => {
             tooltip.style("display", "none");
             g.selectAll(".stack-bar").attr("opacity", 1);
-            g.selectAll(".stack-label").style("opacity", 0); // 隐藏数值标签
-            g.selectAll(".bar-label").style("font-weight", "normal"); // 重置顶部累计值标签
+            g.selectAll(".stack-label").style("opacity", 0); // Hide value labels
+            g.selectAll(".bar-label").style("font-weight", "normal"); // Reset top cumulative value label
             g.selectAll(".x-axis-label").style("font-weight", "normal");
           });
 
-        // 添加数值标签到条上（默认隐藏）
+        // Add value labels to bars (hidden by default)
         g.append("g")
           .selectAll("g")
           .data(stackedData)
@@ -566,15 +566,15 @@ chartRenderers[7] = function(titleText, dataPath, chartArea, gender = "Total") {
           .attr("dominant-baseline", "middle")
           .text(d => {
             const value = d[1] - d[0];
-            return value > 3 ? value.toFixed(1) + "%" : ""; // 只显示大于3%的数值
+            return value > 3 ? value.toFixed(1) + "%" : ""; // Only show values greater than 3%
           })
           .call(applyChartFont, 'small')
           .style("fill", "#fff")
           .style("font-weight", "normal")
-          .style("opacity", 0) // 默认隐藏
-          .style("pointer-events", "none"); // 禁用数值标签的鼠标事件，避免干扰hover
+          .style("opacity", 0) // Hidden by default
+          .style("pointer-events", "none"); // Disable mouse events for value labels to avoid interfering with hover
 
-        // 顶部累计值标签
+        // Top cumulative value labels
         data.forEach(d => {
           const total = allGradients.reduce((sum, key) => sum + (+d[key] || 0), 0);
           const xPos = x(d.IncomeLevel) + x.bandwidth() / 2;
@@ -591,7 +591,7 @@ chartRenderers[7] = function(titleText, dataPath, chartArea, gender = "Total") {
             .call(applyChartFont, 'medium');
         });
 
-        // x 轴
+        // X axis
         g.append("g")
           .attr("transform", `translate(0,${innerHeight})`)
           .call(d3.axisBottom(x))
@@ -606,22 +606,22 @@ chartRenderers[7] = function(titleText, dataPath, chartArea, gender = "Total") {
               words.forEach((word, i) => {
                 text.append("tspan")
                   .attr("x", 0)
-                  .attr("dy", i === 0 ? "0.8em" : "1.2em") // 第一行下移0.8em
+                  .attr("dy", i === 0 ? "0.8em" : "1.2em") // First line moves down 0.8em
                   .text(word);
               });
             } else {
-              // 单行文本也下移
+              // Single line text also moves down
               text.attr("dy", "0.8em");
             }
           });
 
-        // y 轴
+        // Y axis
         g.append("g")
           .call(d3.axisLeft(y).ticks(5).tickFormat(d => d + "%"))
           .selectAll("text")
           .call(applyAxisLabel);
 
-        // y轴标签
+        // Y-axis label
         svg.append("text")
           .attr("transform", "rotate(-90)")
           .attr("x", -height / 2)
@@ -630,11 +630,11 @@ chartRenderers[7] = function(titleText, dataPath, chartArea, gender = "Total") {
           .text("Share of employment (%)")
           .call(applyAxisLabel, 'medium');
 
-        // 图例放在右上角，按照指定顺序
+        // Legend placed in top right corner, in specified order
         const legend = svg.append("g")
           .attr("transform", `translate(${width - margin.right - 160}, 0)`);
 
-        // 按照要求的顺序：Very High -> High -> Moderate -> Low
+        // In required order: Very High -> High -> Moderate -> Low
         const legendOrder = ["Gradient4", "Gradient3", "Gradient2", "Gradient1"];
         
         legendOrder.forEach((key, i) => {
@@ -664,13 +664,13 @@ chartRenderers[8] = function(titleText, dataPath, chartArea) {
   const width = 1280;
   const height = 720;
 
-  // 单张图片的定位
+  // Single image positioning
   const imageX = 0;
   const imageY = 120;
   const imageWidth = 760;
   const imageHeight = 480;
 
-  // 热区定义
+  // Hotspot definitions
   const hotspots = [
     {
       x: imageX + 160,
@@ -702,12 +702,12 @@ chartRenderers[8] = function(titleText, dataPath, chartArea) {
     const svg = chartArea.append("svg")
       .attr("width", width)
       .attr("height", height)
-      .style("pointer-events", "none"); // 让容器不阻挡点击事件
+      .style("pointer-events", "none"); // Let container not block click events
     
-    // 5秒后显示dialogue3
+    // Show dialogue3 after 5 seconds
     showDialogueWithDelay("dialogue-box3", 5000);
 
-    // ✅ 主图片
+    // ✅ Main image
     svg.append("image")
       .attr("href", "assets/chapter2/AIexposure_skill.png")
       .attr("x", imageX)
@@ -720,13 +720,13 @@ chartRenderers[8] = function(titleText, dataPath, chartArea) {
       .append("div")
       .attr("class", "tooltip");
 
-    // ✅ 热区层
+    // ✅ Hotspot layer
     hotspots.forEach(hotspot => {
       const group = svg.append("g")
         .attr("transform", `translate(${hotspot.x}, ${hotspot.y})`)
-        .style("pointer-events", "all"); // 让热区可以接收鼠标事件
+        .style("pointer-events", "all"); // Let hotspots receive mouse events
 
-      // 透明的热区矩形（用于检测鼠标）
+              // Transparent hotspot rectangle (for mouse detection)
       group.append("rect")
         .attr("width", hotspot.width)
         .attr("height", hotspot.height)
@@ -747,14 +747,6 @@ chartRenderers[8] = function(titleText, dataPath, chartArea) {
       });
     });
 
-    // ✅ 光照图层
-    /*svg.append("image")
-      .attr("href", "assets/chapter2/light.png")
-      .attr("x", 140)
-      .attr("y", 126)
-      .attr("width", 432)
-      .attr("height", 180);
-    */
     resolve();
   });
 };

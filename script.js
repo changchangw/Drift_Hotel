@@ -6,35 +6,35 @@ const memoryCollected = {
   room3: false
 };
 
-// 修改为跟踪每个房间收集的具体记忆
+// Modified to track specific memories collected in each room
 const roomMemories = {
-  room1: new Set(), // 使用Set来存储收集的记忆ID，避免重复
+  room1: new Set(), // Use Set to store collected memory IDs, avoid duplicates
   room2: new Set(),
   room3: new Set()
 };
 
-// 保留memoryCount用于兼容性，但不再使用
+// Keep memoryCount for compatibility, but no longer used
 const memoryCount = {
   room1: 0,
   room2: 0,
   room3: 0
 };
 
-// 通用的记忆收集函数
+// Universal memory collection function
 function collectMemory(roomName, memoryId) {
   roomMemories[roomName].add(memoryId);
   
-  // 如果收集了3个不同的记忆，标记房间为完成
+  // If 3 different memories are collected, mark room as complete
   if (roomMemories[roomName].size >= 3) {
     memoryCollected[roomName] = true;
   }
   
-  // 调试信息：显示当前收集状态
-  console.log(`${roomName} 收集的记忆:`, Array.from(roomMemories[roomName]));
-  console.log(`${roomName} 完成状态:`, memoryCollected[roomName]);
+  // Debug info: show current collection status
+  console.log(`${roomName} collected memories:`, Array.from(roomMemories[roomName]));
+  console.log(`${roomName} completion status:`, memoryCollected[roomName]);
 }
 
-// 获取记忆收集状态的函数（用于调试）
+// Function to get memory collection status (for debugging)
 function getMemoryStatus() {
   return {
     room1: {
@@ -55,10 +55,10 @@ function getMemoryStatus() {
   };
 }
 
-// 将状态函数暴露到全局，方便调试
+// Expose status function to global scope for debugging
 window.getMemoryStatus = getMemoryStatus;
 
-// 将音乐控制函数暴露到全局
+// Expose music control functions to global scope
 window.switchToChapter2Music = switchToChapter2Music;
 window.isChapter2Music = () => isChapter2Music;
 
@@ -149,7 +149,7 @@ const scenes = {
   10: {
     image: 'assets/chapter1/room1/1-4.png',
     action: () => {
-      collectMemory('room1', 'memory1'); // 第一个记忆：Graduation Photo
+      collectMemory('room1', 'memory1'); // First memory: Graduation Photo
       goToScene(5);
     }
   },
@@ -160,7 +160,7 @@ const scenes = {
   14: {
     image: 'assets/chapter1/room1/2-4.png',
     action: () => {
-      collectMemory('room1', 'memory2'); // 第二个记忆：Shakespeare's Sonnets
+      collectMemory('room1', 'memory2'); // Second memory: Shakespeare's Sonnets
       goToScene(6);
     }
   },
@@ -171,7 +171,7 @@ const scenes = {
   18: {
     image: 'assets/chapter1/room1/3-4.png',
     action: () => {
-      collectMemory('room1', 'memory3'); // 第三个记忆：Flawless
+      collectMemory('room1', 'memory3'); // Third memory: Flawless
       goToScene(6);
     }
   },
@@ -218,7 +218,7 @@ const scenes = {
   25: {
     image: 'assets/chapter1/room2/1-5.png',
     action: () => {
-      collectMemory('room2', 'memory1'); // 第一个记忆：The Starry Night
+      collectMemory('room2', 'memory1'); // First memory: The Starry Night
       goToScene(19);
     }
   },
@@ -230,7 +230,7 @@ const scenes = {
   30: {
     image: 'assets/chapter1/room2/2-5.png',
     action: () => {
-      collectMemory('room2', 'memory2'); // 第二个记忆：Termination
+      collectMemory('room2', 'memory2'); // Second memory: Termination
       goToScene(20);
     }
   },
@@ -241,7 +241,7 @@ const scenes = {
   34: {
     image: 'assets/chapter1/room2/3-4.png',
     action: () => {
-      collectMemory('room2', 'memory3'); // 第三个记忆：The Mirror
+      collectMemory('room2', 'memory3'); // Third memory: The Mirror
       goToScene(20);
     }
   },
@@ -288,7 +288,7 @@ const scenes = {
   41: {
     image: 'assets/chapter1/room3/1-5.png',
     action: () => {
-      collectMemory('room3', 'memory1'); // 第一个记忆：An Outstanding Programmer
+      collectMemory('room3', 'memory1'); // First memory: An Outstanding Programmer
       goToScene(35);
     }
   },
@@ -299,7 +299,7 @@ const scenes = {
   45: {
     image: 'assets/chapter1/room3/2-4.png',
     action: () => {
-      collectMemory('room3', 'memory2'); // 第二个记忆：Game Enthusiast
+      collectMemory('room3', 'memory2'); // Second memory: Game Enthusiast
       goToScene(36);
     }
   },
@@ -311,13 +311,13 @@ const scenes = {
   50: {
     image: 'assets/chapter1/room3/3-5.png',
     action: () => {
-      collectMemory('room3', 'memory3'); // 第三个记忆：Sleep No More
+      collectMemory('room3', 'memory3'); // Third memory: Sleep No More
       goToScene(36);
     }
   },
 
   51: { image: 'assets/chapter2/prologue.png', action: () => goToScene(52) },
-  // 跳转到数据可视化页面
+  // Jump to data visualization page
   52: {
     image: 'assets/chapter2/cover.png',
     action: () => {
@@ -332,7 +332,7 @@ const scenes = {
         setTimeout(() => {
           overlay.style.opacity = 0;
         }, 100);
-      }, 800); // 统一与其他场景切换节奏
+      }, 800); // Unify with other scene transition timing
     }
   },
   
@@ -342,7 +342,7 @@ const scenes = {
   55: { 
     image: 'assets/chapter3/1.png', 
     action: () => {
-      // 3.5秒后自动跳转到下一场景
+      // Automatically jump to next scene after 3.5 seconds
       setTimeout(() => goToScene(56), 3500);
     },
     autoPlay: true
@@ -350,7 +350,7 @@ const scenes = {
   56: { 
     image: 'assets/chapter3/2.png', 
     action: () => {
-      // 3.5秒后自动跳转到下一场景
+      // Automatically jump to next scene after 3.5 seconds
       setTimeout(() => goToScene(57), 3500);
     },
     autoPlay: true
@@ -358,7 +358,7 @@ const scenes = {
   57: { 
     image: 'assets/chapter3/3.png', 
     action: () => {
-      // 3.5秒后自动跳转到下一场景
+      // Automatically jump to next scene after 3.5 seconds
       setTimeout(() => goToScene(58), 3500);
     },
     autoPlay: true
@@ -366,7 +366,7 @@ const scenes = {
   58: { 
     image: 'assets/chapter3/4.png', 
     action: () => {
-      // 3.5秒后自动跳转到下一场景
+      // Automatically jump to next scene after 3.5 seconds
       setTimeout(() => goToScene(59), 3500);
     },
     autoPlay: true
@@ -374,7 +374,7 @@ const scenes = {
   59: { 
     image: 'assets/chapter3/5.png', 
     action: () => {
-      // 3.5秒后自动跳转到下一场景
+      // Automatically jump to next scene after 3.5 seconds
       setTimeout(() => goToScene(60), 3500);
     },
     autoPlay: true
@@ -382,14 +382,14 @@ const scenes = {
   60: { 
     image: 'assets/chapter3/6.png', 
     action: () => {
-      // 3.5秒后自动跳转到下一场景
+      // Automatically jump to next scene after 3.5 seconds
       setTimeout(() => goToScene(61), 3500);
     },
     autoPlay: true
   },
   61: { 
     image: 'assets/chapter3/7.png', 
-    action: () => {} // 最后一页，点击无动作
+    action: () => {} // Last page, no action on click
   }
 };
 
@@ -397,17 +397,17 @@ let currentScene = 1;
 const sceneImage = document.getElementById('scene-image');
 const hotspotContainer = document.getElementById('hotspot-container');
 
-// 音乐控制变量
+// Music control variables
 let isMusicPlaying = false;
-let userManuallyStoppedMusic = false; // 添加用户手动关闭音乐的标志
-let isChapter2Music = false; // 跟踪是否已经切换到第二章音乐
+let userManuallyStoppedMusic = false; // Add flag for user manually stopping music
+let isChapter2Music = false; // Track if already switched to chapter 2 music
 const musicControl = document.getElementById('music-control');
 const musicIcon = document.getElementById('music-icon');
 const musicControlDatavis = document.getElementById('music-control-datavis');
 const musicIconDatavis = document.getElementById('music-icon-datavis');
 const backgroundMusic = document.getElementById('background-music');
 
-// 音乐淡出函数
+// Music fade out function
 function fadeOutMusic(duration = 2000) {
   if (!isMusicPlaying) return;
   
@@ -421,7 +421,7 @@ function fadeOutMusic(duration = 2000) {
       backgroundMusic.volume -= volumeStep;
     } else {
       backgroundMusic.pause();
-      backgroundMusic.volume = startVolume; // 恢复原始音量
+      backgroundMusic.volume = startVolume; // Restore original volume
       isMusicPlaying = false;
       musicIcon.src = 'assets/icons/music_off.png';
       musicIconDatavis.src = 'assets/icons/music_off.png';
@@ -432,28 +432,28 @@ function fadeOutMusic(duration = 2000) {
   }, stepDuration);
 }
 
-// 切换到第二章音乐
+// Switch to chapter 2 music
 function switchToChapter2Music() {
-  if (isChapter2Music) return; // 如果已经是第二章音乐，不重复切换
+  if (isChapter2Music) return; // If already chapter 2 music, don't switch again
   
-  // 切换到肖邦音乐
+  // Switch to Chopin music
   backgroundMusic.src = 'assets/chopin-nocturne-op-9-no-2-relaxing-piano-music-345085.mp3';
   isChapter2Music = true;
   
-  // 如果音乐正在播放，重新开始播放新音乐
+  // If music is playing, restart with new music
   if (isMusicPlaying) {
     backgroundMusic.play().then(() => {
-      console.log('第二章音乐播放成功');
-      backgroundMusic.volume = 1.0; // 肖邦音乐正常音量
+      console.log('Chapter 2 music playback successful');
+      backgroundMusic.volume = 1.0; // Chopin music normal volume
     }).catch(error => {
-      console.log('第二章音乐播放失败:', error);
+      console.log('Chapter 2 music playback failed:', error);
     });
   }
 }
 
 function goToScene(index) {
   const overlay = document.getElementById('fade-overlay');
-  overlay.style.opacity = 1; // 开始变黑
+  overlay.style.opacity = 1; // Start fading to black
 
   setTimeout(() => {
     currentScene = index;
@@ -462,11 +462,11 @@ function goToScene(index) {
     updateHotspots();
     renderMarks(); 
     
-    // 处理自定义设置
+    // Handle custom settings
     if (scenes[index].customSetup) {
       scenes[index].customSetup();
     } else {
-      // 如果不是场景1，隐藏酒店图片和闪烁文字
+      // If not scene 1, hide hotel image and blinking text
       const hotelContainer = document.getElementById('hotel-container');
       const blinkingText = document.getElementById('blinking-text');
       const sceneContainer = document.getElementById('scene-container');
@@ -476,19 +476,19 @@ function goToScene(index) {
       if (sceneContainer) sceneContainer.style.backgroundColor = '';
     }
     
-    // 音乐控制逻辑
-    // 在所有prologue、cover和特定页面不显示音乐按钮
+    // Music control logic
+    // Don't show music button on prologue, cover and specific pages
     const isPrologueOrCover = index === 2 || index === 3 || index === 51 || index === 52 || index === 53 || index === 54;
     const isSpecialScene = index === 60 || index === 61;
     
-    // 特殊音乐处理
+    // Special music handling
     if (index === 51) {
-      // 场景51：音乐淡出
-      fadeOutMusic(4000); // 4秒淡出
+      // Scene 51: music fade out
+      fadeOutMusic(4000); // 4 second fade out
       musicControl.style.display = 'none';
       musicControlDatavis.style.display = 'none';
     } else if (index === 52) {
-      // 场景52：切换到第二章音乐并开始播放
+      // Scene 52: switch to chapter 2 music and start playing
       switchToChapter2Music();
       if (!userManuallyStoppedMusic) {
         startMusic();
@@ -496,15 +496,15 @@ function goToScene(index) {
       musicControl.style.display = 'none';
       musicControlDatavis.style.display = 'none';
     } else if (isPrologueOrCover || isSpecialScene) {
-      // 在prologue、cover和特定页面隐藏音乐按钮
+      // Hide music button on prologue, cover and specific pages
       musicControl.style.display = 'none';
       musicControlDatavis.style.display = 'none';
     } else {
-      // 显示音乐控制按钮
+      // Show music control button
       musicControl.style.display = 'block';
-      musicControlDatavis.style.display = 'none'; // scene部分显示，datavis部分隐藏
+      musicControlDatavis.style.display = 'none'; // Show in scene section, hide in datavis section
       
-      // 如果音乐还没开始播放且用户没有手动关闭，自动开始播放
+      // If music hasn't started and user hasn't manually stopped, auto-start
       if (!isMusicPlaying && !userManuallyStoppedMusic) {
         startMusic();
       }
@@ -539,39 +539,39 @@ function goToScene(index) {
     setTimeout(() => {
       overlay.style.opacity = 0;
       
-      // 如果是自动播放场景，在淡入完成后启动自动播放
+      // If auto-play scene, start auto-play after fade-in completes
       if (scenes[index].autoPlay && scenes[index].action) {
         scenes[index].action();
       }
     }, 100);
     
-    // 处理最后一页音乐停止
+    // Handle last page music stop
     handleLastScene();
   }, 800);
 }
 
-// 酒店场景设置函数
+// Hotel scene setup function
 function setupHotelScene() {
-  // 设置黑色背景
+  // Set black background
   const sceneContainer = document.getElementById('scene-container');
   sceneContainer.style.backgroundColor = 'black';
   
-  // 显示酒店图片和闪烁文字
+  // Show hotel image and blinking text
   const hotelContainer = document.getElementById('hotel-container');
   const blinkingText = document.getElementById('blinking-text');
   
   hotelContainer.style.display = 'block';
   blinkingText.style.display = 'block';
   
-  // 设置酒店图片的鼠标悬停效果
+  // Set hotel image mouse hover effect
   const hotelImage = document.getElementById('hotel-image');
   
-  // 移除之前的事件监听器（如果存在）
+  // Remove previous event listeners (if exist)
   hotelImage.removeEventListener('mouseenter', hotelImage._mouseenterHandler);
   hotelImage.removeEventListener('mouseleave', hotelImage._mouseleaveHandler);
   hotelContainer.removeEventListener('click', hotelContainer._clickHandler);
   
-  // 创建事件处理函数
+  // Create event handler function
   hotelImage._mouseenterHandler = function() {
     this.src = 'assets/chapter1/hotel-light.png';
   };
@@ -581,11 +581,11 @@ function setupHotelScene() {
   };
   
   hotelContainer._clickHandler = function(e) {
-    e.stopPropagation(); // 阻止事件冒泡
+    e.stopPropagation(); // Prevent event bubbling
     goToScene(2);
   };
   
-  // 添加新的事件监听器
+  // Add new event listeners
   hotelImage.addEventListener('mouseenter', hotelImage._mouseenterHandler);
   hotelImage.addEventListener('mouseleave', hotelImage._mouseleaveHandler);
   hotelContainer.addEventListener('click', hotelContainer._clickHandler);
@@ -636,13 +636,13 @@ function updateHotspots() {
   }
 }
 
-// 点击整个屏幕切换早期场景（1~3）
+// Click entire screen to switch early scenes (1~3)
 window.addEventListener('click', () => {
-  // ✅ 如果已经进入数据可视化阶段，不再处理点击跳转
+  // ✅ If already in data visualization stage, no longer handle click navigation
   const datavisVisible = document.getElementById('datavis-container').style.display === 'block';
-  if (datavisVisible) return; // ⛔ 阻止点击触发任何跳转
+  if (datavisVisible) return; // ⛔ Prevent click from triggering any navigation
   
-  // 如果在自动连播场景（55-61），点击无效
+  // If in auto-play scenes (55-61), click is invalid
   if (currentScene >= 55 && currentScene <= 61) {
     return;
   }
@@ -652,72 +652,72 @@ window.addEventListener('click', () => {
     scene.action();
   }
 
-  // 如果在 scene 4 且三段记忆都已完成，点击后跳转
+  // If in scene 4 and all three memories are completed, jump after click
   if (
     currentScene === 4 &&
     memoryCollected.room1 &&
     memoryCollected.room2 &&
     memoryCollected.room3
   ) {
-    goToScene(51); //接下一章
+    goToScene(51); // Go to next chapter
     return;
   }
 
-  // 隐藏提示图像
+  // Hide hint image
   hintImage.style.display = 'none';
 });
 
-// 音乐控制函数
+// Music control functions
 function startMusic() {
-  console.log('尝试播放音乐...');
+  console.log('Trying to play music...');
   
-  // 如果是第二章音乐且还没有切换，先切换
+  // If it's chapter 2 music and hasn't switched yet, switch first
   if (currentScene >= 52 && !isChapter2Music) {
     switchToChapter2Music();
   }
   
   backgroundMusic.play().then(() => {
-    console.log('音乐播放成功');
+    console.log('Music playback successful');
     isMusicPlaying = true;
-    userManuallyStoppedMusic = false; // 清除用户手动关闭标志
+    userManuallyStoppedMusic = false; // Clear user manual stop flag
     
-    // 设置音量：第一阶段音量较小，第二阶段音量正常
+    // Set volume: first stage smaller volume, second stage normal volume
     if (isChapter2Music) {
-      backgroundMusic.volume = 1.0; // 肖邦音乐正常音量
+      backgroundMusic.volume = 1.0; // Chopin music normal volume
     } else {
-      backgroundMusic.volume = 0.6; // Halloween音乐较小音量
+      backgroundMusic.volume = 0.6; // Halloween music smaller volume
     }
     
     musicIcon.src = 'assets/icons/music.png';
     musicIconDatavis.src = 'assets/icons/music.png';
     
-    // 添加漂浮动画类
+    // Add floating animation class
     musicIcon.classList.add('floating');
     musicIconDatavis.classList.add('floating');
   }).catch(error => {
-    console.log('音乐播放失败:', error);
-    // 尝试用户交互后播放
+    console.log('Music playback failed:', error);
+    // Try to play after user interaction
     document.addEventListener('click', function playMusicOnClick() {
-      backgroundMusic.play().then(() => {
-        console.log('用户交互后音乐播放成功');
-        isMusicPlaying = true;
-        userManuallyStoppedMusic = false; // 清除用户手动关闭标志
-        
-        // 设置音量：第一阶段音量较小，第二阶段音量正常
-        if (isChapter2Music) {
-          backgroundMusic.volume = 1.0; // 肖邦音乐正常音量
-        } else {
-          backgroundMusic.volume = 0.6; // Halloween音乐较小音量
-        }
-        
-        musicIcon.src = 'assets/icons/music.png';
-        musicIconDatavis.src = 'assets/icons/music.png';
-        
-        // 添加漂浮动画类
+              backgroundMusic.play().then(() => {
+          console.log('Music playback successful after user interaction');
+          isMusicPlaying = true;
+          userManuallyStoppedMusic = false; // Clear user manual stop flag
+          
+          // Set volume: first stage smaller volume, second stage normal volume
+          if (isChapter2Music) {
+            backgroundMusic.volume = 1.0; // Chopin music normal volume
+          } else {
+            backgroundMusic.volume = 0.6; // Halloween music smaller volume
+          }
+          
+          musicIcon.src = 'assets/icons/music.png';
+          musicIconDatavis.src = 'assets/icons/music.png';
+          
+          // Add floating animation class
         musicIcon.classList.add('floating');
         musicIconDatavis.classList.add('floating');
       }).catch(err => {
-        console.log('用户交互后音乐播放仍然失败:', err);
+        console.log('Music playback still failed after user interaction:', err);
       });
       document.removeEventListener('click', playMusicOnClick);
     }, { once: true });
@@ -728,11 +728,11 @@ function stopMusic() {
   backgroundMusic.pause();
   backgroundMusic.currentTime = 0;
   isMusicPlaying = false;
-  userManuallyStoppedMusic = true; // 设置用户手动关闭标志
+  userManuallyStoppedMusic = true; // Set user manual stop flag
   musicIcon.src = 'assets/icons/music_off.png';
   musicIconDatavis.src = 'assets/icons/music_off.png';
   
-  // 移除漂浮动画类
+  // Remove floating animation class
   musicIcon.classList.remove('floating');
   musicIconDatavis.classList.remove('floating');
 }
@@ -745,29 +745,29 @@ function toggleMusic() {
   }
 }
 
-// 音乐按钮点击事件
+// Music button click event
 musicControl.addEventListener('click', (e) => {
-  e.stopPropagation(); // 阻止事件冒泡，避免触发屏幕点击事件
+  e.stopPropagation(); // Prevent event bubbling, avoid triggering screen click event
   toggleMusic();
 });
 
-// datavis部分的音乐按钮点击事件
+// Datavis section music button click event
 musicControlDatavis.addEventListener('click', (e) => {
-  e.stopPropagation(); // 阻止事件冒泡，避免触发屏幕点击事件
+  e.stopPropagation(); // Prevent event bubbling, avoid triggering screen click event
   toggleMusic();
 });
 
-// 处理最后一页音乐停止
+// Handle last page music stop
 function handleLastScene() {
   if (currentScene === 62) {
     backgroundMusic.pause();
     backgroundMusic.currentTime = 0;
     isMusicPlaying = false;
-    // 不设置userManuallyStoppedMusic，因为这是自动停止，不是用户手动关闭
+    // Don't set userManuallyStoppedMusic, because this is auto-stop, not user manual stop
     musicIcon.src = 'assets/icons/music_off.png';
     musicIconDatavis.src = 'assets/icons/music_off.png';
     
-    // 移除漂浮动画类
+    // Remove floating animation class
     musicIcon.classList.remove('floating');
     musicIconDatavis.classList.remove('floating');
     
@@ -776,54 +776,54 @@ function handleLastScene() {
   }
 }
 
-//goToScene(52); //测试用，正式应为1
+//goToScene(52); // For testing, should be 1 in production
 
-// Chapter 3 启动函数
+// Chapter 3 startup function
 window.startChapter3 = function() {
   const overlay = document.getElementById("fade-overlay");
   
-  // 先渐变变黑
+  // First fade to black
   overlay.style.opacity = 1;
   
-  // 等待变黑完成后，再切换场景
+  // Wait for fade to black to complete, then switch scene
   setTimeout(() => {
     document.getElementById('datavis-container').style.display = 'none';
     document.getElementById('scene-container').style.display = 'block';
     currentScene = 53;
     
-    // 设置新场景图片
+    // Set new scene image
     sceneImage.src = scenes[53].image;
     updateHotspots();
     renderMarks();
     
-    // 渐变显示新场景
+    // Fade in new scene
     setTimeout(() => {
       overlay.style.opacity = 0;
     }, 100);
-  }, 800); // 统一与其他场景切换节奏
+  }, 800); // Unify with other scene transition timing
 };
 
-// 页面加载完成后的初始化
+// Initialize after page load completes
 document.addEventListener('DOMContentLoaded', function() {
-  // 初始化场景1
+  // Initialize scene 1
   if (currentScene === 1) {
     setupHotelScene();
   }
   
-  // 初始化音乐图标状态
+  // Initialize music icon state
   if (!isMusicPlaying) {
     musicIcon.classList.remove('floating');
     musicIconDatavis.classList.remove('floating');
   }
   
-  // 初始化用户手动关闭标志
+  // Initialize user manual stop flag
   userManuallyStoppedMusic = false;
   
-  // 初始化第二章音乐标志
+  // Initialize chapter 2 music flag
   isChapter2Music = false;
   
-  // 设置初始音量
-  backgroundMusic.volume = 0.6; // 第一阶段较小音量
+  // Set initial volume
+  backgroundMusic.volume = 0.6; // First stage smaller volume
 });
 
 

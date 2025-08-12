@@ -4,7 +4,7 @@ if (!window.chartRenderers) {
   window.chartRenderers = {};
 }
 
-// 通用对话框显示/隐藏函数
+// Common dialog box show/hide functions
 function showDialogueBoxById(id) {
   const box = document.getElementById(id);
   if (!box) return;
@@ -29,9 +29,9 @@ chartRenderers[9] = function(titleText, dataPath, chartArea) {
     const svg = chartArea.append("svg")
       .attr("width", width)
       .attr("height", height)
-      .style("pointer-events", "none"); // 让容器不阻挡点击事件
+      .style("pointer-events", "none"); // Let container not block click events
 
-    // 主图展示（中间HAS图）
+    // Main chart display (center HAS chart)
     svg.append("image")
       .attr("href", "assets/chapter2/HAS.png")
       .attr("x", 26)
@@ -39,7 +39,7 @@ chartRenderers[9] = function(titleText, dataPath, chartArea) {
       .attr("width", 669)
       .attr("height", 409);
 
-    // 附图展示（HAS_image.png）
+    // Supplementary chart display (HAS_image.png)
     svg.append("image")
       .attr("href", "assets/chapter2/HAS_image.png")
       .attr("x", 46)
@@ -47,15 +47,15 @@ chartRenderers[9] = function(titleText, dataPath, chartArea) {
       .attr("width", 636)
       .attr("height", 81)
       .attr("id", "has-image")
-      .style("pointer-events", "all"); // 让图片可以接收鼠标事件
+      .style("pointer-events", "all"); // Let image receive mouse events
 
-    // tooltip div 设置
+    // Tooltip div setup
     const tooltip = d3.select("body")
       .append("div")
       .attr("id", "has-tooltip")
       .attr("class", "tooltip");
 
-    // 绑定悬浮事件到HAS_image
+    // Bind hover events to HAS_image
     d3.select("#has-image")
       .on("mouseover", function(event) {
         tooltip
@@ -93,7 +93,7 @@ chartRenderers[10] = function(titleText, dataPath, chartArea) {
       const sourceTabs = ["Rated by workers", "Rated by AI experts"];
       let currentSource = "Rated by workers";
       
-      // 映射tabs文字到CSV数据中的实际值
+      // Map tab text to actual values in CSV data
       const sourceMapping = {
         "Rated by workers": "Worker",
         "Rated by AI experts": "Expert"
@@ -130,7 +130,7 @@ chartRenderers[10] = function(titleText, dataPath, chartArea) {
         const levels = 4;
         const maxValue = 4;
 
-        // 圆圈背景网格
+        // Circular background grid
         for (let level = 1; level <= levels; level++) {
           const r = radius * level / levels;
           g.append("circle")
@@ -139,7 +139,7 @@ chartRenderers[10] = function(titleText, dataPath, chartArea) {
             .attr("stroke", "rgba(150, 120, 90, 1)")
             .attr("stroke-dasharray", "2,2");
           
-          // 添加数字标签（在Physical Action轴上）
+          // Add number labels (on Physical Action axis)
           g.append("text")
             .attr("x", 0)
             .attr("y", -r - 10)
@@ -150,7 +150,7 @@ chartRenderers[10] = function(titleText, dataPath, chartArea) {
             .text(level);
         }
 
-        // 轴线与标签
+        // Axes and labels
         categories.forEach((cat, i) => {
           const angle = angleSlice * i - Math.PI / 2;
           const x = Math.cos(angle) * radius;
@@ -168,9 +168,9 @@ chartRenderers[10] = function(titleText, dataPath, chartArea) {
             .text(cat);
         });
 
-        // 先绘制面积大的，再绘制面积小的（All Tasks先，H5 Tasks后）
+        // Draw large areas first, then small areas (All Tasks first, H5 Tasks second)
         const filtered = data.filter(d => d.Source === sourceMapping[currentSource]);
-        const order = [0, 1]; // 先All，再H5
+        const order = [0, 1]; // First All, then H5
         order.forEach(idx => {
           const taskType = taskTypes[idx];
           const points = categories.map((cat, i) => {
@@ -181,9 +181,9 @@ chartRenderers[10] = function(titleText, dataPath, chartArea) {
               val
             ];
           });
-          points.push(points[0]); // 闭合路径
+          points.push(points[0]); // Close path
 
-          // 面积
+          // Area
           g.append("path")
             .attr("class", `radar-area radar-area-${legendKeys[idx]}`)
             .attr("d", d3.line()(points.map(p => [p[0], p[1]])))
@@ -205,9 +205,9 @@ chartRenderers[10] = function(titleText, dataPath, chartArea) {
               val
             ];
           });
-          points.push(points[0]); // 闭合路径
+          points.push(points[0]); // Close path
 
-          // 线
+          // Line
           g.append("path")
             .attr("class", `radar-line radar-line-${legendKeys[idx]}`)
             .attr("d", d3.line()(points.map(p => [p[0], p[1]])))
@@ -219,7 +219,7 @@ chartRenderers[10] = function(titleText, dataPath, chartArea) {
             .on("mouseover", function() { highlight(idx); })
             .on("mouseout", resetHighlight);
 
-          // 四角数值（默认隐藏）
+          // Corner values (hidden by default)
           points.slice(0, 4).forEach((p, i) => {
             g.append("text")
               .attr("class", `radar-corner radar-corner-${legendKeys[idx]}`)
@@ -235,7 +235,7 @@ chartRenderers[10] = function(titleText, dataPath, chartArea) {
           });
         });
 
-        // 图例右上角
+        // Legend top right
         const legend = svg.append("g")
           .attr("transform", `translate(${width - 220},${50})`);
         taskTypes.forEach((label, i) => {
@@ -260,24 +260,24 @@ chartRenderers[10] = function(titleText, dataPath, chartArea) {
             .call(applyTextWeight, 'normal');
         });
 
-        // 悬浮高亮逻辑
+        // Hover highlight logic
         function highlight(idx) {
-          // 面积高亮
+          // Area highlight
           g.selectAll(".radar-area")
             .attr("opacity", (d, i) => i === idx ? highlightOpacity : dimOpacity)
             .attr("fill-opacity", (d, i) => i === idx ? 0.35 : 0.18);
-          // 线条高亮
+          // Line highlight
           g.selectAll(".radar-line")
             .attr("stroke-width", (d, i) => i === idx ? 3 : 2)
             .attr("opacity", (d, i) => i === idx ? highlightOpacity : dimOpacity);
-          // 图例高亮
+          // Legend highlight
           svg.selectAll(".legend-line")
             .attr("opacity", 1)
             .attr("stroke-width", (d, i) => i === idx ? 3 : 2);
           svg.selectAll(".legend-text")
             .style("font-weight", (d, i) => i === idx ? "bold" : "normal")
             .attr("opacity", 1);
-          // 四角数值显示
+          // Corner values display
           g.selectAll(`.radar-corner`).attr("opacity", 0);
           g.selectAll(`.radar-corner-${legendKeys[idx]}`).attr("opacity", 1);
         }
@@ -312,19 +312,19 @@ chartRenderers[11] = function(titleText, dataPath, chartArea) {
       const innerWidth = width - margin.left - margin.right;
       const innerHeight = height - margin.top - margin.bottom;
 
-      // 颜色映射 - 增加色相差异，降低明度
+      // Color mapping - increase hue difference, reduce brightness
       const colorMap = {
-        "Cognitive skills": "#1E3A8A",      // 深蓝色
-        "Engagement skills": "#8B6914",     // 更深橙色
-        "Ethics": "#006400",                // 深绿色
-        "Physical abilities": "#B22222",     // 深红色
-        "Self-efficacy": "#4B0082",         // 更深紫色
-        "Technology skills": "#6B7280",     // 灰色调蓝色
-        "Management skills": "#374151",     // 深灰色调绿色
-        "Working with others": "#8B008B"    // 更深玫红色
+        "Cognitive skills": "#1E3A8A",      // Dark blue
+        "Engagement skills": "#8B6914",     // Darker orange
+        "Ethics": "#006400",                // Dark green
+        "Physical abilities": "#B22222",     // Dark red
+        "Self-efficacy": "#4B0082",         // Darker purple
+        "Technology skills": "#6B7280",     // Grayish blue
+        "Management skills": "#374151",     // Dark grayish green
+        "Working with others": "#8B008B"    // Darker rose red
       };
 
-      // 象限标签 - 黑色文字
+      // Quadrant labels - black text
       const quadrants = [
         { x: 0.75, y: 0.25, text: "Core skills\nin 2030", color: "#000000" },
         { x: 0.25, y: 0.25, text: "Emerging\nskills", color: "#000000" },
@@ -339,13 +339,13 @@ chartRenderers[11] = function(titleText, dataPath, chartArea) {
       const g = svg.append("g")
         .attr("transform", `translate(${margin.left},${margin.top})`);
 
-      // 数据预处理
+      // Data preprocessing
       data.forEach(d => {
         d["Core in 2025 (%)"] = +d["Core in 2025 (%)"];
         d["Expected increase in 2030 (%)"] = +d["Expected increase in 2030 (%)"];
       });
 
-      // 比例尺
+      // Scales
       const x = d3.scaleLinear()
         .domain([0, 80])
         .range([0, innerWidth]);
@@ -354,19 +354,19 @@ chartRenderers[11] = function(titleText, dataPath, chartArea) {
         .domain([0, 100])
         .range([innerHeight, 0]);
 
-      // 分割线
+      // Division lines
       const xThreshold = 38.5;
       const yThreshold = 50;
 
-      // 象限背景块
+      // Quadrant background blocks
       const quadrantBackgrounds = [
-        { x: 0, y: 0, width: x(xThreshold), height: y(yThreshold), fill: "rgba(255, 140, 0, 0.1)" }, // 左下
-        { x: x(xThreshold), y: 0, width: innerWidth - x(xThreshold), height: y(yThreshold), fill: "rgba(34, 139, 34, 0.1)" }, // 右下
-        { x: 0, y: y(yThreshold), width: x(xThreshold), height: innerHeight - y(yThreshold), fill: "rgba(220, 20, 60, 0.1)" }, // 左上
-        { x: x(xThreshold), y: y(yThreshold), width: innerWidth - x(xThreshold), height: innerHeight - y(yThreshold), fill: "rgba(65, 105, 225, 0.1)" } // 右上
+        { x: 0, y: 0, width: x(xThreshold), height: y(yThreshold), fill: "rgba(255, 140, 0, 0.1)" }, // Bottom left
+        { x: x(xThreshold), y: 0, width: innerWidth - x(xThreshold), height: y(yThreshold), fill: "rgba(34, 139, 34, 0.1)" }, // Bottom right
+        { x: 0, y: y(yThreshold), width: x(xThreshold), height: innerHeight - y(yThreshold), fill: "rgba(220, 20, 60, 0.1)" }, // Top left
+        { x: x(xThreshold), y: y(yThreshold), width: innerWidth - x(xThreshold), height: innerHeight - y(yThreshold), fill: "rgba(65, 105, 225, 0.1)" } // Top right
       ];
 
-      // 添加象限背景
+      // Add quadrant backgrounds
       quadrantBackgrounds.forEach(bg => {
         g.append("rect")
           .attr("x", bg.x)
@@ -376,7 +376,7 @@ chartRenderers[11] = function(titleText, dataPath, chartArea) {
           .attr("fill", bg.fill);
       });
 
-      // 垂直分割线
+      // Vertical division line
       g.append("line")
         .attr("x1", x(xThreshold))
         .attr("y1", 0)
@@ -386,7 +386,7 @@ chartRenderers[11] = function(titleText, dataPath, chartArea) {
         .attr("stroke-dasharray", "5,5")
         .attr("stroke-width", 1);
 
-      // 水平分割线
+      // Horizontal division line
       g.append("line")
         .attr("x1", 0)
         .attr("y1", y(yThreshold))
@@ -396,7 +396,7 @@ chartRenderers[11] = function(titleText, dataPath, chartArea) {
         .attr("stroke-dasharray", "5,5")
         .attr("stroke-width", 1);
 
-      // 象限标签
+      // Quadrant labels
       quadrants.forEach(q => {
         g.append("text")
           .attr("x", innerWidth * q.x)
@@ -426,7 +426,7 @@ chartRenderers[11] = function(titleText, dataPath, chartArea) {
         .append("div")
         .attr("class", "tooltip");
 
-      // 散点
+      // Scatter points
       g.selectAll("circle")
         .data(data)
         .enter()
@@ -464,7 +464,7 @@ chartRenderers[11] = function(titleText, dataPath, chartArea) {
           tooltip.style("display", "none");
         });
 
-      // 坐标轴
+      // Coordinate axes
       g.append("g")
         .attr("transform", `translate(0,${innerHeight})`)
         .call(d3.axisBottom(x).ticks(8).tickFormat(d => d + "%"))
@@ -476,7 +476,7 @@ chartRenderers[11] = function(titleText, dataPath, chartArea) {
         .selectAll("text")
         .call(applyAxisLabel);
 
-      // 轴标签 - 精简文字
+      // Axis labels - simplified text
       svg.append("text")
         .attr("x", margin.left + innerWidth / 2)
         .attr("y", height - 90)
@@ -492,7 +492,7 @@ chartRenderers[11] = function(titleText, dataPath, chartArea) {
         .text("Employers expecting more use by 2030 (%)")
         .call(applyAxisLabel);
 
-      // 图例 - 下方，分两行
+      // Legend - bottom, two rows
       const legend = svg.append("g")
         .attr("transform", `translate(${margin.left - 10}, ${height - 50})`);
 
@@ -500,19 +500,19 @@ chartRenderers[11] = function(titleText, dataPath, chartArea) {
       const firstRow = categories.slice(0, 4);
       const secondRow = categories.slice(4);
 
-      // 第一行
+      // First row
       firstRow.forEach((category, i) => {
         const row = legend.append("g")
           .attr("transform", `translate(${i * 150}, 0)`)
           .call(applyInteractive)
           .on("mouseover", function() {
-            // 高亮当前类别
+            // Highlight current category
             g.selectAll("circle")
               .attr("opacity", d => d.Category === category ? 1 : 0.1);
             d3.select(this).select("text").style("font-weight", "bold");
           })
           .on("mouseout", function() {
-            // 恢复所有点
+            // Restore all points
             g.selectAll("circle").attr("opacity", 0.8);
             d3.select(this).select("text").style("font-weight", "normal");
           });
@@ -528,19 +528,19 @@ chartRenderers[11] = function(titleText, dataPath, chartArea) {
           .call(applyLegendText);
       });
 
-      // 第二行
+      // Second row
       secondRow.forEach((category, i) => {
         const row = legend.append("g")
           .attr("transform", `translate(${i * 150}, 20)`)
           .call(applyInteractive)
           .on("mouseover", function() {
-            // 高亮当前类别
+            // Highlight current category
             g.selectAll("circle")
               .attr("opacity", d => d.Category === category ? 1 : 0.1);
             d3.select(this).select("text").style("font-weight", "bold");
           })
           .on("mouseout", function() {
-            // 恢复所有点
+            // Restore all points
             g.selectAll("circle").attr("opacity", 0.8);
             d3.select(this).select("text").style("font-weight", "normal");
           });
@@ -570,7 +570,7 @@ chartRenderers[12] = function(titleText, dataPath, chartArea) {
       .attr("width", width)
       .attr("height", height);
 
-    // 添加human-machine切图
+    // Add human-machine chart image
     svg.append("image")
       .attr("href", "assets/chapter2/human-machine.png")
       .attr("x", 60)
@@ -578,7 +578,7 @@ chartRenderers[12] = function(titleText, dataPath, chartArea) {
       .attr("width", 580)
       .attr("height", 420);
 
-    // 5秒后显示dialogue4
+    // Show dialogue4 after 5 seconds
     showDialogueWithDelay("dialogue-box4", 5000);
 
     resolve();
@@ -610,7 +610,7 @@ chartRenderers[13] = function(titleText, dataPath, chartArea) {
     const y = d3.scaleBand()
       .domain(data.map(d => d.field))
       .range([0, innerHeight])
-      .padding(0.4); // 更窄的条形图（原来是0.25）
+      .padding(0.4); // Narrower bar chart (originally 0.25)
 
     const x = d3.scaleLinear()
       .domain([0, 100])
@@ -628,20 +628,20 @@ chartRenderers[13] = function(titleText, dataPath, chartArea) {
       .attr("width", d => x(d.value))
       .attr("fill", d => color(d));
 
-    // 左轴（领域名）
+    // Left axis (field names)
     g.append("g")
       .call(d3.axisLeft(y))
       .selectAll("text")
       .call(applyAxisLabel);
 
-    // 底部轴（数值刻度）
+    // Bottom axis (value scale)
     g.append("g")
       .attr("transform", `translate(0, ${innerHeight})`)
       .call(d3.axisBottom(x).ticks(5).tickFormat(d => d + "%"))
       .selectAll("text")
       .call(applyAxisLabel);
 
-    // 添加 x轴标题
+    // Add x-axis title
     svg.append("text")
       .attr("x", margin.left + innerWidth / 2)
       .attr("y", margin.top + innerHeight + 50)
@@ -649,7 +649,7 @@ chartRenderers[13] = function(titleText, dataPath, chartArea) {
       .call(applyAxisLabel)
       .text("Share of tasks workers want AI to take over (%)");
 
-    // 数值标签
+    // Value labels
     g.selectAll("text.value-label")
       .data(data)
       .enter()
@@ -660,9 +660,9 @@ chartRenderers[13] = function(titleText, dataPath, chartArea) {
       .text(d => `${d.value}%`)
       .call(applyChartFont, 'small');
 
-    d3.select("#arts-description").remove(); // ✅ 先移除旧的
+    d3.select("#arts-description").remove(); // ✅ Remove old one first
 
-    // ✅ 添加下方解释文字（上下结构）
+    // ✅ Add explanation text below (top-bottom structure)
     d3.select("#datavis-container")
       .append("div")
       .attr("id", "arts-description")
@@ -694,7 +694,7 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
       const innerWidth = width - margin.left - margin.right;
       const innerHeight = height - margin.top - margin.bottom;
 
-      // 颜色映射
+      // Color mapping
       const colorMap = {
         "Computer and Mathematical": "#2E5A88",
         "Management": "#956800",
@@ -702,13 +702,13 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
         "Arts, Designs, and Media": "#8B0000"
       };
 
-      // 数据预处理
+      // Data preprocessing
       data.forEach(d => {
         d.AI_Capability = +d.AI_Capability;
         d.Automation_Desire = +d.Automation_Desire;
         
-        // 添加轻微打散效果
-        d.jitterX = (Math.random() - 0.5) * 0.1; // ±0.05的随机偏移
+        // Add slight jitter effect
+        d.jitterX = (Math.random() - 0.5) * 0.1; // ±0.05 random offset
         d.jitterY = (Math.random() - 0.5) * 0.1;
       });
 
@@ -719,7 +719,7 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
       const g = svg.append("g")
         .attr("transform", `translate(${margin.left},${margin.top})`);
 
-      // 比例尺
+      // Scales
       const x = d3.scaleLinear()
         .domain([1, 5])
         .range([0, innerWidth]);
@@ -728,21 +728,21 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
         .domain([1, 5])
         .range([innerHeight, 0]);
 
-      // 分割线
+      // Division lines
       const xThreshold = 3;
       const yThreshold = 3;
 
-      // 象限背景块
+      // Quadrant background blocks
       const quadrantBackgrounds = [
-        { x: 0, y: 0, width: x(xThreshold), height: y(yThreshold), fill: "rgba(255, 140, 0, 0.1)", label: "R&D Opportunity Zone" }, // 左上
-        { x: x(xThreshold), y: 0, width: innerWidth - x(xThreshold), height: y(yThreshold), fill: "rgba(34, 139, 34, 0.1)", label: "Automation 'Green Light' Zone" }, // 右上
-        { x: 0, y: y(yThreshold), width: x(xThreshold), height: innerHeight - y(yThreshold), fill: "rgba(172, 183, 214, 0.1)", label: "Low Priority Zone" }, // 左下
-        { x: x(xThreshold), y: y(yThreshold), width: innerWidth - x(xThreshold), height: innerHeight - y(yThreshold), fill: "rgba(220, 20, 60, 0.1)", label: "Automation 'Red Light' Zone" } // 右下
+                  { x: 0, y: 0, width: x(xThreshold), height: y(yThreshold), fill: "rgba(255, 140, 0, 0.1)", label: "R&D Opportunity Zone" }, // Top left
+                  { x: x(xThreshold), y: 0, width: innerWidth - x(xThreshold), height: y(yThreshold), fill: "rgba(34, 139, 34, 0.1)", label: "Automation 'Green Light' Zone" }, // Top right
+                  { x: 0, y: y(yThreshold), width: x(xThreshold), height: innerHeight - y(yThreshold), fill: "rgba(172, 183, 214, 0.1)", label: "Low Priority Zone" }, // Bottom left
+                  { x: x(xThreshold), y: y(yThreshold), width: innerWidth - x(xThreshold), height: innerHeight - y(yThreshold), fill: "rgba(220, 20, 60, 0.1)", label: "Automation 'Red Light' Zone" } // Bottom right
       ];
 
-              // 添加象限背景
+              // Add quadrant backgrounds
         quadrantBackgrounds.forEach(bg => {
-          // 定义象限解释
+          // Define quadrant explanations
           const quadrantExplanations = {
             "Automation 'Green Light' Zone": "Tasks with both high automation desire and high capability. These are prime candidates for AI agent deployment with the potential for broad productivity and societal gains.",
             "Automation 'Red Light' Zone": "Tasks with high capability but low desire. Deployment here warrants caution, as it may face worker resistance or pose broader negative societal implications.",
@@ -750,7 +750,7 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
             "Low Priority Zone": "Tasks with both low desire and low capability. These are less urgent for AI agent development."
           };
           
-          // 添加象限背景矩形（可交互）
+          // Add quadrant background rectangles (interactive)
           g.append("rect")
             .attr("x", bg.x)
             .attr("y", bg.y)
@@ -759,13 +759,13 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
             .attr("fill", bg.fill)
             .style("cursor", "default")
             .on("mouseover", function(event) {
-              // 高亮当前象限背景
+              // Highlight current quadrant background
               d3.select(this).attr("fill", bg.fill.replace("0.1", "0.2"));
               
-              // 先移除已存在的tooltip
+              // Remove existing tooltip first
               d3.selectAll(".tooltip").remove();
               
-              // 创建新的tooltip
+              // Create new tooltip
               const quadrantTooltip = d3.select("body")
                 .append("div")
                 .attr("class", "tooltip")
@@ -779,12 +779,12 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
               positionTooltip(d3.select(".tooltip"), event, 15, 20);
             })
             .on("mouseout", function() {
-              // 恢复象限背景颜色
+              // Restore quadrant background color
               d3.select(this).attr("fill", bg.fill);
               d3.selectAll(".tooltip").remove();
             });
 
-          // 添加象限标签 - 上两个象限在顶部，下两个象限在底部
+          // Add quadrant labels - top two quadrants at top, bottom two quadrants at bottom
           const isTopQuadrant = bg.y < y(yThreshold);
           const labelY = isTopQuadrant ? bg.y + 20 : bg.y + bg.height - 20;
           
@@ -797,11 +797,11 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
             .call(applyTextWeight, 'bold')
             .style("fill", "#000000")
             .style("cursor", "default")
-            .style("pointer-events", "none") // 让文字不阻挡鼠标事件
+            .style("pointer-events", "none") // Let text not block mouse events
             .text(bg.label);
         });
 
-      // 垂直分割线
+      // Vertical division line
       g.append("line")
         .attr("x1", x(xThreshold))
         .attr("y1", 0)
@@ -811,7 +811,7 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
         .attr("stroke-dasharray", "5,5")
         .attr("stroke-width", 1);
 
-      // 水平分割线
+      // Horizontal division line
       g.append("line")
         .attr("x1", 0)
         .attr("y1", y(yThreshold))
@@ -821,7 +821,7 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
         .attr("stroke-dasharray", "5,5")
         .attr("stroke-width", 1);
 
-      // 散点
+      // Scatter points
       g.selectAll("circle")
         .data(data)
         .enter()
@@ -836,7 +836,7 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
         .attr("class", d => `scatter-point scatter-${d.Category.replace(/\s+/g, "-")}`)
         .call(applyInteractive)
         .on("mouseover", function(event, d) {
-          // 先移除已存在的tooltip
+                      // Remove existing tooltip first
           d3.selectAll(".tooltip").remove();
           
           d3.select(this)
@@ -845,7 +845,7 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
             .attr("r", 6)
             .attr("opacity", 1);
 
-          // 创建散点tooltip
+                      // Create scatter point tooltip
           const scatterTooltip = d3.select("body")
             .append("div")
             .attr("class", "tooltip")
@@ -871,7 +871,7 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
           d3.selectAll(".tooltip").remove();
         });
 
-      // 坐标轴
+      // Coordinate axes
       g.append("g")
         .attr("transform", `translate(0,${innerHeight})`)
         .call(d3.axisBottom(x).ticks(5))
@@ -883,7 +883,7 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
         .selectAll("text")
         .call(applyAxisLabel);
 
-      // 轴标签
+      // Axis labels
       svg.append("text")
         .attr("x", margin.left + innerWidth / 2)
         .attr("y", height - 80)
@@ -899,7 +899,7 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
         .text("Worker-rated Automation Desire")
         .call(applyAxisLabel);
 
-      // 图例 - 下方，分两行
+      // Legend - bottom, two rows
       const legend = svg.append("g")
         .attr("transform", `translate(${margin.left + 80}, ${height - 50})`);
 
@@ -907,19 +907,19 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
       const firstRow = categories.slice(0, 2);
       const secondRow = categories.slice(2);
 
-             // 第一行
+             // First row
        firstRow.forEach((category, i) => {
          const row = legend.append("g")
            .attr("transform", `translate(${i * 300}, 0)`)
            .call(applyInteractive)
            .on("mouseover", function() {
-             // 高亮当前类别
+             // Highlight current category
              g.selectAll("circle")
                .attr("opacity", d => d.Category === category ? 1 : 0.1);
              d3.select(this).select("text").style("font-weight", "bold");
            })
            .on("mouseout", function() {
-             // 恢复所有点
+             // Restore all points
              g.selectAll("circle").attr("opacity", 0.8);
              d3.select(this).select("text").style("font-weight", "normal");
            });
@@ -935,19 +935,19 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
           .call(applyLegendText);
       });
 
-             // 第二行
+             // Second row
        secondRow.forEach((category, i) => {
          const row = legend.append("g")
            .attr("transform", `translate(${i * 300}, 20)`)
            .call(applyInteractive)
            .on("mouseover", function() {
-             // 高亮当前类别
+             // Highlight current category
              g.selectAll("circle")
                .attr("opacity", d => d.Category === category ? 1 : 0.1);
              d3.select(this).select("text").style("font-weight", "bold");
            })
            .on("mouseout", function() {
-             // 恢复所有点
+             // Restore all points
              g.selectAll("circle").attr("opacity", 0.8);
              d3.select(this).select("text").style("font-weight", "normal");
            });
@@ -963,11 +963,11 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
           .call(applyLegendText);
       });
 
-      // 添加出口按钮到datavis-container（仅在chart14时显示）
-      // 先移除已存在的出口按钮
+      // Add exit button to datavis-container (only shown in chart14)
+      // Remove existing exit button first
       d3.select("#exit-button").remove();
       
-      // 添加出口按钮
+      // Add exit button
       const exitButton = d3.select("#datavis-container")
         .append("div")
         .attr("id", "exit-button")
@@ -979,24 +979,24 @@ chartRenderers[14] = function(titleText, dataPath, chartArea) {
         .style("cursor", "pointer")
         .style("z-index", "10")
         .on("click", function(event) {
-          event.stopPropagation(); // 阻止事件冒泡
-          console.log("Exit button clicked"); // 调试信息
+          event.stopPropagation(); // Prevent event bubbling
+          console.log("Exit button clicked"); // Debug info
           
-          // 检查dialogue5是否已经显示
+          // Check if dialogue5 is already displayed
           const dialogueBox5 = document.getElementById('dialogue-box5');
           if (dialogueBox5 && dialogueBox5.style.display === 'block') {
-            // 如果dialogue5已经显示，则隐藏它并进入下一章节
+            // If dialogue5 is already displayed, hide it and go to next chapter
             hideDialogueBoxById("dialogue-box5");
             setTimeout(() => {
               window.startChapter3();
-            }, 400); // 等待dialogue5消失动画完成
-          } else {
-            // 如果dialogue5没有显示，则显示它
-            showDialogueBoxById("dialogue-box5");
-          }
+            }, 400); // Wait for dialogue5 disappearance animation to complete
+                      } else {
+              // If dialogue5 is not displayed, show it
+              showDialogueBoxById("dialogue-box5");
+            }
         });
 
-      // 使用trigger.png切图
+      // Use trigger.png image
       exitButton.append("img")
         .attr("src", "assets/icons/trigger.png")
         .attr("width", "184")

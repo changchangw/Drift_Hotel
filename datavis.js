@@ -1,6 +1,6 @@
 // datavis.js
 
-// 统一的tooltip工具函数
+// Unified tooltip utility functions
 function createTooltip() {
   return d3.select("body")
     .append("div")
@@ -18,14 +18,14 @@ function hideTooltip(tooltip) {
   tooltip.style("display", "none");
 }
 
-// 统一的tooltip位置计算函数
+// Unified tooltip position calculation function
 function positionTooltip(tooltip, event, offsetX = 12, offsetY = 20) {
   tooltip
     .style("left", (event.pageX + offsetX) + "px")
     .style("top", (event.pageY + offsetY) + "px");
 }
 
-// 通用样式设置函数
+// Common style setting functions
 function applyChartFont(element, size = 'medium') {
   const sizes = {
     'small': 'chart-font-small',
@@ -110,7 +110,7 @@ const chartConfigs = [
   {
     title: "Layers of Risk, Shades of Work",
     chartType: 8,
-    dataPath: "", // 此图无需CSV数据，可设为""
+    dataPath: "", // This chart doesn't need CSV data, can be set to ""
     source: "International Labour Organization. (2025). World Employment and Social Outlook: May 2025 Update."
   },
   {
@@ -134,13 +134,13 @@ const chartConfigs = [
   {
     title: "The shifting human-machine frontier (2025–2030)",
     chartType: 12,
-    dataPath: "",  // 无需加载外部数据
+    dataPath: "",  // No need to load external data
     source: "World Economic Forum (2025). The future of jobs report 2025. [online] World Economic Forum."
   },
   {
     title: "Is Automation Always the Best Answer—for Every Field?",
     chartType: 13,
-    dataPath: "", // 本图数据是内置数组，无需文件
+    dataPath: "", // This chart data is built-in array, no file needed
     source: "Shao, et al (2025). Future of Work with AI Agents: Auditing Automation and Augmentation Potential across the U.S. Workforce."
   },
   {
@@ -182,9 +182,9 @@ function hideDialogueBoxById(id) {
   }, 400);
 }
 
-// 通用dialogue显示函数
+// Universal dialogue display function
 function showDialogueWithDelay(dialogueId, delayMs = 2000) {
-  // 先清除之前可能存在的定时器
+  // Clear any existing timer first
   if (window.currentDialogueTimer) {
     clearTimeout(window.currentDialogueTimer);
   }
@@ -194,10 +194,10 @@ function showDialogueWithDelay(dialogueId, delayMs = 2000) {
     if (!box) return;
     
     box.style.display = "block";
-    void box.offsetWidth; // 触发重排
+    void box.offsetWidth; // Trigger reflow
     box.style.opacity = "1";
     
-    // 添加点击屏幕消失的事件监听
+    // Add click screen to disappear event listener
     const hideOnClick = () => {
       hideDialogueBoxById(dialogueId);
       document.removeEventListener("click", hideOnClick);
@@ -206,7 +206,7 @@ function showDialogueWithDelay(dialogueId, delayMs = 2000) {
   }, delayMs);
 }
 
-// 清除当前dialogue定时器
+// Clear current dialogue timer
 function clearDialogueTimer() {
   if (window.currentDialogueTimer) {
     clearTimeout(window.currentDialogueTimer);
@@ -228,10 +228,10 @@ function renderIncomeExposure(config, gender) {
 }
 
 function initChart(index) {
-  // ✅ 清除 arts-description（如果有）
+  // ✅ Clear arts-description (if exists)
   d3.select("#arts-description").remove();
   
-  // ✅ 清除之前的dialogue定时器
+  // ✅ Clear previous dialogue timer
   clearDialogueTimer();
 
   const config = chartConfigs[index];
@@ -240,15 +240,15 @@ function initChart(index) {
   const potentialTabs = document.getElementById("datavis-tabs");
   const genderTabs = document.getElementById("gender-tabs");
   
-  // ✅ 通用隐藏所有 tab 函数
+  // ✅ Universal hide all tabs function
   function hideAllTabs() {
     document.getElementById("datavis-tabs").style.display = "none";
     document.getElementById("gender-tabs").style.display = "none";
     document.getElementById("agency-tabs").style.display = "none";
   }
-  hideAllTabs(); // 每次 initChart 前先全部隐藏
+  hideAllTabs(); // Hide all before each initChart
 
-  // chart 2 tab逻辑
+  // Chart 2 tab logic
   if (index === 2) {
     potentialTabs.style.display = "flex";
     genderTabs.style.display = "none";
@@ -271,7 +271,7 @@ function initChart(index) {
     });
   }
 
-  // chart 7 tab逻辑
+  // Chart 7 tab logic
   else if (index === 6) {
     genderTabs.style.display = "flex";
     potentialTabs.style.display = "none";
@@ -282,7 +282,7 @@ function initChart(index) {
     tabs.forEach(t => t.classList.remove("active"));
     tabs[0].classList.add("active");
 
-    // 初始渲染
+    // Initial rendering
     renderIncomeExposure(config, currentGender);
 
     tabs.forEach(tab => {
@@ -294,15 +294,15 @@ function initChart(index) {
         tabs.forEach(t => t.classList.remove("active"));
         tab.classList.add("active");
 
-        // 直接调用图表渲染器更新数据，而不是重新渲染整个图表
+        // Directly call chart renderer to update data, instead of re-rendering entire chart
         const chartArea = d3.select("#datavis-chart-area");
-        chartArea.html(""); // 清空现有内容
+        chartArea.html(""); // Clear existing content
         
         chartRenderers[7](config.title, config.dataPath, chartArea, currentGender);
       };
     });
   }
-  // chart 10: 显示 agency-tabs 切换 worker/expert
+  // Chart 10: show agency-tabs for worker/expert switching
   else if (index === 9) {
     document.getElementById("agency-tabs").style.display = "flex";
 
@@ -310,7 +310,7 @@ function initChart(index) {
     initDataVis(config.title, config.dataPath, renderer);
   }
 
-  // 其他图表无 tab
+  // Other charts have no tabs
   else {
     potentialTabs.style.display = "none";
     genderTabs.style.display = "none";
@@ -324,7 +324,7 @@ function initChart(index) {
     initDataVis(config.title, config.dataPath, renderer);
   }
 
-  // 箭头显示控制
+  // Arrow display control
   const leftArrow = document.querySelector('.arrow-left');
   const rightArrow = document.querySelector('.arrow-right');
 
@@ -340,7 +340,7 @@ function initChart(index) {
     rightArrow.style.display = "block";
   }
 
-  // 来源说明
+  // Source description
   const sourceText = config.source || "No source available";
   document.getElementById("source-text").innerText = sourceText;
 }
@@ -359,11 +359,11 @@ function initDataVis(titleText, dataPath, renderer) {
       void container.offsetWidth;
       container.style.opacity = "1";
 
-      // 显示音乐按钮
+      // Show music button
       const musicControlDatavis = document.getElementById('music-control-datavis');
       musicControlDatavis.style.display = 'block';
       
-      // 确保切换到第二章音乐
+      // Ensure switch to chapter 2 music
       if (window.switchToChapter2Music && !window.isChapter2Music()) {
         window.switchToChapter2Music();
       }
@@ -427,7 +427,7 @@ document.querySelector('.arrow-right').addEventListener('click', () => {
 document.getElementById("source-icon").addEventListener("click", (e) => {
   e.stopPropagation();
   const popup = document.getElementById("source-popup");
-  // 切换显示状态：如果当前显示则隐藏，如果当前隐藏则显示
+  // Toggle display state: if currently shown then hide, if currently hidden then show
   if (popup.style.display === "block") {
     popup.style.display = "none";
   } else {
@@ -441,11 +441,11 @@ document.addEventListener("click", (e) => {
     popup.style.display = "none";
   }
   
-  // 如果dialogue5正在显示，点击屏幕任意地方使其消失并进入下一章节
+  // If dialogue5 is showing, click anywhere on screen to make it disappear and enter next chapter
   const dialogueBox5 = document.getElementById('dialogue-box5');
   if (dialogueBox5 && dialogueBox5.style.display === 'block') {
     hideDialogueBoxById("dialogue-box5");
-    // 等待dialogue5消失动画完成后进入下一章节
+    // Wait for dialogue5 disappearance animation to complete before entering next chapter
     setTimeout(() => {
       window.startChapter3();
     }, 400);

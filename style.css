@@ -1,4 +1,4 @@
-/* 固定容器为 1280x720 像素，剧场式呈现 */
+/* Fixed container at 1280x720 pixels for theatrical presentation */
 #scene-container {
   position: relative;
   width: 1280px;
@@ -8,14 +8,14 @@
   overflow: hidden;
 }
 
-/* 背景图适配容器 */
+/* Background image container adaptation */
 #scene-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/* 酒店图片容器 */
+/* Hotel image container */
 #hotel-container {
   position: absolute;
   top: 42%;
@@ -31,7 +31,7 @@
   transition: all 0.3s ease;
 }
 
-/* 闪烁文字 */
+/* Blinking text */
 #blinking-text {
   position: absolute;
   bottom: 50px;
@@ -50,7 +50,7 @@
   50% { opacity: 0.6; }
 }
 
-/* 热点容器，覆盖在图像上 */
+/* Hotspot container, overlays on the image */
 #hotspot-container {
   position: absolute;
   top: 0;
@@ -60,7 +60,7 @@
   pointer-events: none;
 }
 
-/* 热点元素（点击区域） */
+/* Hotspot elements (clickable areas) */
 .hotspot {
   position: absolute;
   pointer-events: auto;
@@ -86,13 +86,13 @@
   left: 0;
   width: 1280px;
   height: 720px;
-  pointer-events: none; /* 不阻挡点击事件 */
+  pointer-events: none; /* Does not block click events */
   z-index: 8;
 }
 
 .mark {
   position: absolute;
-  width: 230px;   /* 可按实际图尺寸调整 */
+  width: 230px;   /* Can be adjusted based on actual image dimensions */
   height: 460px;
   pointer-events: none;
 }
@@ -108,7 +108,7 @@
   pointer-events: none;
 }
 
-/* 音乐控制按钮 */
+/* Music control button */
 #music-control {
   position: absolute;
   top: 20px;
@@ -128,11 +128,11 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  /* 默认不播放漂浮动画 */
+  /* Default floating animation disabled */
   transition: all 0.3s ease;
 }
 
-/* 漂浮晃动动画 */
+/* Floating wobble animation */
 @keyframes float {
   0%, 100% {
     transform: translateY(0px) translateX(0px) rotate(0deg);
@@ -148,12 +148,12 @@
   }
 }
 
-/* 只在有floating类时才播放漂浮动画 */
+/* Floating animation only plays when floating class is present */
 #music-icon.floating {
   animation: float 3s ease-in-out infinite;
 }
 
-/* datavis部分的音乐控制按钮 */
+/* Music control button for datavis section */
 #music-control-datavis {
   position: absolute;
   top: 20px;
@@ -173,7 +173,7 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  /* 默认不播放漂浮动画 */
+  /* Default floating animation disabled */
   transition: all 0.3s ease;
 }
 
@@ -182,9 +182,9 @@
 }
 
 
-/* 可视化 */
-/* 可视化 */
-/* 可视化 */
+/* Visualization */
+/* Visualization */
+/* Visualization */
 #datavis-container {
   position: relative;
   width: 1280px;
@@ -194,7 +194,7 @@
   background-color: black;
   opacity: 0;
   transition: opacity 0.4s ease-in-out;
-  display: block; /* 不要设为 none */
+  display: block; /* Don't set to none */
 }
 
 #datavis-bg {
@@ -220,7 +220,7 @@
   text-align: center;
   line-height: 1.2;
   /*width: 80%;
-  word-break: break-word;  换行 */
+  word-break: break-word; /* Line break */
 }
 
 #datavis-chart-area {
@@ -235,9 +235,9 @@
   justify-content: center;
   background-color: rgba(40, 36, 21, 0.1);
   z-index: 2;
-  /* ✅ 新增边框 */
-  border: 1px solid rgba(0, 0, 0, 0.3);  /* 白色半透明描边 */
-  border-radius: 8px; /* 可选，略圆角 */
+  /* ✅ New border */
+  border: 1px solid rgba(0, 0, 0, 0.3);  /* White semi-transparent outline */
+  border-radius: 8px; /* Optional, slightly rounded corners */
 }
 
 .arrow {
@@ -277,9 +277,9 @@
   position: absolute;
   top: 135px;
   left: 945px;
-  background-color: rgba(99, 83, 58, 0.5); /* 更亮的气泡色 */
+  background-color: rgba(99, 83, 58, 0.5); /* Brighter bubble color */
   color: #ffffff;
-  padding: 0px 16px; /* 恢复一些上下边距 */
+  padding: 0px 16px; /* Restore some top and bottom margins */
   border-radius:6px;
   font-family: 'Courier New', monospace;
   font-size: 14px;
@@ -288,7 +288,7 @@
   display: none;
   z-index: 20;
 
-  /* 自动换行 */
+  /* Auto line break */
   white-space: pre-wrap;
   word-break: break-word;
 }
@@ -307,7 +307,7 @@
   line-height: 1.4;
 }
 
-/* 统一的tooltip样式 */
+/* Unified tooltip styles */
 .tooltip {
   position: absolute;
   z-index: 9999;
@@ -325,7 +325,7 @@
   backdrop-filter: blur(4px);
 }
 
-/* 通用字体样式 */
+/* Common font styles */
 .chart-font {
   font-family: 'Courier New', monospace;
 }
@@ -345,7 +345,7 @@
   font-size: 16px;
 }
 
-/* 通用交互样式 */
+/* Common interaction styles */
 .chart-interactive {
   cursor: pointer;
 }
@@ -358,7 +358,7 @@
   font-weight: normal;
 }
 
-/* 轴标签样式 */
+/* Axis label styles */
 .axis-label {
   font-family: 'Courier New', monospace;
   font-size: 12px;
@@ -369,7 +369,7 @@
   font-size: 14px;
 }
 
-/* 图例样式 */
+/* Legend styles */
 .legend-text {
   font-family: 'Courier New', monospace;
   font-size: 12px;
@@ -382,7 +382,7 @@
 
 #datavis-tabs, #gender-tabs, #agency-tabs {
   position: absolute;
-  bottom: 110px; /* 图表下方留空 */
+  bottom: 110px; /* Leave space below chart */
   left: 42%;
   transform: translateX(-50%);
   z-index: 3;
@@ -391,7 +391,7 @@
 }
 
 .datavis-tab {
-  background-color: rgba(80, 64, 40, 0.2);  /* 类似皮革棕 */
+  background-color: rgba(80, 64, 40, 0.2);  /* Similar to leather brown */
   color: #fefef0;
   border: none;
   padding: 6px 20px;
@@ -433,7 +433,7 @@
   z-index: 100;
   position: relative;
   
-  margin: 0 auto; /* 居中显示 */
+  margin: 0 auto; /* Center display */
 }
 
 
